@@ -6,12 +6,12 @@ import { Admin001InformationStaffComponent } from './pages/admin001-information-
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: AdminPagesComponent,
     children: [
-      { path: 'user', component: Admin001InformationUserComponent },
-      { path: 'staff', component: Admin001InformationStaffComponent },
-      { path: '', redirectTo: 'user', pathMatch: 'full' }
+      { path: 'manage-user', component: Admin001InformationUserComponent },
+      { path: 'manage-staff', component: Admin001InformationStaffComponent },
+      { path: '', redirectTo: 'manage-user', pathMatch: 'full' }
     ]
   }
 ];
