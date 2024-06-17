@@ -9,6 +9,9 @@ import { Admin001InformationStaffComponent } from './admin-pages/pages/admin001-
 import { SidebarComponent } from './admin-pages/layout/sidebar/sidebar.component';
 import { AdminRoutingModule } from './admin-pages/admin-routing.module';
 import { EcomPagesComponent } from './ecom-pages/ecom-pages.component';
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { ButtonModule } from '@progress/kendo-angular-buttons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './ecom-pages/shared/component/header/header.component';
 
 @NgModule({
@@ -24,7 +27,10 @@ import { HeaderComponent } from './ecom-pages/shared/component/header/header.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
