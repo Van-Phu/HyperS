@@ -12,6 +12,7 @@ import { EcomPagesComponent } from './ecom-pages/ecom-pages.component';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { ButtonModule } from '@progress/kendo-angular-buttons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './ecom-pages/shared/component/header/header.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Admin001InformationStaffComponent,
     SidebarComponent,
     EcomPagesComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
