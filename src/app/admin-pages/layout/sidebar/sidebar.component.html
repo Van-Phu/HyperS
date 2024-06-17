@@ -1,6 +1,14 @@
-<ul>
-    <li><a routerLink="/admin/manage-user">Quản lý người dùng</a></li>
-    <li><a routerLink="/admin/manage-staff">Quản lý nhân viên</a></li>
-    <li><a routerLink="/admin/manage-staff">Quản lý nhân viên</a></li>
-  </ul>
-  
+<kendo-drawer-container>
+  <kendo-drawer
+    #drawer
+    [items]="items"
+    mode="push"
+    [mini]="true"
+    [(expanded)]="expanded"
+  >
+  </kendo-drawer>
+
+  <kendo-drawer-content>
+    <button kendoButton (click)="drawer.toggle()">Toggle the Drawer</button>
+  </kendo-drawer-content>
+</kendo-drawer-container>
