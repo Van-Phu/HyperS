@@ -13,6 +13,9 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 import { ButtonModule } from '@progress/kendo-angular-buttons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './ecom-pages/shared/component/header/header.component';
+import { IconModule } from '@progress/kendo-angular-icons';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { FeaturedComponent } from './ecom-pages/pages/featured/featured.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { HeaderComponent } from './ecom-pages/shared/component/header/header.com
     SidebarComponent,
     EcomPagesComponent,
     HeaderComponent,
+    FeaturedComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,12 @@ import { HeaderComponent } from './ecom-pages/shared/component/header/header.com
     AdminRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-    ButtonModule
+    ButtonModule,
+    IconModule,
+    InputsModule
+
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
