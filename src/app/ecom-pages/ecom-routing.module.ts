@@ -4,7 +4,7 @@ import { EcomPagesComponent } from './ecom-pages.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: EcomPagesComponent,
     children: [
       // { path: '', redirectTo: 'user', pathMatch: 'full' }

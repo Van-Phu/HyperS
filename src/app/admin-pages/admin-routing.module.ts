@@ -6,12 +6,13 @@ import { Admin001InformationStaffComponent } from './pages/admin001-information-
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: AdminPagesComponent,
     children: [
       { path: 'manage-user', component: Admin001InformationUserComponent },
       { path: 'manage-staff', component: Admin001InformationStaffComponent },
       { path: '', redirectTo: 'manage-user', pathMatch: 'full' }
+      // Add a redirect here if needed, or adjust the main redirect
     ]
   }
 ];
