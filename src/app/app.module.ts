@@ -9,6 +9,7 @@ import { Admin001InformationStaffComponent } from './admin-pages/pages/admin001-
 import { SidebarComponent } from './admin-pages/layout/sidebar/sidebar.component';
 import { AdminRoutingModule } from './admin-pages/admin-routing.module';
 import { EcomPagesComponent } from './ecom-pages/ecom-pages.component';
+import { HeaderComponent } from './ecom-pages/shared/component/header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { EcomPagesComponent } from './ecom-pages/ecom-pages.component';
     Admin001InformationStaffComponent,
     SidebarComponent,
     EcomPagesComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
