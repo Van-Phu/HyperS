@@ -9,9 +9,10 @@ const routes: Routes = [
     path: '',
     component: AdminPagesComponent,
     children: [
-      { path: 'user', component: Admin001InformationUserComponent },
-      { path: 'staff', component: Admin001InformationStaffComponent },
-      { path: '', redirectTo: 'user', pathMatch: 'full' }
+      { path: 'manage-user', component: Admin001InformationUserComponent },
+      { path: 'manage-staff', component: Admin001InformationStaffComponent },
+      { path: '', redirectTo: 'manage-user', pathMatch: 'full' }
+      // Add a redirect here if needed, or adjust the main redirect
     ]
   }
 ];
