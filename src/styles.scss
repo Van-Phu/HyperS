@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Mulish", sans-serif;
+    box-sizing: border-box;
+    @import "@progress/kendo-font-icons/dist/index.css";
+}
+
+$color-main: #26333F; // Màu chủ đạo
+$color-bg: #26333F; // Màu nền
+$color-border-input: #B6B6B6; // Màu viền input
+$color-normal-text: #000000; // Màu chữ thường
+$color-add: #09880E; // Màu thêm mới
+$color-cancel: #FF1D1D; // Màu hủy, xóa
+$color-send: #069DF1; // Màu gửi đi
+
+
+// Tạo vòng lặp từ 1 đến 12
+@for $i from 1 through 12 {
+
+    // Tạo class với tên .col-span-N, trong đó N là số cột
+    .col-span-#{$i} {
+        grid-column: span $i;
+    }
+}
+
+// Tạo vòng lặp từ 1 đến 12 (hoặc số cột tối đa bạn muốn)
+@for $i from 1 through 12 {
+
+    // Tạo class với tên .grid-cols-N, trong đó N là số cột
+    .grid-cols-#{$i} {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(#{$i}, 1fr);
+    }
+}

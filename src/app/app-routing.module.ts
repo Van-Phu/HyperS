@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-    {
-      path: 'home',
-      component: HomeComponent,
-    },
-  ];
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'user', loadChildren: () => import('./ecom-pages/ecom-routing.module').then(m => m.EcomRoutingModule) },
+  { path: 'admin', loadChildren: () => import('./admin-pages/admin-routing.module').then(m => m.AdminRoutingModule) },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
