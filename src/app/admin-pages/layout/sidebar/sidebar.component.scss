@@ -3,50 +3,86 @@
 app-sidebar {
     kendo-drawer-container.drawer-custom {
         height: 100vh !important;
-
+        
         kendo-drawer {
             background-color: $color-main;
             color: #fff;
             border: none;
+            position: relative;
 
             ul {
                 li {
-                    height: 50px;
-                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0;
+                    gap: 0;
 
-                    .icon,
-                    .text {
-                        @include center-vertical;
-                    }
-
-                    .icon {
-                        width: 20px;
-                        text-align: left;
-                    }
-
-                    .text {
-                        font-size: 14px;
-                        font-weight: 600;
-                    }
-
-                    .module-parent {
-                        text-transform: uppercase;
-                    }
-
-                    .fa-chevron-down {
-                        position: absolute;
-                        right: 16px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                    }
-
-                    .bar-selected{
-                        width: 5px;
-                        background-color: #fff;
-                        position: absolute;
-                        left: 0;
+                    .box-item-drawer {
+                        position: relative;
                         height: 50px;
-                        top: 0;
+                        width: 100%;
+                        display: flex;
+                        padding: 8px 16px;
+                        gap: 12px;
+
+                        &:hover{
+                            background-color: #fff;
+                            color: #000;
+                        }
+
+                        .icon,
+                        .text {
+                            @include center-vertical;
+                        }
+
+                        .icon {
+                            width: 20px;
+                            text-align: left;
+                        }
+
+                        .text {
+                            font-size: 14px;
+                            font-weight: 600;
+                        }
+
+                        .module-parent {
+                            text-transform: uppercase;
+                        }
+
+                        .fa-chevron-down,
+                        .fa-chevron-up {
+                            position: absolute;
+                            right: 16px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
+
+                        .bar-selected {
+                            width: 5px;
+                            background-color: #fff;
+                            position: absolute;
+                            left: 0;
+                            height: 50px;
+                            top: 0;
+                        }
+                    }
+                    .expanded {
+                        color: #ffffff;
+                        background-color: $color-bg-side-expanded !important;
+                    }
+                    .closed {
+                        display: none;
+                    }
+                    .item-submodule{
+                        height: 50px;
+                        @include center-vertical;
+                        font-weight: 600;
+                        font-size: 14px;
+                        padding-left: 48px;
+
+                        &:hover{
+                            color: #000;
+                        }
                     }
                 }
 
@@ -56,20 +92,40 @@ app-sidebar {
                     box-shadow: none;
                 }
 
-                .k-drawer-item.k-selected {
-                    background: none;
-
-                    &:hover {
-                        background-color: #fff;
-                        color: #000;
-                    }
+                .k-drawer-item:hover, 
+                .k-drawer-item.k-hover {
+                    color: #fff;
+                    background-color: $color-main;
                 }
 
-                .k-drawer-item:hover {
-                    background-color: #fff;
-                    color: #000;
+                .k-drawer-item.k-selected {
+                    background: none;   
+                }
+            }
+
+            .button-collapse-drawer{
+                height: 36px;
+                width: 36px;
+                border-radius: 100px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: -18px;
+                background-color: $color-main;
+                text-align: center;
+                @include center;
+                cursor: pointer;
+                color: #fff;
+                opacity: 0.5;
+                z-index: 10;
+    
+                &:hover{
+                    opacity: 1;
+                    transition: 0.3s;
                 }
             }
         }
+
+        
     }
 }
