@@ -1,27 +1,32 @@
-<div class="head">
-    <div class="logo">
-        <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/2560px-Logo_NIKE.svg.png" alt="">
-    </div>
-    <div class="content-center">
-        <div *ngFor="let item of dataModuleHeader">
-            <div class="item">
-                <div>{{item.text}}</div>
-            </div>
-
+<div class="header">
+    <div class="head">
+        <div class="logo">
+            <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/2560px-Logo_NIKE.svg.png" alt="">
         </div>
-    </div>
-    <div class="content-right">
-        <div class="search-area">
-            <div class="icon">
-                <i class="fa-solid fa-magnifying-glass"></i>
+        <div class="content-center">
+            <div  *ngFor="let item of dataModuleHeader">
+                <div (click)="handleSelectActionCenter(item.id)" [ngClass]="item.isSelected == true ? 'item-select' : 'item'">
+                    <div>{{item.text}}</div>
+                </div>
+    
             </div>
         </div>
-        <div class="profile">
-            <i class="fa-regular fa-user"></i>
-
-        </div>
-        <div class="cart">
-            <i class="fa-solid fa-cart-shopping"></i>
+        <div class="content-right">
+            <div class="search-area">
+                <div class="icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+               
+            </div>
+            <div class="profile">
+                <i class="fa-regular fa-user"></i>
+    
+            </div>
+            <div class="cart">
+                <i class="icon fa-solid fa-cart-shopping"></i>
+                <div class="noitifi">3</div>
+            </div>
+     
         </div>
     </div>
 </div>
