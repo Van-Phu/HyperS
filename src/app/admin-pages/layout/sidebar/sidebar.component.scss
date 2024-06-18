@@ -9,6 +9,7 @@ app-sidebar {
             color: #fff;
             border: none;
             position: relative;
+            box-shadow: $box-shadow3;
 
             ul {
                 li {
@@ -26,8 +27,8 @@ app-sidebar {
                         gap: 12px;
 
                         &:hover{
-                            background-color: #fff;
-                            color: #000;
+                            background-color: #fff !important;
+                            color: #000 !important;
                         }
 
                         .icon,
@@ -79,10 +80,16 @@ app-sidebar {
                         font-weight: 600;
                         font-size: 14px;
                         padding-left: 48px;
+                        color: #919191;
 
                         &:hover{
-                            color: #000;
+                            color: #ffffff;
+                            transition: 0.5s;
+                            margin-left: 5px;
                         }
+                    }
+                    .sub-selected{
+                        color: #fff;
                     }
                 }
 
@@ -103,26 +110,50 @@ app-sidebar {
                 }
             }
 
-            .button-collapse-drawer{
-                height: 36px;
-                width: 36px;
-                border-radius: 100px;
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                right: -18px;
-                background-color: $color-main;
-                text-align: center;
-                @include center;
-                cursor: pointer;
-                color: #fff;
-                opacity: 0.5;
-                z-index: 10;
-    
-                &:hover{
-                    opacity: 1;
-                    transition: 0.3s;
+            .header-drawer{
+                display: flex;
+                height: 70px;
+                padding: 4px 5px;
+                gap: 16px;
+                .image{
+                    @include center-vertical;
+                    
+                    img{
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 100px;
+                        object-fit: cover;
+                    }
                 }
+
+                .tag-name{
+                    @include center-horizontal;
+                    flex-direction: column;
+                    gap: 2px;
+
+                    .name{
+                        font-weight: 600;
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .button-sign-out{
+                position: absolute;
+                width: 90%;
+                height: 50px;
+                border-radius: 4px;
+                background-color: #fff;
+                color: #000;
+                text-transform: uppercase;
+                font-weight: 600;
+                @include center;
+                gap: 16px;
+                margin: auto;
+                cursor: pointer;
+                bottom: 40px;
+                left: 50%;
+                transform: translateX(-50%);
             }
         }
 
