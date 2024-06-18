@@ -1,7 +1,7 @@
-import { SVGIcon, bellIcon, calendarIcon, envelopeLinkIcon, inboxIcon, menuIcon, starOutlineIcon, userIcon,  } from '@progress/kendo-svg-icons';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DTOModule, listModule } from '../../shared/dtos/DTOModule.dto';
-import { DrawerItem, DrawerSelectEvent } from '@progress/kendo-angular-layout';
+import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,12 +9,32 @@ import { DrawerItem, DrawerSelectEvent } from '@progress/kendo-angular-layout';
   styleUrls: ['./sidebar.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SidebarComponent {
-  open: boolean = false;
-  public expanded = false;
+export class SidebarComponent implements OnInit {
+  expandDrawer = true;
+  listItemsDrawer: DTOModule[] = [];
+  selectedItemDrawer: string = '';
+  
+  constructor(private router: Router) {}
 
-  public items: DrawerItem[] = [
-    { text: "Inbox", svgIcon: userIcon },
-    { text: "Notifications", svgIcon: bellIcon },
-  ];
+  ngOnInit(): void {
+    this.getListItemDrawer();
+  }
+
+  // Lấy danh sách item của drawer
+  getListItemDrawer() {
+    listModule.forEach(module => {
+      this.listItemsDrawer.push(module);
+      if (module.SubModule) {
+        module.SubModule.forEach(subModule => this.listItemsDrawer.push(subModule));
+      }
+    })
+  }
+
+  // Sự kiện chọn vào item drawer
+  onSelectItemDrawer(ev: DrawerSelectEvent): void {
+    this.selectedItemDrawer = ev.item.ModuleName;
+    this.router.navigate([ev.item.RouteLink]);
+  }
+
+  
 }

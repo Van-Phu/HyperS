@@ -19,6 +19,7 @@ import { EcomShoesComponent } from './ecom-pages/pages/ecom-shoes/ecom-shoes.com
 import { EcomRoutingModule } from './ecom-pages/ecom-routing.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,6 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     FeaturedComponent,
     EcomShoesComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -44,7 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     EcomRoutingModule ,
     CommonModule,
     HttpClientModule
-  
+    InputsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
