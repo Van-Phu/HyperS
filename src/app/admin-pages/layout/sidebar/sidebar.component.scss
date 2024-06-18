@@ -1,3 +1,75 @@
-kendo-drawer-container{
-    height: 100vh;
+@import '../../../../styles.scss';
+
+app-sidebar {
+    kendo-drawer-container.drawer-custom {
+        height: 100vh !important;
+
+        kendo-drawer {
+            background-color: $color-main;
+            color: #fff;
+            border: none;
+
+            ul {
+                li {
+                    height: 50px;
+                    position: relative;
+
+                    .icon,
+                    .text {
+                        @include center-vertical;
+                    }
+
+                    .icon {
+                        width: 20px;
+                        text-align: left;
+                    }
+
+                    .text {
+                        font-size: 14px;
+                        font-weight: 600;
+                    }
+
+                    .module-parent {
+                        text-transform: uppercase;
+                    }
+
+                    .fa-chevron-down {
+                        position: absolute;
+                        right: 16px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+
+                    .bar-selected{
+                        width: 5px;
+                        background-color: #fff;
+                        position: absolute;
+                        left: 0;
+                        height: 50px;
+                        top: 0;
+                    }
+                }
+
+                .k-drawer-item:focus,
+                .k-drawer-item.k-focus {
+                    background-color: none;
+                    box-shadow: none;
+                }
+
+                .k-drawer-item.k-selected {
+                    background: none;
+
+                    &:hover {
+                        background-color: #fff;
+                        color: #000;
+                    }
+                }
+
+                .k-drawer-item:hover {
+                    background-color: #fff;
+                    color: #000;
+                }
+            }
+        }
+    }
 }

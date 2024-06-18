@@ -1,14 +1,11 @@
-<kendo-drawer-container>
-  <kendo-drawer
-    #drawer
-    [items]="items"
-    mode="push"
-    [mini]="true"
-    [(expanded)]="expanded"
-  >
+<kendo-drawer-container class="drawer-custom">
+  <kendo-drawer [width]="268" #drawer [items]="listItemsDrawer" mode="push" [mini]="true" [autoCollapse]="false"
+    [(expanded)]="expandDrawer" (select)="onSelectItemDrawer($event)">
+    <ng-template kendoDrawerItemTemplate let-item>
+      <div *ngIf="item.IsSelected && !item.IsChild" class="bar-selected"></div>
+      <i class="icon fa-solid {{item.ClassIconFontAwesome}}"></i>
+      <div class="text" [ngClass]="{'module-parent': !item.IsChild, 'module-child': item.IsChild}">{{ item.ModuleName }}</div>
+      <i *ngIf="item.SubModule" class="fa-solid fa-chevron-down"></i>
+    </ng-template>
   </kendo-drawer>
-
-  <kendo-drawer-content>
-    <button kendoButton (click)="drawer.toggle()">Toggle the Drawer</button>
-  </kendo-drawer-content>
 </kendo-drawer-container>
