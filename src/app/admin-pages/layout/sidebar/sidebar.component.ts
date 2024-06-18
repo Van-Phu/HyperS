@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   expandDrawer = true;
   listItemsDrawer: DTOModule[] = [];
   selectedItemDrawer: string = '';
+  isCollapse: boolean = false;
   
   constructor(private router: Router) {}
 
@@ -32,9 +33,21 @@ export class SidebarComponent implements OnInit {
 
   // Sự kiện chọn vào item drawer
   onSelectItemDrawer(ev: DrawerSelectEvent): void {
-    this.selectedItemDrawer = ev.item.ModuleName;
-    this.router.navigate([ev.item.RouteLink]);
+    const itemModule: DTOModule = ev.item;
+    if(itemModule.IsChild){
+    }
+    // this.router.navigate([ev.item.RouteLink]);
+    else{
+      itemModule.IsExpanded = !itemModule.IsExpanded;
+      if(itemModule.SubModule){
+        itemModule.SubModule.forEach(sub => sub.IsExpanded = itemModule.IsExpanded);
+      }
+    }
+    this.selectedItemDrawer = itemModule.ModuleName;
+    console.log(this.listItemsDrawer);
   }
 
-  
+  collapseDrawer(){
+    this.isCollapse = !this.isCollapse;
+  }
 }
