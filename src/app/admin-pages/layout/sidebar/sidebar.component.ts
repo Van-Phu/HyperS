@@ -11,43 +11,44 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
   expandDrawer = true;
-  listItemsDrawer: DTOModule[] = [];
+  listItemsDrawer: DTOModule[] = listModule;
   selectedItemDrawer: string = '';
   isCollapse: boolean = false;
-  
-  constructor(private router: Router) {}
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.getListItemDrawer();
-  }
-
-  // Lấy danh sách item của drawer
-  getListItemDrawer() {
-    listModule.forEach(module => {
-      this.listItemsDrawer.push(module);
-      if (module.SubModule) {
-        module.SubModule.forEach(subModule => this.listItemsDrawer.push(subModule));
-      }
-    })
   }
 
   // Sự kiện chọn vào item drawer
-  onSelectItemDrawer(ev: DrawerSelectEvent): void {
-    const itemModule: DTOModule = ev.item;
-    if(itemModule.IsChild){
+  onSelectItemDrawer(item: DTOModule): void {
+    if(item.SubModule){
+      item.IsExpanded = !item.IsExpanded;
     }
-    // this.router.navigate([ev.item.RouteLink]);
-    else{
-      itemModule.IsExpanded = !itemModule.IsExpanded;
-      if(itemModule.SubModule){
-        itemModule.SubModule.forEach(sub => sub.IsExpanded = itemModule.IsExpanded);
-      }
-    }
-    this.selectedItemDrawer = itemModule.ModuleName;
-    console.log(this.listItemsDrawer);
   }
 
-  collapseDrawer(){
+  // Navigate
+  navigateURL(item: DTOModule): void{
+    console.log(item);
+    this.router.navigate([item.RouteLink])
+  }
+
+  // Thu gọn drawer
+  collapseDrawer() {
     this.isCollapse = !this.isCollapse;
+  }
+
+  // Lấy danh sách các module con
+  getSubModule(moduleName: string): DTOModule[] | undefined {
+    // Tìm module có ModuleName khớp
+    const module = listModule.find(mod => mod.ModuleName === moduleName);
+    
+    // Kiểm tra nếu module tồn tại và có SubModule
+    if (module && module.SubModule) {
+      return module.SubModule;
+    }
+    
+    // Trả về undefined nếu không tìm thấy module hoặc không có subModule
+    return [];
   }
 }

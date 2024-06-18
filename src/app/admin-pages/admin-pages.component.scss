@@ -1,7 +1,10 @@
+@import '../../styles.scss';
+
 .container {
     display: flex;
 }
 
 .sidebar {
     height: 100vh;
+    box-shadow: $box-shadow3;
 }

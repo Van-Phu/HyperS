@@ -1,8 +1,8 @@
 <kendo-drawer-container class="drawer-custom">
   <kendo-drawer [width]="268" #drawer [items]="listItemsDrawer" mode="push" [mini]="true" [autoCollapse]="false"
-    [(expanded)]="expandDrawer" (select)="onSelectItemDrawer($event)">
+    [(expanded)]="expandDrawer">
     <ng-template kendoDrawerItemTemplate let-item>
-      <div class="box-item-drawer"
+      <div class="box-item-drawer" (click)="onSelectItemDrawer(item)"
         [ngClass]="{'expanded' : (item.IsExpanded && item.SubModule) || (item.IsExpanded && item.IsChild)}">
         <div *ngIf="item.IsSelected && !item.IsChild" class="bar-selected"></div>
         <i class="icon fa-solid {{item.ClassIconFontAwesome}}"></i>
@@ -11,15 +11,15 @@
         </div>
         <div *ngIf="!item.IsChild && !isCollapse" class="text module-parent">{{ item.ModuleName }}</div>
 
-        <i *ngIf="item.SubModule && !item.IsExpanded" class="fa-solid fa-chevron-down"></i>
-        <i *ngIf="item.SubModule && item.IsExpanded" class="fa-solid fa-chevron-up"></i>
+        <ng-container *ngIf="item.SubModule">
+          <i class="fa-solid" [ngClass]="{'fa-chevron-down': !item.IsExpanded, 'fa-chevron-up': item.IsExpanded}"></i>
+        </ng-container>
+
       </div>
-      
-      <div class="button-collapse-drawer" (click)="drawer.toggle(); collapseDrawer()">
-        <i *ngIf="!isCollapse" class="fa-solid fa-chevron-left"></i>
-        <i *ngIf="isCollapse" class="fa-solid fa-chevron-right"></i>
-      </div>
+      <ng-container *ngIf="item.IsExpanded && item.SubModule">
+        <div class="item-submodule" (click)="navigateURL(sub)" [ngClass]="{'expanded' : (sub.IsExpanded)}"
+          *ngFor="let sub of getSubModule(item.ModuleName)">{{sub.ModuleName}}</div>
+      </ng-container>
     </ng-template>
-    
   </kendo-drawer>
 </kendo-drawer-container>

@@ -16,6 +16,7 @@ import { HeaderComponent } from './ecom-pages/shared/component/header/header.com
 import { IconModule } from '@progress/kendo-angular-icons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { FeaturedComponent } from './ecom-pages/pages/featured/featured.component';
+import { ButtonComponent } from './admin-pages/shared/components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FeaturedComponent } from './ecom-pages/pages/featured/featured.componen
     EcomPagesComponent,
     HeaderComponent,
     FeaturedComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,
