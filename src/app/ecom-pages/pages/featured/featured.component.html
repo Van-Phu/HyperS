@@ -1,0 +1,31 @@
+<div class="body">
+    <div class="video">
+        <iframe
+            width="100%"
+            height="850"
+            src="https://www.youtube.com/embed/6Pjw7uFmJDg?controls=0&mute=1&autoplay=1&loop=1&playlist=6Pjw7uFmJDg&modestbranding=1&iv_load_policy=3&fs=0" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe>
+        <div class="title-head-first">
+            {{'Stride in Style' | uppercase}}
+        </div>
+        <div class="title-head-second">
+            {{  'From Heels to Sneakers, We ve Got Your Fit' | uppercase}}
+        </div>
+    </div>
+
+    <div class="content-second">
+        <div class="card-second">
+            <div class="item" *ngFor="let item of dataContentSecond">
+                <img class="img" src="{{item.imageUrl}}" alt="">
+                <div class="text">
+                    {{item.text}}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
