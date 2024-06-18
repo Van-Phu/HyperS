@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminPagesComponent } from './admin-pages/admin-pages.component';
@@ -17,6 +16,10 @@ import { IconModule } from '@progress/kendo-angular-icons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { FeaturedComponent } from './ecom-pages/pages/featured/featured.component';
 import { ButtonComponent } from './admin-pages/shared/components/button/button.component';
+import { EcomShoesComponent } from './ecom-pages/pages/ecom-shoes/ecom-shoes.component';
+import { EcomRoutingModule } from './ecom-pages/ecom-routing.module';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { ButtonComponent } from './admin-pages/shared/components/button/button.c
     HeaderComponent,
     FeaturedComponent,
     ButtonComponent,
+    EcomShoesComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,10 +42,11 @@ import { ButtonComponent } from './admin-pages/shared/components/button/button.c
     LayoutModule,
     ButtonModule,
     IconModule,
+    InputsModule,
+    EcomRoutingModule ,
+    CommonModule,
+    HttpClientModule,
     InputsModule
-
-    
-    
   ],
   providers: [],
   bootstrap: [AppComponent]
