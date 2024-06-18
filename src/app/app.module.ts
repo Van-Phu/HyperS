@@ -43,8 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
     InputsModule,
     EcomRoutingModule ,
     CommonModule,
-    HttpClientModule
-    InputsModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
