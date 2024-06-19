@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { DTOProduct } from '../dto/DTOProduct';
-import { DTOResponse } from 'src/app/in-layout/DTORespone';
+import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
 import { State } from '@progress/kendo-data-query';
 import { catchError, map } from 'rxjs/operators';
 
