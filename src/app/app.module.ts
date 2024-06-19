@@ -19,11 +19,14 @@ import { EcomShoesComponent } from './ecom-pages/pages/ecom-shoes/ecom-shoes.com
 import { EcomRoutingModule } from './ecom-pages/ecom-routing.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { EcomCartComponent } from './ecom-pages/pages/ecom-cart/ecom-cart.component';
 import { ButtonComponent } from './shared/component/button/button.component';
 import { BreadcrumbComponent } from './shared/component/breadcrumb/breadcrumb.component';
 import { HeaderAdminComponent } from './admin-pages/layout/header/header.component';
 import { SearchBarComponent } from './shared/component/search-bar/search-bar.component';
 import { LayoutService } from './admin-pages/shared/service/layout.service';
+import { TextInputComponent } from './shared/component/text-input/text-input.component';
+import { LabelModule } from '@progress/kendo-angular-label';
 
 @NgModule({
   declarations: [
@@ -37,9 +40,11 @@ import { LayoutService } from './admin-pages/shared/service/layout.service';
     FeaturedComponent,
     ButtonComponent,
     EcomShoesComponent,
+    EcomCartComponent,
     BreadcrumbComponent,
     HeaderAdminComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    TextInputComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,8 @@ import { LayoutService } from './admin-pages/shared/service/layout.service';
     EcomRoutingModule ,
     CommonModule,
     HttpClientModule,
-    InputsModule
+    InputsModule,
+    LabelModule
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]

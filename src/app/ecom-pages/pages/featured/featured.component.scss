@@ -1,5 +1,4 @@
 $color-main: rgb(255, 108, 108);
-
 .body{
     margin-top: 2px;
     .video{
@@ -306,7 +305,7 @@ $color-main: rgb(255, 108, 108);
         }
 
         .content-new-product{
-          margin-bottom: 50px;
+            margin-bottom: 50px;
             width: 100%;
             margin-top: 100px;
             display: block;
@@ -324,17 +323,11 @@ $color-main: rgb(255, 108, 108);
               overflow-x: auto;
               overflow-y: hidden;
               .item{
-                height: 350px;
-                width: 300px;
+                width: 500px;
                 border-radius: 10px;
-                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-              
-                
                 .image{
-                  height: 250px;
+                  height: 500px;
                   width: 100%;
-                  border-radius: 10px;
-                  background-color: red;
                   img{
                     height: 100%;
                     width: 100%;
@@ -344,14 +337,24 @@ $color-main: rgb(255, 108, 108);
 
               .info-item{
                 padding: 10px;
+                font-weight: bold;
+                font-size: 20px;
                 .name{
                   font-weight: bold;
                   font-size: 20px;
+                  padding-bottom: 10px;
        
                 }
 
                 .type{
-                  padding: 10px 0;
+                  padding-bottom: 10px;
+                  color: #999999;
+                }
+
+                .stock{
+                  color: #999999;
+                  padding-bottom: 10px;
+                  display: flex;
                 }
 
                 .price-area{
@@ -360,11 +363,11 @@ $color-main: rgb(255, 108, 108);
                   font-size: 18px;
                   font-weight: bold;
                   .price-sale{
-      
+                    padding-bottom: 10px;
                   }
   
                   .price{
-                  
+                    padding-bottom: 10px;
                   }
 
                   .price-discount{
