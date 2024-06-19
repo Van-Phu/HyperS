@@ -56,6 +56,10 @@ export class FeaturedComponent implements OnDestroy {
     console.log(this.ListProductDesc);
   }
 
+  handleProductClick(product: DTOProduct){
+    localStorage.setItem('productClick', JSON.stringify(product))
+  }
+
   ngOnDestroy(): void {
     this.destroy.next()
     this.destroy.complete()
