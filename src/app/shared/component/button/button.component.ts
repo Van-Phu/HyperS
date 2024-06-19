@@ -1,5 +1,10 @@
 import { Component, Input } from '@angular/core';
 
+/**
+ * Component cung cấp nút bao gồm icon và text
+ * - classIconFontAwesome: là class của icon thuộc fontAwesome. Ví dụ 'fa-plus'
+ * - Và 1 số thuộc tính style khác...
+ */
 @Component({
   selector: 'component-button',
   templateUrl: './button.component.html',

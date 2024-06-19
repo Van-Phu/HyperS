@@ -7,6 +7,7 @@ export class DTOModule {
     IsSelected: boolean
     IsExpanded: boolean
     ParentModule?: string
+    BreadCrumb?: string
 }
 
 export const listModule: DTOModule[] = [
@@ -21,7 +22,8 @@ export const listModule: DTOModule[] = [
                 IsChild: true,
                 IsSelected: true,
                 ParentModule: 'Quản lý tài khoản',
-                IsExpanded: true
+                IsExpanded: true,
+                BreadCrumb: 'Quản lý tài khoản/Thông tin người dùng'
             },
             {
                 RouteLink: '/admin/manage-staff',
@@ -29,7 +31,8 @@ export const listModule: DTOModule[] = [
                 IsChild: true,
                 IsSelected: false,
                 ParentModule: 'Quản lý tài khoản',
-                IsExpanded: true
+                IsExpanded: true,
+                BreadCrumb: 'Quản lý tài khoản/Thông tin nhân viên'
             }
         ],
         IsChild: false,
@@ -42,7 +45,8 @@ export const listModule: DTOModule[] = [
         ClassIconFontAwesome: 'fa-rectangle-list',
         IsChild: false,
         IsSelected: false,
-        IsExpanded: false
+        IsExpanded: false,
+        BreadCrumb: 'Quản lý danh mục'
     },
     {
         RouteLink: '/admin/manage-dashboard',
@@ -50,7 +54,8 @@ export const listModule: DTOModule[] = [
         ClassIconFontAwesome: 'fa-chart-column',
         IsChild: false,
         IsSelected: false,
-        IsExpanded: false
+        IsExpanded: false,
+        BreadCrumb: 'Dashboard'
     },
     {
         RouteLink: '/admin/manage-coupon',
@@ -58,7 +63,8 @@ export const listModule: DTOModule[] = [
         ClassIconFontAwesome: 'fa-ticket',
         IsChild: false,
         IsSelected: false,
-        IsExpanded: false
+        IsExpanded: false,
+        BreadCrumb: 'Quản lý khuyến mãi'
     },
     {
         RouteLink: '/admin/manage-banner',
@@ -66,7 +72,8 @@ export const listModule: DTOModule[] = [
         ClassIconFontAwesome: 'fa-pager',
         IsChild: false,
         IsSelected: false,
-        IsExpanded: false
+        IsExpanded: false,
+        BreadCrumb: 'Quản lý banner'
     },
     {
         RouteLink: '/admin/manage-cart',
@@ -74,7 +81,8 @@ export const listModule: DTOModule[] = [
         ClassIconFontAwesome: 'fa-cart-shopping',
         IsChild: false,
         IsSelected: false,
-        IsExpanded: false
+        IsExpanded: false,
+        BreadCrumb: 'Đơn hàng'
     },
     {
         RouteLink: '/admin/manage-work-schedule',
@@ -82,7 +90,8 @@ export const listModule: DTOModule[] = [
         ClassIconFontAwesome: 'fa-calendar-days',
         IsChild: false,
         IsSelected: false,
-        IsExpanded: false
+        IsExpanded: false,
+        BreadCrumb: 'Quản lý lịch làm việc'
     },
     {
         RouteLink: '/admin/manage-salary',
@@ -90,6 +99,7 @@ export const listModule: DTOModule[] = [
         ClassIconFontAwesome: 'fa-money-check-dollar',
         IsChild: false,
         IsSelected: false,
-        IsExpanded: false
+        IsExpanded: false,
+        BreadCrumb: 'Tính lương'
     }
 ]

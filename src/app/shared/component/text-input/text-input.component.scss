@@ -1,0 +1,21 @@
+@import '../../../../styles.scss';
+
+::ng-deep{
+    component-text-input{
+        .component-text-input{
+            display: inline-block;
+            kendo-label{
+                font-size: 13px;
+                @include center-vertical;
+                width: 500px;
+                justify-content: space-between;
+
+                .nessesary{
+                    color: red;
+                    height: 100%;
+                    padding-bottom: 10px;
+                }
+            }
+        }
+    }
+}
