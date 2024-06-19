@@ -24,6 +24,8 @@ import { BreadcrumbComponent } from './shared/component/breadcrumb/breadcrumb.co
 import { HeaderAdminComponent } from './admin-pages/layout/header/header.component';
 import { SearchBarComponent } from './shared/component/search-bar/search-bar.component';
 import { LayoutService } from './admin-pages/shared/service/layout.service';
+import { TextInputComponent } from './shared/component/text-input/text-input.component';
+import { LabelModule } from '@progress/kendo-angular-label';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { LayoutService } from './admin-pages/shared/service/layout.service';
     EcomShoesComponent,
     BreadcrumbComponent,
     HeaderAdminComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    TextInputComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { LayoutService } from './admin-pages/shared/service/layout.service';
     EcomRoutingModule ,
     CommonModule,
     HttpClientModule,
-    InputsModule
+    InputsModule,
+    LabelModule
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]
