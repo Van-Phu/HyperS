@@ -16,12 +16,14 @@ export class EcomShoesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.APIGetListProduct()
     console.log("hello world");
     console.log(this.ListProduct);
   }
 
   APIGetListProduct(){
     this.productService.getListProduct().subscribe(data => {
+      console.log('run');
       this.ListProduct = data.ObjectReturn
       console.log(data);
     })

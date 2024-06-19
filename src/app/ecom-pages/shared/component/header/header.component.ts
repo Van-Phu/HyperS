@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { DataModule } from './data/moduleHeader';
-import { DataSecondContent } from './data/dataSecondPages';
+import { DataModule } from '../../data/moduleHeader';
+import { DataSecondContent } from '../../data/dataSecondPages';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,11 +23,11 @@ export class HeaderComponent {
         element.isSelected = false
       }
     });
-    const selectedItem = this.dataModuleHeader.find(item => item.id === action);
-    console.log(selectedItem);
-    if (selectedItem) {
-      this.router.navigate([selectedItem.route]);
-    }
+    // const selectedItem = this.dataModuleHeader.find(item => item.id === action);
+    // console.log(selectedItem);
+    // if (selectedItem) {
+    //   this.router.navigate([selectedItem.route]);
+    // }
   }
 
 }

@@ -11,30 +11,55 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
   expandDrawer = true;
-  listItemsDrawer: DTOModule[] = [];
+  listItemsDrawer: DTOModule[] = listModule;
   selectedItemDrawer: string = '';
-  
-  constructor(private router: Router) {}
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.getListItemDrawer();
   }
 
-  // Lấy danh sách item của drawer
-  getListItemDrawer() {
+  // Sự kiện khi chọn vào item drawer
+  onSelectItemDrawer(item: DTOModule): void {
+    if(item.SubModule){
+      item.IsExpanded = !item.IsExpanded;
+    }
+    else{
+      this.clearSelectedModule();
+      item.IsSelected = true
+      this.router.navigate([item.RouteLink]);
+    }
+  }
+
+  // Sự kiện khi chọn vào submodule
+  onSelectSubModule(sub: DTOModule, item: DTOModule): void{
+    this.clearSelectedModule();
+    item.IsSelected = true;
+    sub.IsSelected = true;
+    this.router.navigate([sub.RouteLink]);
+  }
+
+  // Dùng để xóa IsSelected của từng module
+  clearSelectedModule(){
     listModule.forEach(module => {
-      this.listItemsDrawer.push(module);
-      if (module.SubModule) {
-        module.SubModule.forEach(subModule => this.listItemsDrawer.push(subModule));
+      module.IsSelected = false;
+      if(module.SubModule){
+        module.SubModule.forEach(sub => {
+          sub.IsSelected = false;
+        })
       }
     })
   }
 
-  // Sự kiện chọn vào item drawer
-  onSelectItemDrawer(ev: DrawerSelectEvent): void {
-    this.selectedItemDrawer = ev.item.ModuleName;
-    this.router.navigate([ev.item.RouteLink]);
+  // Lấy danh sách các module con
+  getSubModule(moduleName: string): DTOModule[] | undefined {
+    // Tìm module có ModuleName khớp
+    const module = listModule.find(mod => mod.ModuleName === moduleName);
+    // Kiểm tra nếu module tồn tại và có SubModule
+    if (module && module.SubModule) {
+      return module.SubModule;
+    }
+    // Trả về undefined nếu không tìm thấy module hoặc không có subModule
+    return [];
   }
-
-  
 }
