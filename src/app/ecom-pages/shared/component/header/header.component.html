@@ -5,7 +5,7 @@
         </div>
         <div class="content-center">
             <div  *ngFor="let item of dataModuleHeader">
-                <div (click)="handleSelectActionCenter(item.id)" [ngClass]="item.isSelected == true ? 'item-select' : 'item'">
+                <div [routerLink]="item.route" (click)="handleSelectActionCenter(item.id)" [ngClass]="item.isSelected == true ? 'item-select' : 'item'">
                     <div>{{item.text}}</div>
                 </div>
     

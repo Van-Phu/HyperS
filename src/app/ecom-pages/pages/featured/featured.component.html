@@ -18,7 +18,7 @@
             </div>
             <div class="btn-shop">
                 <div data-tooltip="Sold out" class="button">
-                    <div class="button-wrapper">
+                    <div (click)="log()" class="button-wrapper">
                       <div class="text">Buy Now</div>
                         <span class="icon">
                           <svg viewBox="0 0 16 16" class="bi bi-cart2" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -27,38 +27,84 @@
                         </span>
                       </div>
                     </div>
-                    
-                    
-                  
             </div>
         </div>
       
     </div>
 
     <div class="content">
-        <div class="content-second">
+        <div class="content-featured">
+            <div class="title">
+                Featured
+            </div>
             <div class="card-second">
                 <div class="item" *ngFor="let item of dataContentSecond">
-                    <div class="card-container">
-                        <div class="card">
-                        <div class="front-content">
-                            <div>
-                                <p>{{item.text}}</p>
-                     
-                            </div>
-
-                        </div>
-                        <div class="content">
-                          <!-- <p class="heading">{{item.text}}</p> -->
-                            <div class="img-area">
-                                <img class="img" src="{{item.imageUrl}}" alt="">
-                            </div>
-                        </div>
-                      </div>
-                      </div>
+                    <div class="image-area">
+                        <img class="img" src="{{item.imageUrl}}" alt="">
+                    </div>
+                    <div class="text">
+                        {{item.text}}
+                    </div>
+                    <div class="btn-shop">
+                        <button class="button type1">
+                            <span class="btn-txt">{{'Shop now' | uppercase}}</span>
+                          </button>
+                          
+                    </div>
+                </div>
             </div>
-          
+        </div>
+
+        <div class="content-new-product">
+            <div class="title">
+                New in here
+            </div>
+            <div class="card">
+                <div class="item" *ngFor="let product of ListProductDesc">
+                    <div class="image">
+                        <img src=" https://product.hstatic.net/200000384787/product/hinh_hang_bigball_chunky_la_dodgers_mau_trang_xanh_3ashc101n-07whs__1__fc175cfad43a4512a62ee46302657a3b_master.jpg" alt="">
+                    </div>
+                    <div class="info-item">
+                        <div class="name">
+                            {{product.Name}}
+                        </div>
+                        <div class="type">
+                            {{product.BrandName}}
+                        </div>
+
+                        <div class="price-area">
+                            <div *ngIf="product.PriceAfterDiscount < product.Price" class="price-sale">
+                                {{product.PriceAfterDiscount}}đ
+                            </div>
+                            <span [ngClass]="{'price-discount': product.PriceAfterDiscount < product.Price, 'price': product.PriceAfterDiscount >= product.Price}" class="price">
+                                {{ product.Price}}đ
+                              </span>
+                              
+                  
+                        </div>
+                    </div>
+                </div>
+            </div>
             
+        </div>
+
+        <div class="content-trending">
+            <div class="title">
+                Trending
+            </div>
+            <div class="card">
+                <div class="image-area">
+                    <img class="img" src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_2439,c_limit/67c2358c-39ed-49ec-a068-d5292543a15a/nike-just-do-it.png" alt="">
+                </div>
+                <div class="text-area">
+                    <div class="slogan">
+                        {{'No paint, no gain' | uppercase}}
+                    </div>
+                    <div class="text">
+                        Every accomplishment starts with the decision to try.  
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
