@@ -16,6 +16,11 @@ $color-normal-text: #000000; // Màu chữ thường
 $color-add: #09880E; // Màu thêm mới
 $color-cancel: #FF1D1D; // Màu hủy, xóa
 $color-send: #069DF1; // Màu gửi đi
+$color-bg-side-expanded: #384C5E; // Màu sidebar được expanded
+
+
+
+$box-shadow3: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 
 // Tạo vòng lặp từ 1 đến 12
@@ -46,4 +51,10 @@ $color-send: #069DF1; // Màu gửi đi
 @mixin center-horizontal(){
     display: flex !important;
     justify-content: center !important;
+}
+
+@mixin center(){
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }

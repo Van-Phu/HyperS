@@ -3,50 +3,93 @@
 app-sidebar {
     kendo-drawer-container.drawer-custom {
         height: 100vh !important;
-
+        
         kendo-drawer {
             background-color: $color-main;
             color: #fff;
             border: none;
+            position: relative;
+            box-shadow: $box-shadow3;
 
             ul {
                 li {
-                    height: 50px;
-                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0;
+                    gap: 0;
 
-                    .icon,
-                    .text {
-                        @include center-vertical;
-                    }
-
-                    .icon {
-                        width: 20px;
-                        text-align: left;
-                    }
-
-                    .text {
-                        font-size: 14px;
-                        font-weight: 600;
-                    }
-
-                    .module-parent {
-                        text-transform: uppercase;
-                    }
-
-                    .fa-chevron-down {
-                        position: absolute;
-                        right: 16px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                    }
-
-                    .bar-selected{
-                        width: 5px;
-                        background-color: #fff;
-                        position: absolute;
-                        left: 0;
+                    .box-item-drawer {
+                        position: relative;
                         height: 50px;
-                        top: 0;
+                        width: 100%;
+                        display: flex;
+                        padding: 8px 16px;
+                        gap: 12px;
+
+                        &:hover{
+                            background-color: #fff !important;
+                            color: #000 !important;
+                        }
+
+                        .icon,
+                        .text {
+                            @include center-vertical;
+                        }
+
+                        .icon {
+                            width: 20px;
+                            text-align: left;
+                        }
+
+                        .text {
+                            font-size: 14px;
+                            font-weight: 600;
+                        }
+
+                        .module-parent {
+                            text-transform: uppercase;
+                        }
+
+                        .fa-chevron-down,
+                        .fa-chevron-up {
+                            position: absolute;
+                            right: 16px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
+
+                        .bar-selected {
+                            width: 5px;
+                            background-color: #fff;
+                            position: absolute;
+                            left: 0;
+                            height: 50px;
+                            top: 0;
+                        }
+                    }
+                    .expanded {
+                        color: #ffffff;
+                        background-color: $color-bg-side-expanded !important;
+                    }
+                    .closed {
+                        display: none;
+                    }
+                    .item-submodule{
+                        height: 50px;
+                        @include center-vertical;
+                        font-weight: 600;
+                        font-size: 14px;
+                        padding-left: 48px;
+                        color: #919191;
+
+                        &:hover{
+                            color: #ffffff;
+                            transition: 0.5s;
+                            margin-left: 5px;
+                        }
+                    }
+                    .sub-selected{
+                        color: #fff;
                     }
                 }
 
@@ -56,20 +99,64 @@ app-sidebar {
                     box-shadow: none;
                 }
 
-                .k-drawer-item.k-selected {
-                    background: none;
+                .k-drawer-item:hover, 
+                .k-drawer-item.k-hover {
+                    color: #fff;
+                    background-color: $color-main;
+                }
 
-                    &:hover {
-                        background-color: #fff;
-                        color: #000;
+                .k-drawer-item.k-selected {
+                    background: none;   
+                }
+            }
+
+            .header-drawer{
+                display: flex;
+                height: 70px;
+                padding: 4px 5px;
+                gap: 16px;
+                .image{
+                    @include center-vertical;
+                    
+                    img{
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 100px;
+                        object-fit: cover;
                     }
                 }
 
-                .k-drawer-item:hover {
-                    background-color: #fff;
-                    color: #000;
+                .tag-name{
+                    @include center-horizontal;
+                    flex-direction: column;
+                    gap: 2px;
+
+                    .name{
+                        font-weight: 600;
+                        font-size: 16px;
+                    }
                 }
             }
+
+            .button-sign-out{
+                position: absolute;
+                width: 90%;
+                height: 50px;
+                border-radius: 4px;
+                background-color: #fff;
+                color: #000;
+                text-transform: uppercase;
+                font-weight: 600;
+                @include center;
+                gap: 16px;
+                margin: auto;
+                cursor: pointer;
+                bottom: 40px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
+
+        
     }
 }

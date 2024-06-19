@@ -1,11 +1,50 @@
 <kendo-drawer-container class="drawer-custom">
   <kendo-drawer [width]="268" #drawer [items]="listItemsDrawer" mode="push" [mini]="true" [autoCollapse]="false"
-    [(expanded)]="expandDrawer" (select)="onSelectItemDrawer($event)">
+    [(expanded)]="expandDrawer" >
+
+    <!-- Header của drawer -->
+    <ng-template kendoDrawerHeaderTemplate>
+      <div class="header-drawer">
+        <div class="image">
+          <img src="../../../../assets/johnwick.jpg" alt="">
+        </div>
+        <div class="tag-name">
+          <div class="name">Đỗ Quốc Thành</div>
+          <div class="position">Quản lý</div>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Body của drawer -->
     <ng-template kendoDrawerItemTemplate let-item>
-      <div *ngIf="item.IsSelected && !item.IsChild" class="bar-selected"></div>
-      <i class="icon fa-solid {{item.ClassIconFontAwesome}}"></i>
-      <div class="text" [ngClass]="{'module-parent': !item.IsChild, 'module-child': item.IsChild}">{{ item.ModuleName }}</div>
-      <i *ngIf="item.SubModule" class="fa-solid fa-chevron-down"></i>
+      <div class="box-item-drawer" (click)="onSelectItemDrawer(item)"
+        [ngClass]="{'expanded' : (item.IsExpanded && item.SubModule) || (item.IsExpanded && item.IsChild)}">
+        <div *ngIf="item.IsSelected && !item.IsChild" class="bar-selected"></div>
+        <i class="icon fa-solid {{item.ClassIconFontAwesome}}"></i>
+
+        <div *ngIf="item.IsChild && item.IsExpanded" class="text module-child">{{ item.ModuleName }}
+        </div>
+        <div *ngIf="!item.IsChild && expandDrawer" class="text module-parent">{{ item.ModuleName }}</div>
+
+        <ng-container *ngIf="item.SubModule">
+          <i *ngIf="expandDrawer" class="fa-solid" [ngClass]="{'fa-chevron-down': !item.IsExpanded, 'fa-chevron-up': item.IsExpanded}"></i>
+        </ng-container>
+
+      </div>
+      <ng-container *ngIf="item.IsExpanded && item.SubModule  && expandDrawer">
+        <div class="item-submodule" (click)="onSelectSubModule(sub, item)" [ngClass]="{'expanded' : (sub.IsExpanded)}"
+          [ngClass]="{'sub-selected' : (sub.IsSelected)}" *ngFor="let sub of getSubModule(item.ModuleName)">
+          {{sub.ModuleName}}
+        </div>
+      </ng-container>
+    </ng-template>
+
+    <!-- Footer của drawer -->
+    <ng-template kendoDrawerFooterTemplate>
+      <div class="button-sign-out" (click)="drawer.toggle()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span *ngIf="expandDrawer">Đăng xuất</span>
+      </div>
     </ng-template>
   </kendo-drawer>
 </kendo-drawer-container>
