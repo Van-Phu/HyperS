@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { DataSecondContent } from '../../shared/data/dataSecondPages';
 import { DTOProduct } from '../../shared/dto/DTOProduct';
 import { ProductService } from '../../shared/service/product.service';
 import { CompositeFilterDescriptor, FilterDescriptor, State, filterBy } from '@progress/kendo-data-query';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DataSecondContent } from '../../shared/data/dataSecondPages';
 
 @Component({
   selector: 'app-featured',
