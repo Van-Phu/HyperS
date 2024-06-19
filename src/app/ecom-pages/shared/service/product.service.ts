@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { DTOProduct } from '../dto/DTOProduct';
 import { DTOResponse } from 'src/app/in-layout/DTORespone';
+import { State } from '@progress/kendo-data-query';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,17 @@ export class ProductService {
     return this.httpClient.post<DTOResponse>(this.urlGetListProduct, body, httpOption)
     .pipe(
     );
+  }
+
+  getListProductDesc( filter: State): Observable<DTOResponse> {
+    const httpOptions = this.getHttpOptions();
+    return this.httpClient.post<DTOResponse>(this.urlGetListProduct, filter, httpOptions)
+      .pipe(
+        catchError(error => {
+          console.error('Error retrieving quiz sessions:', error);
+          return throwError(error);
+        })
+      );
   }
 
 }
