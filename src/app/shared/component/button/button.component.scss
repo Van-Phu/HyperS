@@ -1,0 +1,16 @@
+@import '../../../../styles.scss';
+
+::ng-deep{
+    component-button{
+        .component-button{
+            display: flex;
+            text-wrap: nowrap;
+            cursor: pointer;
+
+            &:hover{
+                filter: brightness(130%);
+            }
+        }
+    }
+}
+

@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { DataModule } from '../../data/moduleHeader';
-import { DataSecondContent } from '../../data/dataSecondPages';
 import { Router } from '@angular/router';
 
 @Component({
