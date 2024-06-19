@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EcomPagesComponent } from './ecom-pages.component';
 import { EcomShoesComponent } from './pages/ecom-shoes/ecom-shoes.component';
 import { FeaturedComponent } from './pages/featured/featured.component';
+import { EcomCartComponent } from './pages/ecom-cart/ecom-cart.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: 'home', component: FeaturedComponent},
       { path: 'shose', component: EcomShoesComponent},
+      { path: 'cart', component: EcomCartComponent},
       {path: '', redirectTo:'home', pathMatch:'full'}
     ]
   }

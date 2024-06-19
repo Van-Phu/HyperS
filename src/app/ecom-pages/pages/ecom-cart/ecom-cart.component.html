@@ -1,0 +1,128 @@
+<div class="main">
+    <div class="title">
+        {{"your bag" | uppercase}}
+    </div>
+    <div class="line-area">
+        <div class="under-line"></div>
+    </div>
+
+    <div class="content-area">
+        <div class="cart-item">
+            <div class="content">
+                <div class="header">
+                    <div class="title-header-item">
+                        For you
+                    </div>
+                    <div class="text-item-have">
+                        3 Your Style
+                    </div>
+                </div>
+                <div class="under-line"></div>
+                <div class="item-area">
+                    <div class="item" *ngFor="let item of ListProductCart[0].ListProductCart">
+                        <div class="infor">
+                            <div class="image">
+                                <img src="{{item.Product.ListOfImage[0].ImgUrl}}" alt="">
+                            </div>
+
+                            <div class="info-area">
+                                <div class="name">
+                                    {{item.Product.Name}}
+                                </div>
+                                <div class="color">
+                                    <div class="title-item">
+                                        Color
+                                    </div>
+                                    <div class="center-line">
+                                        -
+                                    </div>
+                                    <div class="text">
+                                        {{item.Product.Color}}
+                                    </div>
+                               
+                                </div>
+                                <div class="size">
+                                    <div class="title-item">
+                                        Size
+                                    </div>
+                                    <div class="center-line">-</div>
+                                    <div class="text">
+                                        {{item.SizeSelected}}
+                                    </div>
+                                </div>  
+                               
+                            </div>
+                        </div>
+                        
+                        <div class="price-area">
+                            <div  class="final-price">
+                                {{item.Product.PriceAfterDiscount}}$
+                            </div>
+                            <div class="origin-price">
+                                {{item.Product.Price}}$
+                            </div>
+                        </div>
+
+                        <div class="quantity-area">
+                            <i class="fa-solid fa-plus"></i>
+                            <div class="quantity">
+                                <input class="input" type="text" [value]="item.Quantity">
+                            </div>
+                            <i class="fa-solid fa-minus"></i>
+                        </div>
+
+                        <div class="total-price-area">
+                            <div class="title-item">
+                                Total:
+                            </div>
+                            <div>
+                                {{item.TotalPriceOfProduct}}$
+                            </div>
+                        </div>
+                        <div class="delete-area">
+                            <i class="icon fa-solid fa-trash"></i>
+                        </div>
+                  
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="cart-summary">
+            <div class="content">
+                <div class="summary">
+                    <div class="text">
+                        Summary
+                    </div>
+                </div>
+                <div class="line-area">
+                    <div class="under-line"></div>
+                </div>
+                <div class="content-detail">
+                    <div class="title">
+                        {{"price detail" | uppercase}}
+                    </div>
+                    <div class="content-child">
+                        <div class="item">
+                            <div class="title">
+                                Total items
+                            </div>
+                            <div class="text">
+                                {{ListProductCart[0].ListProductCart.length}}
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="title">
+                                SubTotal
+                            </div>
+                            <div class="text">
+                                {{ListProductCart[0].ListProductCart.length}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -19,6 +19,7 @@ import { EcomShoesComponent } from './ecom-pages/pages/ecom-shoes/ecom-shoes.com
 import { EcomRoutingModule } from './ecom-pages/ecom-routing.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { EcomCartComponent } from './ecom-pages/pages/ecom-cart/ecom-cart.component';
 import { ButtonComponent } from './shared/component/button/button.component';
 import { BreadcrumbComponent } from './shared/component/breadcrumb/breadcrumb.component';
 import { HeaderAdminComponent } from './admin-pages/layout/header/header.component';
@@ -39,6 +40,7 @@ import { LabelModule } from '@progress/kendo-angular-label';
     FeaturedComponent,
     ButtonComponent,
     EcomShoesComponent,
+    EcomCartComponent,
     BreadcrumbComponent,
     HeaderAdminComponent,
     SearchBarComponent,

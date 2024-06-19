@@ -1,0 +1,247 @@
+centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  };
+
+  $color-main: rgb(255, 108, 108);
+  
+  .main {
+    padding: 50px;
+    
+    .title {
+      @extend centered;
+      font-size: 40px;
+      font-weight: bold;
+    }
+  
+    .line-area {
+      @extend centered;
+      .under-line {
+        width: 1000px;
+        height: 1px;
+        background-color: $color-main;
+      }
+    }
+
+    .content-area{
+        @extend centered;
+        margin-top: 50px;
+        height: 700px;
+        width: 100%;
+        gap: 50px;
+
+        .cart-item{
+            width: 1400px;
+            height: 100%;
+            background-color: white;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            .content{
+                padding: 50px;
+
+                .header{
+                    @extend centered;
+                    justify-content: space-between;
+                    font-size: 25px;
+                    font-weight: bold;
+                    .title-header-item{
+
+                    }
+
+                    .text-item-have{
+
+                    }
+                }
+
+                .under-line{
+                    margin: 30px 0;
+                    height: 1px;
+                    width: 100%;
+                    background-color: rgb(233, 233, 233);
+                }
+
+                .item-area{
+                    height: 500px;
+                    overflow-y: auto;
+                
+                    .item{
+                        height: 150px;
+                        margin-bottom: 20px;
+                        @extend centered;
+                        justify-content: space-between;
+
+                        .infor{
+                            @extend centered;
+                            display: flex;
+                            .image{
+                                height: 150px;
+                                width: 150px;
+    
+                                img{
+                                    height: 100%;
+                                    width: 100%;
+                                    border-radius: 20px;
+                                }
+                            }
+    
+                            .info-area{
+                                display: flex;
+                                flex-direction: column;
+                                align-items: start;
+                                margin: 0 20px;
+                                width: 200px;
+                                font-weight: 600;
+                                .name{
+                                    font-weight: bold;
+                                    font-size: 25px;
+                                }
+                                .color{
+                                    padding: 10px 0;
+                                    display: flex;
+                                    .title-item{
+                                        color: #BDC2D2;
+                                    }
+                                    .center-line{
+                                        color: #BDC2D2;
+                                        margin: 0 15px;
+                                    }
+                                }
+                                .size{
+                                    display: flex;
+                                    .title-item{
+                                        color: #BDC2D2;
+                                    }
+                                    .center-line{
+                                        color: #BDC2D2;
+                                        margin: 0 15px;
+                                    }
+                                    .text{
+                                        color: black;
+                                    }
+                                }
+                            }
+                        }
+
+                        
+
+                        .price-area{
+                            font-size: 18px;
+                            font-weight: bold;
+                            @extend centered;
+                            .final-price{
+                                margin-right: 10px;
+                            }
+                            .origin-price{
+                                text-decoration-line: line-through;
+                                color: $color-main;
+                            }
+                        }
+
+                        .quantity-area{
+                            @extend centered;
+                            .quantity{
+                                margin: 0 10px;
+                                align-items: center;
+                                display: flex;
+                                justify-content: center;
+
+                                .input{
+                                    width: 50px;
+                                    height: 30px;
+                                    border-color: #BDC2D2;
+                                    border-radius: 5px;
+                                    text-align: center;
+                                }
+                            }
+                        }
+
+                        .total-price-area{
+                            font-size: 20px;
+                            font-weight: bold;
+                            @extend centered;
+                            .title-item{
+                                color: #BDC2D2;
+                                margin-right: 10px;
+                            }
+                        }
+
+                        .delete-area{
+                            height: 100%;
+                            width: 80px;
+                            background-color: $color-main;
+                            @extend centered;
+                            border-top-left-radius: 10px;
+                            border-bottom-left-radius: 10px;
+
+                            .icon{
+                                font-size: 25px;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .cart-summary{
+            width: 400px;
+            height: 700px;
+            // background-color: $color-main;
+            border-radius: 20px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            .content{
+                width: 100%;
+                height: 650px;
+                background-color: white;
+                margin: 25px 0;
+
+                .summary{
+                    display: flex;
+                    justify-content: start;
+                    align-items: start;
+                    font-size: 30px;
+                    font-weight: bold;
+                    .text{
+                        margin-top: 20px;
+                        margin-left: 20px;
+                    }
+                }
+
+                .line-area{
+                    margin: 20px 0;
+                    .under-line{
+                        background-color: rgb(233, 233, 233);;
+                    } 
+                }
+
+                .content-detail{
+                    margin: 0 20px;
+                    height: 300px;
+                    .title{
+                        font-size: 20px;
+                        text-align: start;
+                        justify-content: start;
+                        margin-bottom: 30px;
+                    }
+
+                    .content-child{
+                        .item{
+                            display: flex;
+                            justify-content: space-between;
+                            .title{
+                                margin-right: 10px;
+                                font-size: 20px;
+                            }
+                            .text{
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+  }
+  
