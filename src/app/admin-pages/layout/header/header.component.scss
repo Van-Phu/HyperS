@@ -1,0 +1,17 @@
+@import '../../../../styles.scss';
+
+::ng-deep{
+    app-header-admin{
+        .header{
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #D4D4D4;
+
+            .bread-crumb,
+            .seach-bar{
+                height: 60px;
+                @include center-vertical;
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+@import '../../../../styles.scss';
+
+::ng-deep{
+    component-breadcrumb{
+        .component-breadcrumb{
+            display: flex;
+            padding: 8px 12px;
+            height: 40px;
+            gap: 8px;
+
+            .text,
+            .icon{
+                @include center;
+                cursor: pointer;
+                font-size: 13px;
+                font-weight: 600;
+
+                &:hover{
+                    color: rgb(88, 88, 88);
+                }
+
+                svg{
+                    width: 10px;
+                    height: 10px;
+                }
+            }
+        }
+    }
+}
