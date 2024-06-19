@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+/**
+ * Component cung cấp 1 thanh search
+ * + Chức năng: Sau khi enter hoặc nhấn vào icon tìm kiếm thì sẽ tự động gọi hàm sendValueInput để gửi value tới component cha
+ * - hasIcon: có icon search phía trước hay không
+ * - Và một số thuộc tính style khác...
+ */
 @Component({
   selector: 'component-search-bar',
   templateUrl: './search-bar.component.html',
