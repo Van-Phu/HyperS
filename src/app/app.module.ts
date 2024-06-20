@@ -44,6 +44,12 @@ import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
 import { GridModule } from "@progress/kendo-angular-grid";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
 import { GridComponent } from './shared/component/grid/grid.component';
+import { TextAreaComponent } from './shared/component/text-area/text-area.component';
+import { PopupConfirmComponent } from './shared/component/popup-confirm/popup-confirm.component';
+import { ImportImageComponent } from './admin-pages/shared/component/import-image/import-image.component';
+import { FormComponent } from './admin-pages/shared/component/form/form.component';
+import { DropdownActionComponent } from './admin-pages/shared/component/dropdown-action/dropdown-action.component';
+import { DrawerDetailComponent } from './admin-pages/shared/component/drawer-detail/drawer-detail.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +80,13 @@ import { GridComponent } from './shared/component/grid/grid.component';
     TextDropDownDirective,
     DatepickerComponent,
     StatusColorPipe,
-    GridComponent
+    GridComponent,
+    TextAreaComponent,
+    PopupConfirmComponent,
+    ImportImageComponent,
+    FormComponent,
+    DropdownActionComponent,
+    DrawerDetailComponent
   ],
   imports: [
     BrowserModule,

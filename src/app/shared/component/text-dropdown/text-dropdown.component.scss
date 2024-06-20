@@ -4,6 +4,10 @@
   component-text-dropdown {
     .text-dropdown {
       display: inline-block;
+
+      .label{
+        text-wrap: nowrap;
+      }
       
       kendo-dropdownlist {
         .k-input-value-text  {

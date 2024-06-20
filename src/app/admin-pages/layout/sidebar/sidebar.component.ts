@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     if(!!!localStorage.getItem('moduleName')){
       this.onSelectItemDrawer(this.listModuleAndSub.find(item => item.ModuleName === 'Dashboard'));
+      localStorage.setItem('breadcrumb', 'Dashboard');
     }
     this.getListModuleAndSub();
     this.listModuleAndSub.forEach(module => {

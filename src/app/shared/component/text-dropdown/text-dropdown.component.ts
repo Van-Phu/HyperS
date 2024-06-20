@@ -15,7 +15,7 @@ export class TextDropdownComponent {
   @Input() rounded: number = 5;
   @Input() paddingLeft: number;
   @Input() paddingRight: number;
-  @Input() boxShadow: string = 'rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px';
+  @Input() boxShadow: string = 'rgba(0, 0, 0, 0.15) 0px 5px 15px';
   @Input() borderWidth: number = 1;
   @Input() borderColor: string = '#B6B6B6';
   @Input() defaultItem: any;
