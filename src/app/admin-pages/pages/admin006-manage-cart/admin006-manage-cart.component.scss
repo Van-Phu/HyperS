@@ -11,7 +11,26 @@
                 font-size: 14px;
                 font-weight: bold;
                 // background-color: aqua;
-                width: 190px;
+                width: 250px;
+            }
+
+            .searchBar{
+                // background-color: red;
+                width: 600px;
+            }
+            
+            .line{
+                background-color: black;
+                width: 15px;
+                height: 2px;
+            }
+
+            .timeStartEnd{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                // background-color: red;
+                width: 310px;
             }
         }
     }

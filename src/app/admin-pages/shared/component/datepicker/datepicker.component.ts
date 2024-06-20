@@ -13,6 +13,7 @@ import { DatePickerComponent } from '@progress/kendo-angular-dateinputs';
 })
 export class DatepickerComponent implements OnInit {
   // public value: Date = new Date(yyyy, MM, dd);
+  currentDate: Date = new Date();
   @Output() datePicked = new EventEmitter();
   @Input() minDate: Date = new Date();
   @Input() maxDate: Date = new Date();
