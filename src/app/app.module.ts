@@ -40,6 +40,7 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { TextDropDownDirective } from './shared/directive/textdropdown.directive';
 import { DatepickerComponent } from './admin-pages/shared/component/datepicker/datepicker.component';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     Admin008CalculateSalaryComponent,
     TextDropdownComponent,
     TextDropDownDirective,
-    DatepickerComponent
+    DatepickerComponent,
+    StatusColorPipe
   ],
   imports: [
     BrowserModule,
