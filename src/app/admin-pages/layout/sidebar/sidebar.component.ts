@@ -17,6 +17,9 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router, private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+    if(!!!localStorage.getItem('moduleName')){
+      this.onSelectItemDrawer(this.listModuleAndSub.find(item => item.ModuleName === 'Dashboard'));
+    }
     this.getListModuleAndSub();
     this.listModuleAndSub.forEach(module => {
       module.IsSelected = false;
@@ -24,7 +27,6 @@ export class SidebarComponent implements OnInit {
         module.IsSelected = true;
       }
     })
-    console.log(this.listModuleAndSub);
   }
 
   // Lấy danh sách các module và submodule

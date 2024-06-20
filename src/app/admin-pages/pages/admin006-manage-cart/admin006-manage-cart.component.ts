@@ -11,7 +11,6 @@ export class Admin006ManageCartComponent {
   maxDate: Date = new Date(this.currentDate.getFullYear() + 50, 12, 30);
   startDate: Date = this.minDate;
   endDate: Date = this.maxDate;
-  // listStatus: [] = ['a'];
   listStatus = ['Chờ xác nhận','Đang đóng gói','Đang vận chuyển','Thành công','Thất bại'];
 
   getDateFromDatePicker(value: any, type: string){
@@ -22,4 +21,5 @@ export class Admin006ManageCartComponent {
       this.endDate = value;
     }
   }
+  
 }
