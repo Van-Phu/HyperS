@@ -1,9 +1,9 @@
-export class DTOStatusBill {
+export class DTOStatus {
     Code: number = 0;
     Status: string;
 }
 
-export const listStatusBill: DTOStatusBill[] = [
+export const listStatus: DTOStatus[] = [
     {
         Code: 1,
         Status: "Chờ xác nhận"
@@ -23,5 +23,13 @@ export const listStatusBill: DTOStatusBill[] = [
     {
         Code: 5,
         Status: "Thất bại"
+    },
+    {
+        Code: 6,
+        Status: "Hoạt động"
+    },
+    {
+        Code: 7,
+        Status: "Vô hiệu hóa"
     },
 ]
