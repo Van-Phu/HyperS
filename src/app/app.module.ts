@@ -34,6 +34,10 @@ import { Admin005ManageBannerComponent } from './admin-pages/pages/admin005-mana
 import { Admin006ManageCartComponent } from './admin-pages/pages/admin006-manage-cart/admin006-manage-cart.component';
 import { Admin007ManageScheduleComponent } from './admin-pages/pages/admin007-manage-schedule/admin007-manage-schedule.component';
 import { Admin008CalculateSalaryComponent } from './admin-pages/pages/admin008-calculate-salary/admin008-calculate-salary.component';
+import { TextDropdownComponent } from './shared/component/text-dropdown/text-dropdown.component';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { TextDropDownDirective } from './shared/directive/textdropdown.directive';
+import { DatepickerComponent } from './admin-pages/shared/component/datepicker/datepicker.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,10 @@ import { Admin008CalculateSalaryComponent } from './admin-pages/pages/admin008-c
     Admin005ManageBannerComponent,
     Admin006ManageCartComponent,
     Admin007ManageScheduleComponent,
-    Admin008CalculateSalaryComponent
+    Admin008CalculateSalaryComponent,
+    TextDropdownComponent,
+    TextDropDownDirective,
+    DatepickerComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +80,8 @@ import { Admin008CalculateSalaryComponent } from './admin-pages/pages/admin008-c
     CommonModule,
     HttpClientModule,
     InputsModule,
-    LabelModule
+    LabelModule,
+    DropDownsModule,
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]
