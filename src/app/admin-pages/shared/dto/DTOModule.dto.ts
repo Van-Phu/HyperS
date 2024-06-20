@@ -40,7 +40,7 @@ export const listModule: DTOModule[] = [
         IsExpanded: true
     },
     {
-        RouteLink: '/admin/manage-sub-module',
+        RouteLink: '/admin/manage-module',
         ModuleName: 'Quản lý danh mục',
         ClassIconFontAwesome: 'fa-rectangle-list',
         IsChild: false,
@@ -85,7 +85,7 @@ export const listModule: DTOModule[] = [
         BreadCrumb: 'Đơn hàng'
     },
     {
-        RouteLink: '/admin/manage-work-schedule',
+        RouteLink: '/admin/manage-schedule',
         ModuleName: 'Quản lý lịch làm việc',
         ClassIconFontAwesome: 'fa-calendar-days',
         IsChild: false,
@@ -94,7 +94,7 @@ export const listModule: DTOModule[] = [
         BreadCrumb: 'Quản lý lịch làm việc'
     },
     {
-        RouteLink: '/admin/manage-salary',
+        RouteLink: '/admin/calculate-salary',
         ModuleName: 'Tính lương',
         ClassIconFontAwesome: 'fa-money-check-dollar',
         IsChild: false,
