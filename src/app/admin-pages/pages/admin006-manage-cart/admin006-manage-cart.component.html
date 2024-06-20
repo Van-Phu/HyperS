@@ -1,1 +1,10 @@
-<p>admin006-manage-cart works!</p>
+<div class="headerFilter">
+    <p class="titlePage">DANH SÁCH ĐƠN HÀNG</p>
+    <component-search-bar class="searchBar" placeholder="Tìm kiếm theo tên hoặc số điện thoại" [width]="500"></component-search-bar>
+    <div class="timeStartEnd">
+        <app-datepicker [minDate]="minDate" [maxDate]="endDate" (datePicked)="getDateFromDatePicker($event, 'start')"></app-datepicker>
+        <div class="line"></div>
+        <app-datepicker [minDate]="startDate" [maxDate]="maxDate" (datePicked)="getDateFromDatePicker($event, 'end')"></app-datepicker>
+    </div>
+    <component-text-dropdown [listItem]="listStatus"></component-text-dropdown>
+</div>
