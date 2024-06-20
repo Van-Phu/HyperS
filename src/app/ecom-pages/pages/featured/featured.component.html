@@ -61,7 +61,7 @@
             </div>
             <div class="card">
                 <div class="item" *ngFor="let product of ListProductDesc">
-                   <div (click)="handleProductClick(product)">
+                   <div routerLink="ecom/product-detail" (click)="handleProductClick(product)">
                         <div class="image">
                             <img src=" https://product.hstatic.net/200000384787/product/hinh_hang_bigball_chunky_la_dodgers_mau_trang_xanh_3ashc101n-07whs__1__fc175cfad43a4512a62ee46302657a3b_master.jpg" alt="">
                         </div>
