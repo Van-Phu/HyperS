@@ -1,3 +1,5 @@
+@import '../../../../../styles.scss';
+
 .header{
   z-index: 9999;
   width: 100%;
@@ -43,7 +45,7 @@
           bottom: 0;
           height: 2px;
           width: 0;
-          background-color: rgb(255, 108, 108);
+          background-color: $color-main;
           transition: 0.5s ease;
         }
         
@@ -63,7 +65,7 @@
           bottom: 0;
           height: 0;
           width: 100%;
-          background-color: rgb(255, 108, 108);
+          background-color: $color-main;
           transition: 0.4s ease;
           z-index: -1;
         }
@@ -85,7 +87,7 @@
           // transition: 0.5s ease;
           cursor: pointer;
           font-weight: bold;
-          background-color: rgb(255, 108, 108);
+          background-color: $color-main;
           color: white;
         }
         
@@ -108,13 +110,13 @@
                 justify-content: center;
                 cursor: pointer;
                 :hover{
-                  color: rgb(255, 78, 78);
+                  color: $color-main;
                 }
             }
             .input{
               .k-input-inner{
                 border: none;
-                border-color: rgb(255, 78, 78);
+                background-color: $color-main;
               }
             }
             
@@ -123,14 +125,14 @@
         .profile{
           cursor: pointer;
           :hover{
-            color: rgb(255, 78, 78);
+            color: $color-main;
           }
         }
   
         .cart{
           cursor: pointer;
           :hover{
-            color: rgb(255, 78, 78);
+            color: $color-main;
           }
 
           // .icon{
@@ -141,7 +143,7 @@
             position: absolute;
             height: 15px;
             width: 15px;
-            background-color: rgb(255, 78, 78);
+            background-color: $color-main;
             border-radius: 100px;
             margin-top: -30px;
             margin-left: 13px;

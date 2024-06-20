@@ -1,0 +1,58 @@
+<div class="main">
+    <div (click)="log()">
+        click
+    </div>
+    <div class="head-main">
+        <div class="content-area">
+            <div class="image-area">
+                <div class="list-image">
+                    <div class="image" *ngFor="let item of product.ListOfImage">
+                        <img (click)="handleChangeImageShow(item.ImgUrl)" src="{{item.ImgUrl}}" alt="">
+                    </div>
+                </div>
+                <div class="image-show">
+                    <div class="image">
+                        <img src="{{imageShowSelected}}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="info-area">
+                <div class="name">
+                    {{product.Name}}
+                </div>
+                <div class="type">
+                    {{product.ProductType}}
+                </div>
+                <div class="price-area">
+                    <div class="price">
+                        {{product.PriceAfterDiscount}}đ
+                    </div>
+                    <div  class="price-origin">
+                        {{product.Price}}đ
+                    </div>
+                </div>
+                <div class="size-area">
+                    <div class="title">
+                        Your size
+                    </div>
+                    <div class="list-size">
+                        <div  *ngFor="let size of product.ListOfSize">
+                            <div (click)="handleSelectedSize(size.Code)" [ngClass]="size.Code == SizeSelected ? 'item-selected': 'item'">
+                                {{size.Size}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-add-bag">
+                    Add to bag
+                </div>
+                <div class="btn-favorite">
+                    Favourite
+                </div>
+               
+            </div>
+        </div>
+    </div>
+   
+</div>  

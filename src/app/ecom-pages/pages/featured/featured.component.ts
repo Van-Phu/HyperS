@@ -5,6 +5,7 @@ import { ProductService } from '../../shared/service/product.service';
 import { CompositeFilterDescriptor, FilterDescriptor, State, filterBy } from '@progress/kendo-data-query';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-featured',
@@ -22,7 +23,7 @@ export class FeaturedComponent implements OnDestroy {
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
 
 
-  constructor(private productService: ProductService){
+  constructor(private productService: ProductService, private router: Router){
     // this.APIGetListProduct();
     this.APIGetListProductDesc(this.filterProductDesc)
   }
@@ -31,16 +32,6 @@ export class FeaturedComponent implements OnDestroy {
     // this.APIGetListProduct()
   }
 
-  // APIGetListProduct(){
-  //   this.productService.getListProduct().subscribe(data => {
-  //     console.log(data);
-  //     if(data.ErrorString != "" || data.StatusCode != 0){
-  //       alert("Lỗi khi lấy api ")
-  //       return
-  //     }
-  //     this.ListProductDesc = data.ObjectReturn.data
-  //   })
-  // }
 
   APIGetListProductDesc(filter: State): void {
     this.productService.getListProductDesc(filter).pipe(takeUntil(this.destroy)).subscribe(data => {
@@ -57,11 +48,17 @@ export class FeaturedComponent implements OnDestroy {
   }
 
   handleProductClick(product: DTOProduct){
-    localStorage.setItem('productClick', JSON.stringify(product))
+    localStorage.setItem('productSelected', JSON.stringify(product))
+    this.navigateToDetail()
   }
 
   ngOnDestroy(): void {
     this.destroy.next()
     this.destroy.complete()
+  }
+
+  navigateToDetail() {
+    console.log(1);
+    this.router.navigate(['ecom/product-detail'])
   }
 }

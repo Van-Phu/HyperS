@@ -1,10 +1,11 @@
+@import '../../../../styles.scss';
+
 centered {
     display: flex;
     align-items: center;
     justify-content: center;
   };
 
-  $color-main: rgb(255, 108, 108);
   
   .main {
     padding: 50px;
@@ -25,9 +26,11 @@ centered {
     }
 
     .content-area{
-        @extend centered;
+        // @extend centered;
+        display: flex;
+        justify-content: center;
         margin-top: 50px;
-        height: 700px;
+        // height: 700px;
         width: 100%;
         gap: 50px;
 
@@ -127,13 +130,17 @@ centered {
                         .price-area{
                             font-size: 18px;
                             font-weight: bold;
+                            
                             @extend centered;
+                            align-items: flex-end !important;
                             .final-price{
                                 margin-right: 10px;
                             }
                             .origin-price{
+                                font-size: 15px;
+                                font-weight: normal;
                                 text-decoration-line: line-through;
-                                color: $color-main;
+                                color: #979191;;
                             }
                         }
 
@@ -184,21 +191,15 @@ centered {
         }
 
         .cart-summary{
+            height: 450px;
             width: 400px;
-            height: 700px;
-            // background-color: $color-main;
             border-radius: 20px;
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
             .content{
                 width: 100%;
-                height: 650px;
                 background-color: white;
-                margin: 25px 0;
 
                 .summary{
-                    display: flex;
-                    justify-content: start;
-                    align-items: start;
                     font-size: 30px;
                     font-weight: bold;
                     .text{
@@ -216,7 +217,7 @@ centered {
 
                 .content-detail{
                     margin: 0 20px;
-                    height: 300px;
+                    // height: 200px;
                     .title{
                         font-size: 20px;
                         text-align: start;
@@ -236,6 +237,29 @@ centered {
                                 font-size: 20px;
                             }
                         }
+                    }
+                }
+
+                .go-payment-area{
+                    padding: 20px;
+                    .total-price-area{
+                        display: flex;
+                        font-size: 20px;
+                        font-weight: bold;
+                        justify-content: space-between;
+                    }
+                    .btn-checkout{
+                        height: 50px;
+                        width: 100%;
+                        background-color: $color-main;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-size: 25px;
+                        font-weight: bold;
+                        border-radius: 10px;
+                        margin-top: 20px;
                     }
                 }
 

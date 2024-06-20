@@ -13,7 +13,8 @@ export class ProductService {
 
 
   urlGetListProduct = "https://hypersapi.onrender.com/api/Product/GetListProduct"
-  
+  urlGetProductByID = "https://hypersapi.onrender.com/api/Product/GetProduct"
+
   getHttpOptions() {
     return {
       headers: new HttpHeaders({
@@ -41,6 +42,15 @@ export class ProductService {
           return throwError(error);
         })
       );
+  }
+
+  getProductById(id: number): Observable<DTOResponse>{
+    const httpOptions = this.getHttpOptions();
+    const body ={
+      'Code': id
+    }
+    return this.httpClient.post<DTOResponse>(this.urlGetProductByID, body, httpOptions)
+    .pipe();
   }
 
 }

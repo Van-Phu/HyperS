@@ -4,10 +4,27 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: "Mulish", sans-serif;
+
     box-sizing: border-box;
     @import "@progress/kendo-font-icons/dist/index.css";
+
+    div{
+        font-family: "Mulish", sans-serif;
+    }
 }
+
+centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  };
+
+// .fa-solid {
+//     padding: initial; /* or specific values you want for .fa-solid */
+//     margin: initial;  /* or specific values you want for .fa-solid */
+//     font-family: initial; /* or a different font-family you want for .fa-solid */
+//     box-sizing: initial; /* or the specific box-sizing you want for .fa-solid */
+// }
 
 $color-main: #26333F; // Màu chủ đạo
 $color-bg: #26333F; // Màu nền
@@ -58,3 +75,7 @@ $box-shadow3: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     justify-content: center !important;
     align-items: center !important;
 }
+
+// .fa-solid{
+//     font-family:Fon;
+// }

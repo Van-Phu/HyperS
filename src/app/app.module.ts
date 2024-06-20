@@ -21,6 +21,7 @@ import { EcomRoutingModule } from './ecom-pages/ecom-routing.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { EcomCartComponent } from './ecom-pages/pages/ecom-cart/ecom-cart.component';
+import { EcomProductDetailsComponent } from './ecom-pages/pages/ecom-product-details/ecom-product-details.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { EcomCartComponent } from './ecom-pages/pages/ecom-cart/ecom-cart.compon
     ButtonComponent,
     EcomShoesComponent,
     EcomCartComponent,
+    EcomProductDetailsComponent,
   ],
   imports: [
     BrowserModule,

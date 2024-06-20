@@ -1,4 +1,4 @@
-$color-main: rgb(255, 108, 108);
+@import '../../../../styles.scss';
 .body{
     margin-top: 2px;
     .video{
@@ -43,7 +43,7 @@ $color-main: rgb(255, 108, 108);
           --tooltip-height: 35px;
           --tooltip-width: 90px;
           --gap-between-tooltip-to-button: 18px;
-          --button-color: rgb(255, 108, 108);
+          --button-color: #26333F;
           --tooltip-color: #fff;
           width: var(--width);
           height: var(--height);
@@ -61,7 +61,7 @@ $color-main: rgb(255, 108, 108);
           width: 0;
           height: 0;
           border: 10px solid transparent;
-          border-top-color: rgb(255, 108, 108);
+          border-top-color: $color-main;
           left: calc(50% - 10px);
           bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
         }
@@ -109,7 +109,7 @@ $color-main: rgb(255, 108, 108);
         }
         
         .button:hover {
-          background-color: rgb(255, 108, 108);
+          background-color: $color-main;
         }
         
         .button:hover .text {
