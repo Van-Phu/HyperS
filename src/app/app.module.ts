@@ -38,6 +38,7 @@ import { TextDropdownComponent } from './shared/component/text-dropdown/text-dro
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { TextDropDownDirective } from './shared/directive/textdropdown.directive';
 import { DatepickerComponent } from './admin-pages/shared/component/datepicker/datepicker.component';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { DatepickerComponent } from './admin-pages/shared/component/datepicker/d
     InputsModule,
     LabelModule,
     DropDownsModule,
+    DateInputsModule
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]
