@@ -20,6 +20,7 @@ import { EcomRoutingModule } from './ecom-pages/ecom-routing.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { EcomCartComponent } from './ecom-pages/pages/ecom-cart/ecom-cart.component';
+import { EcomProductDetailsComponent } from './ecom-pages/pages/ecom-product-details/ecom-product-details.component';
 import { ButtonComponent } from './shared/component/button/button.component';
 import { BreadcrumbComponent } from './shared/component/breadcrumb/breadcrumb.component';
 import { HeaderAdminComponent } from './admin-pages/layout/header/header.component';
@@ -34,6 +35,11 @@ import { Admin005ManageBannerComponent } from './admin-pages/pages/admin005-mana
 import { Admin006ManageCartComponent } from './admin-pages/pages/admin006-manage-cart/admin006-manage-cart.component';
 import { Admin007ManageScheduleComponent } from './admin-pages/pages/admin007-manage-schedule/admin007-manage-schedule.component';
 import { Admin008CalculateSalaryComponent } from './admin-pages/pages/admin008-calculate-salary/admin008-calculate-salary.component';
+import { TextDropdownComponent } from './shared/component/text-dropdown/text-dropdown.component';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { TextDropDownDirective } from './shared/directive/textdropdown.directive';
+import { DatepickerComponent } from './admin-pages/shared/component/datepicker/datepicker.component';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 @NgModule({
   declarations: [
@@ -48,6 +54,7 @@ import { Admin008CalculateSalaryComponent } from './admin-pages/pages/admin008-c
     ButtonComponent,
     EcomShoesComponent,
     EcomCartComponent,
+    EcomProductDetailsComponent,
     BreadcrumbComponent,
     HeaderAdminComponent,
     SearchBarComponent,
@@ -58,7 +65,10 @@ import { Admin008CalculateSalaryComponent } from './admin-pages/pages/admin008-c
     Admin005ManageBannerComponent,
     Admin006ManageCartComponent,
     Admin007ManageScheduleComponent,
-    Admin008CalculateSalaryComponent
+    Admin008CalculateSalaryComponent,
+    TextDropdownComponent,
+    TextDropDownDirective,
+    DatepickerComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +83,9 @@ import { Admin008CalculateSalaryComponent } from './admin-pages/pages/admin008-c
     CommonModule,
     HttpClientModule,
     InputsModule,
-    LabelModule
+    LabelModule,
+    DropDownsModule,
+    DateInputsModule
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]

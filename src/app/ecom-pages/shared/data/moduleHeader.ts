@@ -6,7 +6,7 @@ export const DataModule = [
         id: 1, route: 'shose', text: "Men", isSelected: false
     },
     {
-        id: 2, route: 'shose', text: "Women", isSelected: false
+        id: 2, route: 'product-detail', text: "Women", isSelected: false
     },
     {
         id: 3, route: 'shose', text: "Sale", isSelected: false

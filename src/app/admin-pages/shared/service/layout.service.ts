@@ -5,8 +5,14 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LayoutService {
-  private selectedModule = new BehaviorSubject<string>('Quản lý tài khoản/Thông tin người dùng');
+  private selectedBreadcrumb = new BehaviorSubject<string>(localStorage.getItem('breadcrumb'));
+  selectedBreadcrumb$ = this.selectedBreadcrumb.asObservable();
+  private selectedModule = new BehaviorSubject<string>(localStorage.getItem('moduleName'));
   selectedModule$ = this.selectedModule.asObservable();
+
+  setSelectedBreadCrumb(item: string) {
+    this.selectedBreadcrumb.next(item);
+  }
 
   setSelectedModule(item: string) {
     this.selectedModule.next(item);

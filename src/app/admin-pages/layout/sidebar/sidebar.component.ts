@@ -9,12 +9,35 @@ import { LayoutService } from '../../shared/service/layout.service';
   styleUrls: ['./sidebar.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   expandDrawer = true;
   listItemsDrawer: DTOModule[] = listModule;
-  selectedItemDrawer: string = '';
+  listModuleAndSub: DTOModule[] = [];
 
   constructor(private router: Router, private layoutService: LayoutService) { }
+
+  ngOnInit(): void {
+    this.getListModuleAndSub();
+    this.listModuleAndSub.forEach(module => {
+      module.IsSelected = false;
+      if(module.ModuleName === localStorage.getItem('moduleName')){
+        module.IsSelected = true;
+      }
+    })
+    console.log(this.listModuleAndSub);
+  }
+
+  // Lấy danh sách các module và submodule
+  getListModuleAndSub() {
+    listModule.forEach(module => {
+      this.listModuleAndSub.push(module);
+      if (module.SubModule) {
+        module.SubModule.forEach(sub => {
+          this.listModuleAndSub.push(sub);
+        })
+      }
+    })
+  }
 
   // Sự kiện khi chọn vào item drawer
   onSelectItemDrawer(item: DTOModule): void {
@@ -25,17 +48,25 @@ export class SidebarComponent {
       this.clearSelectedModule();
       item.IsSelected = true
       this.router.navigate([item.RouteLink]);
-      this.layoutService.setSelectedModule(item.BreadCrumb);
+      this.layoutService.setSelectedModule(item.ModuleName);
+      this.layoutService.setSelectedBreadCrumb(item.BreadCrumb);
+      localStorage.setItem('routerLink', item.RouteLink);
+      localStorage.setItem('breadcrumb', item.BreadCrumb);
+      localStorage.setItem('moduleName', item.ModuleName);
     }
   }
 
   // Sự kiện khi chọn vào submodule
   onSelectSubModule(sub: DTOModule, item: DTOModule): void {
-    this.layoutService.setSelectedModule(sub.BreadCrumb);
     this.clearSelectedModule();
     item.IsSelected = true;
     sub.IsSelected = true;
+    this.layoutService.setSelectedModule(sub.ModuleName);
+    this.layoutService.setSelectedBreadCrumb(sub.BreadCrumb);
     this.router.navigate([sub.RouteLink]);
+    localStorage.setItem('routerLink', sub.RouteLink);
+    localStorage.setItem('breadcrumb', sub.BreadCrumb);
+    localStorage.setItem('moduleName', sub.ModuleName);
   }
 
   // Dùng để xóa IsSelected của từng module
