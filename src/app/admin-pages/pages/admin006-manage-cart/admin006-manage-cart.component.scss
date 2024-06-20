@@ -1,0 +1,18 @@
+@import '../../.././../styles.scss';
+
+::ng-deep{
+    app-admin006-manage-cart{
+        .headerFilter{
+            // background-color: red;
+            display: flex;
+            @include center-vertical;
+
+            .titlePage{
+                font-size: 14px;
+                font-weight: bold;
+                // background-color: aqua;
+                width: 190px;
+            }
+        }
+    }
+}
