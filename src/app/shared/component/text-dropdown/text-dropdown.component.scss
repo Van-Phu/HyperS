@@ -1,9 +1,17 @@
 @import '../../../../styles.scss';
 
-::ng-deep{
-    component-text-dropdown{
-        .text-dropdown{
-            display: inline-block;
+::ng-deep {
+  component-text-dropdown {
+    .text-dropdown {
+      display: inline-block;
+      
+      kendo-dropdownlist {
+        .k-input-value-text  {
+          display: flex;
+          justify-content: center;
         }
+      }
     }
+  }
 }
+
