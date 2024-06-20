@@ -41,11 +41,13 @@ export class TextInputComponent {
 
   onKeyDown(event: KeyboardEvent) {
     if (this.typeValue === 'number') {
-      if (!this.isNumber(event.key)) {
+      // Cho phép các ký tự số và các phím chức năng như backspace
+      if (!['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key) && !this.isNumber(event.key)) {
         event.preventDefault();
       }
     }
   }
+  
 
   isNumber(str: string) {
     return /^\d+$/.test(str);

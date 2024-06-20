@@ -1,0 +1,9 @@
+@import '../../../../styles.scss';
+
+::ng-deep{
+    component-text-dropdown{
+        .text-dropdown{
+            display: inline-block;
+        }
+    }
+}
