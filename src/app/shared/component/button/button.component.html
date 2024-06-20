@@ -1,0 +1,21 @@
+<div [ngStyle]="{
+    'width.px': width,
+    'height.px': height,
+    'color': color,
+    'background-color': bgColor,
+    'border-radius.px': rounded,
+    'border-width.px': borderWidth,
+    'border-color': borderColor,
+    'border-style': borderStyle,
+    'padding.px': padding,
+    'gap.px': gap,
+    'padding-top.px': paddingVertical,
+    'padding-bottom.px': paddingVertical,
+    'padding-left.px': paddingHorizontal,
+    'padding-right.px': paddingHorizontal,
+    'box-shadow': boxShadow,
+  }" class="component-button">
+
+    <i [ngStyle]="{ 'font-size.px': size }" *ngIf="classIconFontAwesome" class="fa-solid {{classIconFontAwesome}}"></i>
+    <span *ngIf="text" [ngStyle]="{ 'font-style': textStyle, 'font-weight': fontWeight, 'font-size.px': size }">{{ text }}</span>
+</div>

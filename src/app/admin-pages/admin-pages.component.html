@@ -1,8 +1,13 @@
 <div class="container">
     <div class="sidebar">
-        <app-sidebar></app-sidebar>
+        <app-sidebar-admin></app-sidebar-admin>
     </div>
     <div class="content">
-        <router-outlet></router-outlet>
+        <div class="header">
+            <app-header-admin></app-header-admin>
+        </div>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>
