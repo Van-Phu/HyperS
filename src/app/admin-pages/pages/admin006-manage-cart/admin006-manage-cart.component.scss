@@ -5,18 +5,23 @@
         .headerFilter{
             // background-color: red;
             display: flex;
+            overflow-x: auto;
+            // width: 100%;
+            padding: 0 10px;
+            justify-content: space-between;
             @include center-vertical;
 
             .titlePage{
                 font-size: 14px;
                 font-weight: bold;
                 // background-color: aqua;
-                width: 250px;
+                // width: 250px;
+                text-wrap: nowrap;
             }
 
             .searchBar{
                 // background-color: red;
-                width: 600px;
+                // width: 600px;
             }
             
             .line{

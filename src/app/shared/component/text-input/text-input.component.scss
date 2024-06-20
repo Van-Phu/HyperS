@@ -9,6 +9,7 @@
                 @include center-vertical;
                 width: 500px;
                 justify-content: space-between;
+                text-wrap: nowrap;
 
                 .nessesary{
                     color: red;
