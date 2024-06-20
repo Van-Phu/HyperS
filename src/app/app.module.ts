@@ -41,6 +41,9 @@ import { TextDropDownDirective } from './shared/directive/textdropdown.directive
 import { DatepickerComponent } from './admin-pages/shared/component/datepicker/datepicker.component';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
+import { GridModule } from "@progress/kendo-angular-grid";
+import { ButtonsModule } from "@progress/kendo-angular-buttons";
+import { GridComponent } from './shared/component/grid/grid.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,8 @@ import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
     TextDropdownComponent,
     TextDropDownDirective,
     DatepickerComponent,
-    StatusColorPipe
+    StatusColorPipe,
+    GridComponent
   ],
   imports: [
     BrowserModule,
@@ -84,10 +88,11 @@ import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
     EcomRoutingModule ,
     CommonModule,
     HttpClientModule,
-    InputsModule,
     LabelModule,
     DropDownsModule,
-    DateInputsModule
+    DateInputsModule,
+    GridModule,
+    ButtonsModule
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]

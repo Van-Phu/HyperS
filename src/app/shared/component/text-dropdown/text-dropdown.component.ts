@@ -19,4 +19,6 @@ export class TextDropdownComponent {
   @Input() borderWidth: number = 1;
   @Input() borderColor: string = '#B6B6B6';
   @Input() defaultItem: any;
+  @Input() textField: string;
+  @Input() valueField: string;
 }
