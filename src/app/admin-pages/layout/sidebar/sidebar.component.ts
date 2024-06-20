@@ -26,6 +26,7 @@ export class SidebarComponent {
       item.IsSelected = true
       this.router.navigate([item.RouteLink]);
       this.layoutService.setSelectedModule(item.BreadCrumb);
+      localStorage.setItem('routerLink', item.RouteLink);
     }
   }
 
@@ -36,6 +37,7 @@ export class SidebarComponent {
     item.IsSelected = true;
     sub.IsSelected = true;
     this.router.navigate([sub.RouteLink]);
+    localStorage.setItem('routerLink', sub.RouteLink);
   }
 
   // Dùng để xóa IsSelected của từng module
