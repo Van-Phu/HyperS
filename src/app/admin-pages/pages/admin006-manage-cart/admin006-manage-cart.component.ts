@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DTOStatusBill, listStatusBill } from '../../shared/dto/DTOStatusBill.dto';
+import { DTOStatus, listStatus } from '../../shared/dto/DTOStatus.dto';
 
 @Component({
   selector: 'app-admin006-manage-cart',
@@ -12,8 +12,8 @@ export class Admin006ManageCartComponent {
   maxDate: Date = new Date(this.currentDate.getFullYear() + 50, 12, 30);
   startDate: Date = this.minDate;
   endDate: Date = this.maxDate;
-  listStatus: DTOStatusBill[] = listStatusBill;
-  defaultItemStatusBill: DTOStatusBill ={
+  listStatus: DTOStatus[] = listStatus;
+  defaultItemStatusBill: DTOStatus ={
     Code: -1,
     Status: '-- Chọn --'
   }

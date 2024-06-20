@@ -13,7 +13,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class StatusColorPipe implements PipeTransform {
   transform(status: string): string {
     switch (status) {
-      case 'Đang soạn thảo':
+      case '':
         return '#23282c'; 
       case 'Gởi duyệt':
         return '#008cd7'; 

@@ -1,0 +1,12 @@
+::ng-deep{
+    .box-text-area{
+        display: flex;
+
+        label, kendo-textarea{
+            display: block;
+        }
+        label{
+            text-wrap: nowrap;
+        }
+    }
+}
