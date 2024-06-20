@@ -17,14 +17,16 @@ export class DatepickerComponent implements OnInit {
   @Output() datePicked = new EventEmitter();
   @Input() minDate: Date = new Date();
   @Input() maxDate: Date = new Date();
+  @Input() defaultValue: Date = new Date();
   @ViewChild('datePicker', { static: false }) datePicker!: DatePickerComponent;
-  valueDate: Date = null;
+
+  valueDate: Date = this.defaultValue;
 
   constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    
   }
+  
 
   public onChange(value: Date): void {
     this.datePicked.emit(value);

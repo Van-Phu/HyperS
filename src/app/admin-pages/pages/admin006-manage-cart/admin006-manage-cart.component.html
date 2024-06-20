@@ -6,4 +6,5 @@
         <div class="line"></div>
         <app-datepicker [minDate]="startDate" [maxDate]="maxDate" (datePicked)="getDateFromDatePicker($event, 'end')"></app-datepicker>
     </div>
+    <component-text-dropdown [listItem]="listStatus"></component-text-dropdown>
 </div>
