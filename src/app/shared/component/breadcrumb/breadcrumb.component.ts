@@ -16,10 +16,22 @@ export class BreadcrumbComponent implements OnInit {
   constructor(private router: Router, private layoutService: LayoutService) { }
 
   ngOnInit(): void {
-    this.getListModuleAndSub();
-    this.layoutService.selectedBreadcrumb$.subscribe(item => {
-      this.listItemBreadCrumb = item.split('/');
-    });
+    if(!localStorage.getItem('breadcrumb')){
+      localStorage.setItem('breadcrumb', 'Dashboard');
+      localStorage.setItem('moduleName', 'Dashboard');
+      localStorage.setItem('routerLink', '/admin/manage-dashboard');
+      this.layoutService.selectedBreadcrumb$.subscribe(item => {
+        this.listItemBreadCrumb = ['Dashboard'];
+      });
+    }
+    else{
+      this.getListModuleAndSub();
+      this.layoutService.selectedBreadcrumb$.subscribe(item => {
+        this.listItemBreadCrumb = item.split('/');
+      });
+      console.log(this.listItemBreadCrumb);
+      this.router.navigate([localStorage.getItem('routerLink')]);
+    }
   }
 
   // Sự kiện khi chọn vào item bất kỳ
