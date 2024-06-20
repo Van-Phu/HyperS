@@ -27,7 +27,7 @@ export class AdminPagesComponent implements OnInit, OnDestroy{
         })
       }
     })
-    console.log(currentUrl);
+    // console.log(currentUrl);
   }
   
   ngOnDestroy(): void {

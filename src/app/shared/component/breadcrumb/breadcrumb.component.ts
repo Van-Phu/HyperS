@@ -9,16 +9,17 @@ import { LayoutService } from 'src/app/admin-pages/shared/service/layout.service
   styleUrls: ['./breadcrumb.component.scss']
 })
 export class BreadcrumbComponent implements OnInit {
+  breadCrumb: string = '';
   listItemBreadCrumb: string[] = [];
   listModuleAndSub: DTOModule[] = [];
 
   constructor(private router: Router, private layoutService: LayoutService) { }
 
   ngOnInit(): void {
-    this.layoutService.selectedModule$.subscribe(item => {
+    this.getListModuleAndSub();
+    this.layoutService.selectedBreadcrumb$.subscribe(item => {
       this.listItemBreadCrumb = item.split('/');
     });
-    this.getListModuleAndSub();
   }
 
   // Sự kiện khi chọn vào item bất kỳ
