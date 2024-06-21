@@ -12,7 +12,7 @@ export class TextAreaComponent {
   @Input() color: string ="#000";
   @Input() colorLabel: string ="#000";
   @Input() width: number = 250;
-  @Input() height: number = 60;
+  @Input() height: number = 100;
   @Input() borderWidth: number = 1;
   @Input() borderColor: string ="#B6B6B6";
   @Input() borderStyle: string = "solid";
@@ -20,6 +20,7 @@ export class TextAreaComponent {
   @Input() labelWidth: number = 80;
   @Input() rounded: number = 5;
   @Input() label: string = 'Tiêu đề';
+  @Input() fontsize: number = 13;
   @Output() valueTextArea = new EventEmitter();
 
   // blur ra rồi emit
