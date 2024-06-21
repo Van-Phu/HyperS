@@ -20,9 +20,9 @@ export const listModule: DTOModule[] = [
                 RouteLink: '/admin/manage-user',
                 ModuleName: 'Thông tin người dùng',
                 IsChild: true,
-                IsSelected: true,
+                IsSelected: false,
                 ParentModule: 'Quản lý tài khoản',
-                IsExpanded: true,
+                IsExpanded: false,
                 BreadCrumb: 'Quản lý tài khoản/Thông tin người dùng'
             },
             {
@@ -31,13 +31,13 @@ export const listModule: DTOModule[] = [
                 IsChild: true,
                 IsSelected: false,
                 ParentModule: 'Quản lý tài khoản',
-                IsExpanded: true,
+                IsExpanded: false,
                 BreadCrumb: 'Quản lý tài khoản/Thông tin nhân viên'
             }
         ],
         IsChild: false,
-        IsSelected: true,
-        IsExpanded: true
+        IsSelected: false,
+        IsExpanded: false
     },
     {
         RouteLink: '/admin/manage-module',
@@ -53,7 +53,7 @@ export const listModule: DTOModule[] = [
         ModuleName: 'Dashboard',
         ClassIconFontAwesome: 'fa-chart-column',
         IsChild: false,
-        IsSelected: false,
+        IsSelected: true,
         IsExpanded: false,
         BreadCrumb: 'Dashboard'
     },

@@ -2,17 +2,22 @@
 
 .container {
     display: flex;
-}
+    width: 100vw;
 
-.sidebar {
-    height: 100vh;
-}
-
-.content{
-    width: 100%;
-    padding: 0 10px;
-
-    .header{
-        height: 60px;
+    .sidebar {
+        height: 100vh;
+    }
+    
+    .content{
+        width: calc(100vw - 268px);
+    
+        .header{
+            height: 60px;
+        }
+    
+        .content{
+            padding: 20px 0;
+        }
     }
 }
+

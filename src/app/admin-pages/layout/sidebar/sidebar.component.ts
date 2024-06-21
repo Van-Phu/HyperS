@@ -17,14 +17,18 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router, private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+    const dashboardModule = listModule.find(item => item.ModuleName === 'Dashboard');
+    if (!!!localStorage.getItem('moduleName')) {
+      this.onSelectItemDrawer(dashboardModule);
+      localStorage.setItem('breadcrumb', 'Dashboard');
+    }
     this.getListModuleAndSub();
     this.listModuleAndSub.forEach(module => {
       module.IsSelected = false;
-      if(module.ModuleName === localStorage.getItem('moduleName')){
+      if (module.ModuleName === localStorage.getItem('moduleName')) {
         module.IsSelected = true;
       }
     })
-    console.log(this.listModuleAndSub);
   }
 
   // Lấy danh sách các module và submodule
@@ -46,7 +50,7 @@ export class SidebarComponent implements OnInit {
     }
     else {
       this.clearSelectedModule();
-      item.IsSelected = true
+      item.IsSelected = true;
       this.router.navigate([item.RouteLink]);
       this.layoutService.setSelectedModule(item.ModuleName);
       this.layoutService.setSelectedBreadCrumb(item.BreadCrumb);

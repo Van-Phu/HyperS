@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: 'manage-cart', component: Admin006ManageCartComponent },
       { path: 'manage-schedule', component: Admin007ManageScheduleComponent },
       { path: 'calculate-salary', component: Admin008CalculateSalaryComponent },
-      { path: '', redirectTo: 'manage-user', pathMatch: 'full' }
+      { path: '', redirectTo: 'manage-dashboard', pathMatch: 'full' }
       // Add a redirect here if needed, or adjust the main redirect
     ]
   }
