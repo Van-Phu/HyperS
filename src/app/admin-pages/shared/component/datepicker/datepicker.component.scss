@@ -1,4 +1,4 @@
-@import '../../../../../styles.scss';
+@import '../../../../../../../styles.scss';
 
 ::ng-deep {
     .k-datepicker {
@@ -11,7 +11,7 @@
     }
 
     .k-datepicker:hover{
-        border: 1px solid $color-main !important;
+        border: 1px solid $dark-green !important;
         box-shadow: $box-shadow3;
     }
 
@@ -42,7 +42,7 @@
     height: 32px;
 
     .k-input-solid.k-focus:hover {
-        border: 1px solid $color-main !important;
+        border: 1px solid $dark-green !important;
         box-shadow: $box-shadow3;
     }
 
