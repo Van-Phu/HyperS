@@ -89,7 +89,6 @@ import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-produ
     ImportImageComponent,
     FormComponent,
     DropdownActionComponent,
-    DrawerDetailComponent
     DrawerDetailComponent,
     EcomProductCardComponent,
     EcomFilterProductComponent,
@@ -111,7 +110,7 @@ import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-produ
     DateInputsModule,
     GridModule,
     ButtonsModule,
-    UploadsModule
+    UploadsModule,
     NotificationModule
   ],
   providers: [LayoutService],
