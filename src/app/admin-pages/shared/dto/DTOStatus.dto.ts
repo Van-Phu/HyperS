@@ -23,7 +23,10 @@ export const listStatus: DTOStatus[] = [
     {
         Code: 5,
         Status: "Thất bại"
-    },
+    }
+]
+
+export const listStatusAccount: DTOStatus[] = [
     {
         Code: 6,
         Status: "Hoạt động"
@@ -31,5 +34,5 @@ export const listStatus: DTOStatus[] = [
     {
         Code: 7,
         Status: "Vô hiệu hóa"
-    },
+    }
 ]
