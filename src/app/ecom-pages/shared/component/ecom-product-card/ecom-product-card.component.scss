@@ -13,7 +13,7 @@
 
   .info-item{
     padding: 10px;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 20px;
     .name{
       font-weight: bold;
@@ -25,6 +25,7 @@
     .type{
       padding-bottom: 10px;
       color: #999999;
+      font-size: 18px;
     }
 
     .stock{
@@ -47,7 +48,8 @@
       }
 
       .price-discount{
-        color: red;
+        font-size: 14px;
+        color: rgb(206, 206, 206);
         text-decoration-line: line-through;
       }
     }

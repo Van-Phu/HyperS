@@ -14,15 +14,19 @@
                         For you
                     </div>
                     <div class="text-item-have">
-                        3 Your Style
+                        {{cart.ListProductInCart.length}} Your Style
                     </div>
                 </div>
                 <div class="under-line"></div>
                 <div class="item-area">
-                    <div class="item" *ngFor="let item of ListProductCart[0].ListProductCart">
+                    <div class="item" *ngFor="let item of cart.ListProductInCart">
                         <div class="infor">
+                            <label class="custom-checkbox">
+                                <input (change)="handleCheckItem(item)" name="dummy" type="checkbox">
+                                <span class="checkmark"></span>
+                              </label>
                             <div class="image">
-                                <img src="{{item.Product.ListOfImage[0].ImgUrl}}" alt="">
+                                <img src="{{item.Product.ListOfImage[1].ImgUrl}}" alt="">
                             </div>
 
                             <div class="info-area">
@@ -47,7 +51,7 @@
                                     </div>
                                     <div class="center-line">-</div>
                                     <div class="text">
-                                        {{item.SizeSelected}}
+                                        {{item.SizeSelected.Size}}
                                     </div>
                                 </div>  
                                
@@ -56,19 +60,19 @@
                         
                         <div class="price-area">
                             <div  class="final-price">
-                                {{item.Product.PriceAfterDiscount}}$
+                                {{item.Product.PriceAfterDiscount | number: '1.0-0'}}$
                             </div>
                             <div class="origin-price">
-                                {{item.Product.Price}}$
+                                {{item.Product.Price | number: '1.0-0'}}$
                             </div>
                         </div>
 
                         <div class="quantity-area">
-                            <i class="fa-solid fa-plus"></i>
+                            <i (click)="handleMinusQuantityProduct(item.Product.Code, item.SizeSelected.Code)" class="fa-solid fa-minus"></i>
                             <div class="quantity">
                                 <input class="input" type="text" [value]="item.Quantity">
                             </div>
-                            <i class="fa-solid fa-minus"></i>
+                            <i (click)="handleAddQuantityProduct(item.Product.Code, item.SizeSelected.Code)" class="fa-solid fa-plus"></i>
                         </div>
 
                         <div class="total-price-area">
@@ -76,10 +80,10 @@
                                 Total:
                             </div>
                             <div>
-                                {{item.TotalPriceOfProduct}}$
+                                {{item.TotalPriceOfProduct | number: '1.0-0'}}$
                             </div>
                         </div>
-                        <div class="delete-area">
+                        <div (click)="handleDeleteItem(item.Product.Code, item.SizeSelected.Code)" class="delete-area">
                             <i class="icon fa-solid fa-trash"></i>
                         </div>
                   
@@ -108,7 +112,7 @@
                                 Total items
                             </div>
                             <div class="text">
-                                {{ListProductCart[0].ListProductCart.length}}
+                                {{cart.ListProductInCart.length}}
                             </div>
                         </div>
                         <div class="item">
@@ -116,7 +120,7 @@
                                 SubTotal
                             </div>
                             <div class="text">
-                                {{ListProductCart[0].ListProductCart.length}}
+                                <!-- {{listProductCart}} -->
                             </div>
                         </div>
                     </div>
@@ -130,7 +134,7 @@
                             Total price
                         </div>
                         <div class="text-total-price">
-                            {{ListProductCart[0].TotalPriceCart}}
+                            <!-- {{listProductCart[0].TotalPriceCart}} -->
                         </div>
                     </div>
                     <div class="btn-checkout">
