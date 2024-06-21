@@ -1,7 +1,4 @@
 <div class="main">
-    <div (click)="log()">
-        click
-    </div>
     <div class="head-main">
         <div class="content-area">
             <div class="image-area">
@@ -37,14 +34,14 @@
                     </div>
                     <div class="list-size">
                         <div  *ngFor="let size of product.ListOfSize">
-                            <div (click)="handleSelectedSize(size.Code)" [ngClass]="size.Code == SizeSelected ? 'item-selected': 'item'">
+                            <div (click)="handleSelectedSize(size.Code)" [ngClass]="size.Code == sizeSelected ? 'item-selected': 'item'">
                                 {{size.Size}}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="btn-add-bag">
+                <div (click)="handleAddToBag()" class="btn-add-bag">
                     Add to bag
                 </div>
                 <div class="btn-favorite">

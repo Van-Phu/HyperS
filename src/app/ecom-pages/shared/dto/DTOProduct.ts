@@ -2,7 +2,7 @@ import { DTOImageProduct } from "./DTOImageProduct";
 import { DTOSize } from "./DTOSize";
 
 export class DTOProduct {
-    Code: Number = 0;
+    Code: number = 0;
     IdProduct: string = ""
     Name: string = "";
     Price: number = 0;
