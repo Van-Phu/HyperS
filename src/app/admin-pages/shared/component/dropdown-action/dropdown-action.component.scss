@@ -1,0 +1,13 @@
+::ng-deep{
+    component-dropdown-action{
+        .popup{
+            display: block;
+            background-color: red;
+            width: 155px;
+            .button-action{
+                width: 100%;
+                height: 24px;
+            }
+        }
+    }
+}

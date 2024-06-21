@@ -1,0 +1,154 @@
+@import '../../../../../styles.scss';
+
+::ng-deep {
+    component-import-image {
+        display: inline-block;
+        .k-dropzone-hint {
+            display: none !important;
+        }
+    
+        .k-button-solid {
+            border: none;
+            background: none;
+        }
+    
+        .k-dropzone.k-upload-dropzone {
+            border: none;
+            background: none;
+            padding: 0;
+    
+        }
+    
+        .k-upload .k-upload-button {
+            min-width: 0em;
+        }
+    
+        .k-upload {
+            border: none;
+            background: none;
+            display: flex;
+            flex-direction: column;    
+        }
+    
+        .k-upload-button-wrap {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: none;
+        }
+
+        .k-upload-button-wrap button:hover{
+            background: none;
+        }
+
+        .k-upload .k-dropzone,
+        .k-upload-dropzone {
+            background: none;
+            padding: 0;
+        }
+
+
+
+        .k-button-solid-base {
+            border: none;
+            background: none;
+        }
+
+
+
+        .k-rounded-md {
+            border-radius: 0;
+        }
+
+        .k-button-md {
+            padding: 0;
+        }
+
+        .k-upload-button-wrap {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: none;
+
+
+        }
+
+        .k-i-export {
+            font-size: 20px;
+        }
+
+        .p-import-image {
+            display: flex;
+            font-size: 13px;
+            height: 100%;
+            
+            .text-icon-container {
+                display: flex;
+                gap: 8px;
+
+                .text-image {
+                    font-weight: 600;
+                    display: flex;
+                    margin-top: 3px;
+                    text-wrap: nowrap;
+                }
+
+                .k-i-export {
+                    font-size: 18px;
+                    cursor: pointer;
+                }
+            }
+
+            .image-container {
+                display: flex;
+                flex-direction: column;
+                // padding-top: 10px;
+
+                .big-image,
+                .small-image {
+                    margin: 0 auto;
+                    // padding: 8px;
+                    position: relative;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+
+                    }
+
+                    #icon-delete {
+                        position: absolute;
+                        top: -6px;
+                        right: -6px;
+                        cursor: pointer;
+                        width: 10px;
+                        height: 10px;
+
+                        &:hover {
+                            fill: red;
+                            color: red;
+                        }
+                    }
+                }
+
+                // .big-image {
+                //     width: 226px;
+                //     height: 150px;
+                // }
+
+                // .small-image {
+                //     width: 76px;
+                //     height: 60px;
+                // }
+            }
+        }
+
+        .k-upload-files.k-reset.ng-star-inserted{
+            display: none;
+        }
+    }
+
+}
