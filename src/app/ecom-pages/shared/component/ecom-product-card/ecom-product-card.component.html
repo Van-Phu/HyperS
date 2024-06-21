@@ -1,0 +1,33 @@
+<div class="item" routerLink="ecom/product-detail" (click)="handleProductClick(product)">
+    <div class="image">
+        <img src=" https://product.hstatic.net/200000384787/product/hinh_hang_bigball_chunky_la_dodgers_mau_trang_xanh_3ashc101n-07whs__1__fc175cfad43a4512a62ee46302657a3b_master.jpg" alt="">
+    </div>
+    <div class="info-item">
+        <div class="name">
+            {{product.Name}}
+        </div>
+        <div class="type">
+            {{product.BrandName}}
+        </div>
+        <!-- <div class="stock">
+            <div class="titel">
+                stock:
+            </div>
+            <div class="text">
+                {{product.Stock}}
+            </div>
+
+        </div> -->
+
+        <div class="price-area">
+            <div *ngIf="product.PriceAfterDiscount < product.Price" class="price-sale">
+                {{product.PriceAfterDiscount}}đ
+            </div>
+            <span [ngClass]="{'price-discount': product.PriceAfterDiscount < product.Price, 'price': product.PriceAfterDiscount >= product.Price}" class="price">
+                {{ product.Price}}đ
+            </span>
+            
+
+        </div>
+    </div>
+</div>

@@ -50,8 +50,6 @@ import { ImportImageComponent } from './admin-pages/shared/component/import-imag
 import { FormComponent } from './admin-pages/shared/component/form/form.component';
 import { DropdownActionComponent } from './admin-pages/shared/component/dropdown-action/dropdown-action.component';
 import { DrawerDetailComponent } from './admin-pages/shared/component/drawer-detail/drawer-detail.component';
-import { UploadsModule } from '@progress/kendo-angular-upload';
-import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
 
 @NgModule({
   declarations: [
@@ -88,8 +86,7 @@ import { ImportImageDirective } from './admin-pages/shared/directive/import.dire
     ImportImageComponent,
     FormComponent,
     DropdownActionComponent,
-    DrawerDetailComponent,
-    ImportImageDirective
+    DrawerDetailComponent
   ],
   imports: [
     BrowserModule,
