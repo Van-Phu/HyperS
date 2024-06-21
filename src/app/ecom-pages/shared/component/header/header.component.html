@@ -24,7 +24,7 @@
             </div>
             <div routerLink="cart" class="cart">
                 <i class="icon fa-solid fa-cart-shopping"></i>
-                <div class="noitifi">3</div>
+                <div *ngIf="totalItemCart > 0" class="noitifi">{{totalItemCart}}</div>
             </div>
      
         </div>

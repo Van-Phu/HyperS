@@ -1,1 +1,21 @@
-<p>grid works!</p>
+<div class="component-grid">
+    <div class="header-component-grid">
+        <div class="title-header">{{titleGrid}}</div>
+        <ng-content select=".filter-header"></ng-content>
+    </div>
+
+    <kendo-grid 
+        [data]="gridData"
+        [loading]="isLoading">
+        <ng-content select=".grid-customize">
+
+        </ng-content>
+        <ng-content select=".body-grid"></ng-content>
+        <ng-content select=".footer-grid"></ng-content>
+        <kendo-grid-column field="ProductID" title="ID"> </kendo-grid-column>
+        <kendo-grid-column field="ProductName" title="Name"> </kendo-grid-column>
+        <kendo-grid-column field="Category.CategoryName" title="Category">
+        </kendo-grid-column>
+        <kendo-grid-column field="UnitPrice" title="Price"> </kendo-grid-column>
+    </kendo-grid>
+</div>
