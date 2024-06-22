@@ -6,7 +6,7 @@ import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } fro
   styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent {
-  @Input() value: string;
+  value: string ='';
   @Input() maxlength = 100;
   @Input() bgColor: string = "#fff";
   @Input() color: string ="#000";
@@ -24,5 +24,9 @@ export class TextAreaComponent {
   @Output() valueTextArea = new EventEmitter();
 
   // blur ra rồi emit
+  blur(){
+    console.log(this.value);
+    this.valueTextArea.emit(this.value);
+  }
   
 }

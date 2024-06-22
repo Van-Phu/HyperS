@@ -15,7 +15,8 @@ export class Admin006ManageCartComponent {
   listStatus: DTOStatus[] = listStatus;
   defaultItemStatusBill: DTOStatus ={
     Code: -1,
-    Status: '-- Chọn --'
+    Status: '-- Chọn --',
+    Icon: ""
   }
 
   getDateFromDatePicker(value: any, type: string){

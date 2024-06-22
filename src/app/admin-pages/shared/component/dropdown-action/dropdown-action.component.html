@@ -1,1 +1,10 @@
-<p>dropdown-action works!</p>
+<div class="popup">
+    <button class="button-action">
+        <i [ngStyle]="{ 'font-size.px': size }" *ngIf="classIconFontAwesome" class="fa-solid {{classIconFontAwesome}}"></i>
+        <span *ngIf="text" [ngStyle]="{ 'font-style': textStyle, 'font-weight': fontWeight, 'font-size.px': size }">{{ text }}</span>
+    </button>
+    <button class="button-action">b</button>
+    <button class="button-action">c</button>
+    <button class="button-action">d</button>
+
+</div>

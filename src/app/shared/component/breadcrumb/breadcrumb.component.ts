@@ -29,7 +29,6 @@ export class BreadcrumbComponent implements OnInit {
       this.layoutService.selectedBreadcrumb$.subscribe(item => {
         this.listItemBreadCrumb = item.split('/');
       });
-      console.log(this.listItemBreadCrumb);
       this.router.navigate([localStorage.getItem('routerLink')]);
     }
   }

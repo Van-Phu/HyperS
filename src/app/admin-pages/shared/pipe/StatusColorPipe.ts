@@ -15,14 +15,20 @@ export class StatusColorPipe implements PipeTransform {
     switch (status) {
       case '':
         return '#23282c'; 
-      case 'Gởi duyệt':
-        return '#008cd7'; 
-      case 'Duyệt áp dụng':
-        return '#316e00'; 
-      case 'Ngưng áp dụng':
-        return '#eb273a';
-      case 'Trả về':
-        return '#ffb900';
+      case 'Chờ xác nhận':
+        return '#23282c'; 
+      case 'Đang đóng gói':
+        return '#09880E'; 
+      case 'Đang vận chuyển':
+        return '#2480BD';
+      case 'Thất bại':
+        return '#FF1D1D';
+      case 'Thành công' :
+        return '#F1802E'
+      case 'Hoạt động' :
+        return '#09880E'
+      case 'Vô hiệu hóa':
+        return '#FF1D1D'
       default:
         return 'black';
     }

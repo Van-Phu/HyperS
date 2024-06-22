@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'component-dropdown-action',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./dropdown-action.component.scss']
 })
 export class DropdownActionComponent {
-
+  @Input() textStyle: string;
+  @Input() fontWeight: number = 600;
+  @Input() size: number = 14;
+  @Input() text: string = 'Chờ xác nhận';
+  @Input() classIconFontAwesome: string = 'fa-plus';
 }

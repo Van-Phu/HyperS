@@ -50,10 +50,12 @@ import { ImportImageComponent } from './admin-pages/shared/component/import-imag
 import { FormComponent } from './admin-pages/shared/component/form/form.component';
 import { DropdownActionComponent } from './admin-pages/shared/component/dropdown-action/dropdown-action.component';
 import { DrawerDetailComponent } from './admin-pages/shared/component/drawer-detail/drawer-detail.component';
+import { UploadsModule } from '@progress/kendo-angular-upload';
 import { EcomProductCardComponent } from './ecom-pages/shared/component/ecom-product-card/ecom-product-card.component';
 import { NotificationModule } from "@progress/kendo-angular-notification";
 import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-product/ecom-filter-product.component';
 import { FormsModule } from '@angular/forms';
+import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,6 +94,7 @@ import { FormsModule } from '@angular/forms';
     DrawerDetailComponent,
     EcomProductCardComponent,
     EcomFilterProductComponent,
+    ImportImageDirective
   ],
   imports: [
     BrowserModule,
@@ -110,9 +113,9 @@ import { FormsModule } from '@angular/forms';
     DateInputsModule,
     GridModule,
     ButtonsModule,
+    UploadsModule,
     NotificationModule,
     FormsModule
-    
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]
