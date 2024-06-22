@@ -54,6 +54,7 @@ import { UploadsModule } from '@progress/kendo-angular-upload';
 import { EcomProductCardComponent } from './ecom-pages/shared/component/ecom-product-card/ecom-product-card.component';
 import { NotificationModule } from "@progress/kendo-angular-notification";
 import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-product/ecom-filter-product.component';
+import { FormsModule } from '@angular/forms';
 import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
 import { PagerGridDirective } from './shared/directive/pagergrid.directive';
 @NgModule({
@@ -115,7 +116,8 @@ import { PagerGridDirective } from './shared/directive/pagergrid.directive';
     GridModule,
     ButtonsModule,
     UploadsModule,
-    NotificationModule
+    NotificationModule,
+    FormsModule
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]
