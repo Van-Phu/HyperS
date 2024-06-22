@@ -34,7 +34,10 @@ interface Product {
 export class GridComponent  implements OnInit, OnDestroy {
   @Input() titleGrid: string = 'Danh sách';
   @Input() isLoading: boolean = false;
-  @Input() initState: State = {}
+  @Input() listData: any[] = [];
+  @Input() initState: State = {};
+  @Input() listPageSize: number[] = [15, 30, 50, 75];
+  @Input() limitButton: number = 3;
 
   constructor(private gridService: GridService){}
 

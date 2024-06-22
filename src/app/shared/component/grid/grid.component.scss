@@ -82,6 +82,31 @@
                     padding: 0 !important;
                 }
             }
+
+            kendo-pager-page-sizes{
+                flex-direction: row-reverse;
+            }
+
+            .pager-buttons{
+                display: flex;
+            }
+
+            kendo-resize-sensor{
+                display: none;
+            }
+
+            kendo-pager{
+                display: flex;
+                justify-content: space-between;
+                background: none;
+                border: 1px solid #fff;
+            }
+
+            kendo-pager-numeric-buttons{
+                select{
+                    display: none;
+                }
+            }
         }
     }
 }

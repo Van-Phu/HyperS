@@ -55,6 +55,7 @@ import { EcomProductCardComponent } from './ecom-pages/shared/component/ecom-pro
 import { NotificationModule } from "@progress/kendo-angular-notification";
 import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-product/ecom-filter-product.component';
 import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
+import { PagerGridDirective } from './shared/directive/pagergrid.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +94,8 @@ import { ImportImageDirective } from './admin-pages/shared/directive/import.dire
     DrawerDetailComponent,
     EcomProductCardComponent,
     EcomFilterProductComponent,
-    ImportImageDirective
+    ImportImageDirective,
+    PagerGridDirective
   ],
   imports: [
     BrowserModule,
