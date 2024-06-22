@@ -2,34 +2,35 @@
 
 ::ng-deep{
     app-admin006-manage-cart{
-        .headerFilter{
-            // background-color: red;
-            display: flex;
-            overflow-x: auto;
-            // width: 100%;
-            padding: 0 10px;
-            justify-content: space-between;
-            @include center-vertical;
-
-            .titlePage{
-                font-size: 14px;
-                font-weight: bold;
-                // background-color: aqua;
-                // width: 250px;
-                text-wrap: nowrap;
-            }
-
-            .searchBar{
+            .headerFilter{
                 // background-color: red;
-                // width: 600px;
+                display: flex;
+                overflow-x: auto;
+                // width: 100%;
+                padding: 0 10px;
+                justify-content: space-between;
+                @include center-vertical;
+    
+                .titlePage{
+                    font-size: 14px;
+                    font-weight: bold;
+                    // background-color: aqua;
+                    // width: 250px;
+                    text-wrap: nowrap;
+                }
+    
+                .searchBar{
+                    // background-color: red;
+                    // width: 600px;
+                }
             }
-            
+    
             .line{
                 background-color: black;
                 width: 15px;
                 height: 2px;
             }
-
+    
             .timeStartEnd{
                 display: flex;
                 justify-content: space-between;
@@ -37,6 +38,5 @@
                 // background-color: red;
                 width: 310px;
             }
-        }
     }
 }
