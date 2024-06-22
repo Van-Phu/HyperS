@@ -1,12 +1,14 @@
 ::ng-deep{
     component-dropdown-action{
-        .popup{
-            display: block;
-            background-color: red;
-            width: 155px;
-            .button-action{
-                width: 100%;
-                height: 24px;
+        .dropdown{
+            display: inline-block;
+            component-button{
+                .component-button:hover{
+                    &:hover{
+                        filter: brightness(90%);
+                    }
+                }
+
             }
         }
     }
