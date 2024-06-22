@@ -21,4 +21,6 @@ export class TextDropdownComponent {
   @Input() defaultItem: any;
   @Input() textField: string;
   @Input() valueField: string;
+  @Input() size: number = 15;
+
 }
