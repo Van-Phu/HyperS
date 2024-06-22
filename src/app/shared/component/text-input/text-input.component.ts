@@ -19,7 +19,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class TextInputComponent {
   @Input() label: string = 'Textbox';
   @Input() placeholder: string = '';
-  @Input() widthBlock: number = 400;
+  @Input() widthBlock: number = 450;
   @Input() widthTextBox: number = 300;
   @Input() heightTextBox: number = 30;
   @Input() bgColor: string = '#fff';
@@ -31,6 +31,7 @@ export class TextInputComponent {
   @Input() borderWidth: number = 1;
   @Input() borderColor: string = '#B6B6B6';
   @Input() typeValue: 'text' | 'number' = 'number';
+  @Input() size: number = 15;
   @Output() getValue = new EventEmitter();
   valueTextBox: string = '';
 
