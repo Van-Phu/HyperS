@@ -22,6 +22,9 @@ export class EcomCartComponent implements OnInit{
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
   requestGetListCart: DTOGetListCartRequest = {CodeCustomer: null, ListGuessCartProduct: []}
   listItemSelected: DTOProductInCart[] = []
+  subTotalItem: number = 0
+  totalPrice: number = 0
+  totalItem: number = 0
 
 
   constructor(private cartService: CartService, private notificationService: NotiService){}
@@ -40,7 +43,6 @@ export class EcomCartComponent implements OnInit{
   }
 
   APIGetListCartProduct(){
-    console.log("call api");
     this.cartService.getListCartProduct(this.requestGetListCart).pipe(takeUntil(this.destroy)).subscribe(data =>{
       if(data.ErrorString != "" || data.StatusCode != 0){
         this.notificationService.Show("😭, Erorr when fetching data", "error")
@@ -113,14 +115,25 @@ export class EcomCartComponent implements OnInit{
   }
 
   handleCheckItem(itemGet: DTOProductInCart){
-
     const index = this.listItemSelected.findIndex(item =>item.Product.Code == itemGet.Product.Code && item.SizeSelected.Code == itemGet.SizeSelected.Code)
     if(index != -1){
       this.listItemSelected.splice(index, 1)
     }else{
       this.listItemSelected.push(itemGet)
     }
-
+    this.handleCalPrice()
     console.log(this.listItemSelected);
+  }
+
+  handleCalPrice(){
+    let subtotal:number = 0
+    let totalItem: number = 0
+    this.listItemSelected.forEach(element => {
+      subtotal += element.TotalPriceOfProduct
+      totalItem += element.Quantity
+    });
+    this.subTotalItem = subtotal
+    this.totalPrice = subtotal
+    this.totalItem = totalItem
   }
 }

@@ -12,6 +12,7 @@ const routes: Routes = [
     component: EcomPagesComponent,
     children: [
       { path: 'home', component: FeaturedComponent},
+      { path: 'shose', component: EcomShoesComponent, children: []},
       { path: 'shose', component: EcomShoesComponent},
       { path: 'cart', component: EcomCartComponent},
       { path: 'product-detail', component: EcomProductDetailsComponent},
