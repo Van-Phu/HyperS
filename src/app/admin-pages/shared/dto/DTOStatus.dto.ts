@@ -1,5 +1,5 @@
 export class DTOStatus {
-    Code: number = 0;
+    Code: number;
     Status: string;
     Icon: string;
 }
@@ -18,7 +18,7 @@ export const listStatus: DTOStatus[] = [
     {
         Code: 3,
         Status: "Đang vận chuyển",
-        Icon: "fa-caravan"
+        Icon: "fa-cart-flatbed"
     },
     {
         Code: 4,

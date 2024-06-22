@@ -1,10 +1,9 @@
-<div class="popup">
-    <button class="button-action">
-        <i [ngStyle]="{ 'font-size.px': size }" *ngIf="classIconFontAwesome" class="fa-solid {{classIconFontAwesome}}"></i>
-        <span *ngIf="text" [ngStyle]="{ 'font-style': textStyle, 'font-weight': fontWeight, 'font-size.px': size }">{{ text }}</span>
-    </button>
-    <button class="button-action">b</button>
-    <button class="button-action">c</button>
-    <button class="button-action">d</button>
+<div class="dropdown" [ngStyle]="{
+    'border-radius': rounded,
+}">
+    <div *ngFor="let item of listItem" (click)="onClickItemDropdown(item.Code)">
+      <component-button [classIconFontAwesome]="item.Icon" [text]="item.Status" [value]="item.Code" [width]="165" [rounded]="0" [bgColor]="'#E4E4E4'" [color]="'#000000'" ></component-button>
+    </div>
+  </div>
 
-</div>
+  
