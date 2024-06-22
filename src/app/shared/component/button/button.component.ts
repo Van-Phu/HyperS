@@ -31,6 +31,7 @@ export class ButtonComponent {
   @Input() textStyle: string;
   @Input() fontWeight: number = 600;
   @Input() value: any;
+  @Input() justify: string = "center";
   @Output() sendValue = new EventEmitter();
 
   onClickButton(){

@@ -1,9 +1,12 @@
+@import '../../../../../styles.scss';
+
 ::ng-deep{
     component-dropdown-action{
         .dropdown{
+            box-shadow: $box-shadow3;
             display: inline-block;
             component-button{
-                .component-button:hover{
+                .component-button{
                     &:hover{
                         filter: brightness(90%);
                     }
