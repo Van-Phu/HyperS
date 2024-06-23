@@ -1,8 +1,94 @@
-<div class="content">
-    <div class="sidebar">
-        this shose component
-    </div>
-    <div class="grid-show ">
+<div class="main">
+    <div class="content">
+        <div class="sidebar">
+            <div class="content-sidebar">
+                    <div class="filter filter-type">
+                        <div class="title">
+                            Category
+                        </div>
+                        <div *ngFor="let type of listProductType">
+                            <div class="type">
+                                <label class="custom-checkbox">
+                                    <input (change)="handleSelectedCatelogy(type)" name="dummy" type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div [ngClass]="type.Code == typeSelected ? 'type-selected' : 'item-type'">
+                                    {{type.Name}}
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
         
+                    <div class="filter filter-gender">
+                        <div class="title">
+                            Gender
+                        </div>
+                        <div *ngFor="let gen of listGender">
+                            <div class="gender">
+                                <label class="custom-checkbox">
+                                    <input [checked]="gen.checked" (change)="handleSelectedGender(gen)" name="dummy" type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div>
+                                    {{gen.text}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="filter filter-price">
+                        <div class="title">
+                            Price
+                        </div>
+                        <div>
+                            <kendo-rangeslider
+                                tickPlacement="none"
+                                [min]="minRange"
+                                [max]="maxRange"
+                                [(ngModel)]="valueRange"
+                                (valueChange)="handleValuePriceChange()"
+                            ></kendo-rangeslider>
+                            <div>
+                                {{minPrice | number: '1.0-0'}} / {{maxPrice | number: '1.0-0'}}
+                            </div>
+                        </div>
+                    </div>
+        
+        
+                    <div class="filter filter-brand">
+                        <div class="title">
+                            Brand
+                        </div>
+                        <div *ngFor="let brand of listBrand">
+                            <div class="brand">
+                                <label class="custom-checkbox">
+                                    <input (change)="handleSelectedBrand(brand)" name="dummy" type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div>
+                                    {{brand.BrandName}}
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+        
+                    <div (click)="handleApplyFilter()" class="btn-apply"> 
+                        {{"apply" | uppercase}}
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            
+        <div class="grid-show">
+            <div class="product-list">
+                <div class="item" *ngFor="let product of ListProduct">
+                    <app-ecom-product-card [product]="product"></app-ecom-product-card>
+                </div>
+            </div>
+        </div>
     </div>
+    
 </div>
