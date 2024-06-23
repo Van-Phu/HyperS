@@ -2,6 +2,8 @@
 
 ::ng-deep {
     component-grid {
+        position: absolute;
+        bottom: 0;
         .component-grid {
             width: 100%;
 
@@ -99,7 +101,7 @@
                 display: flex;
                 justify-content: space-between;
                 background: none;
-                border: 1px solid #fff;
+                border-top: 1px solid black;
             }
 
             kendo-pager-numeric-buttons{

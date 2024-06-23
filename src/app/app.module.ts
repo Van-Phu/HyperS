@@ -43,7 +43,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
 import { GridModule } from "@progress/kendo-angular-grid";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
-import { GridComponent } from './shared/component/grid/grid.component';
+import { GridComponentCustom } from './shared/component/grid/grid.component';
 import { TextAreaComponent } from './shared/component/text-area/text-area.component';
 import { PopupConfirmComponent } from './shared/component/popup-confirm/popup-confirm.component';
 import { ImportImageComponent } from './admin-pages/shared/component/import-image/import-image.component';
@@ -85,7 +85,7 @@ import { PagerGridDirective } from './shared/directive/pagergrid.directive';
     TextDropDownDirective,
     DatepickerComponent,
     StatusColorPipe,
-    GridComponent,
+    GridComponentCustom,
     TextAreaComponent,
     PopupConfirmComponent,
     ImportImageComponent,

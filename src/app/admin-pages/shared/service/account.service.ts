@@ -4,25 +4,26 @@ import { Observable } from 'rxjs';
 import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AccountService {
-  urlGetListCartProduct = "https://hypersapi.onrender.com/api/Cart/GetListCartProduct"
+    private direct = 'https://hypersapi.onrender.com';
+    private urlGetListCustomer = this.direct + "/api/Customer/GetListCustomer";
 
-  constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient) { }
 
-  getHttpOptions() {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-  }
+    getHttpOptions() {
+        return {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
 
-  getListCustomer():Observable<DTOResponse>{
-    const httpOption = this.getHttpOptions()
-    const body = {}
-    return this.httpClient.post<DTOResponse>(this.urlGetListCartProduct, body, httpOption).pipe()
-  }
+    getListCustomer(): Observable<DTOResponse> {
+        const httpOption = this.getHttpOptions()
+        const body = {}
+        return this.httpClient.post<DTOResponse>(this.urlGetListCustomer, body, httpOption).pipe()
+    }
 
 }

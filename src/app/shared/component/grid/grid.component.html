@@ -1,20 +1,12 @@
 <div class="component-grid">
     <div class="header-component-grid">
-        <div class="title-header">{{titleGrid}}</div>
-        <ng-content select=".filter-header"></ng-content>
+        <div class="title-header">{{ titleGrid }}</div>
     </div>
 
-    <kendo-grid [kendoGridBinding]="gridData" [loading]="isLoading" [pageable]="true" [pageSize]="listPageSize[0]">
-        <ng-content select=".grid-customize">
-
-        </ng-content>
-        <ng-content select=".body-grid"></ng-content>
-        <ng-content select=".footer-grid"></ng-content>
-        <kendo-grid-column field="ProductID" title="ID"> </kendo-grid-column>
-        <kendo-grid-column field="ProductName" title="Name"> </kendo-grid-column>
-        <kendo-grid-column field="Category.CategoryName" title="Category">
-        </kendo-grid-column>
-        <kendo-grid-column field="UnitPrice" title="Price"> </kendo-grid-column>
+    <kendo-grid #myCustomGrid [data]="listData" [loading]="isLoading" [pageable]="true" [pageSize]="listPageSize[0]">
+        <ng-container *ngFor="let template of templates">
+            <ng-container *ngTemplateOutlet="template"></ng-container>
+        </ng-container>
 
         <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
             <kendo-pager-page-sizes pagerGrid [pageSizes]="listPageSize"></kendo-pager-page-sizes>
