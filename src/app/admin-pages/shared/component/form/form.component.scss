@@ -1,0 +1,19 @@
+::ng-deep{
+    component-form{
+        .boxForm{
+            background-color: aqua;
+            width: 1632px;
+            .label{
+                font-size: 16px;
+                font-weight: 600;
+                text-wrap: nowrap;
+            }
+            
+            .form{
+                background-color: red;
+                height: 200px;
+                padding: 15px;
+            }
+        }
+    }
+}
