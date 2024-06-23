@@ -34,7 +34,7 @@ export class FeaturedComponent implements OnDestroy {
 
 
   APIGetListProductDesc(filter: State): void {
-    this.productService.getListProductDesc(filter).pipe(takeUntil(this.destroy)).subscribe(data => {
+    this.productService.getListProduct(filter).pipe(takeUntil(this.destroy)).subscribe(data => {
       if(data.ErrorString != "" || data.StatusCode != 0){
         alert("Lỗi khi lấy api ")
         return

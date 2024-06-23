@@ -2,6 +2,8 @@
 
 ::ng-deep {
     component-grid {
+        position: absolute;
+        bottom: 0;
         .component-grid {
             width: 100%;
 
@@ -80,6 +82,31 @@
 
                 .k-grid-header{
                     padding: 0 !important;
+                }
+            }
+
+            kendo-pager-page-sizes{
+                flex-direction: row-reverse;
+            }
+
+            .pager-buttons{
+                display: flex;
+            }
+
+            kendo-resize-sensor{
+                display: none;
+            }
+
+            kendo-pager{
+                display: flex;
+                justify-content: space-between;
+                background: none;
+                border-top: 1px solid black;
+            }
+
+            kendo-pager-numeric-buttons{
+                select{
+                    display: none;
                 }
             }
         }

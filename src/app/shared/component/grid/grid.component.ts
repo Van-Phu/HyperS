@@ -1,24 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { CompositeFilterDescriptor, State } from '@progress/kendo-data-query';
+import { AfterContentInit, Component, ContentChildren, Input, OnDestroy, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { State } from '@progress/kendo-data-query';
 import { GridService } from '../../service/grid.service';
 import { Subscription } from 'rxjs';
-interface Product {
-  ProductID: number;
-  ProductName: string;
-  SupplierID?: number;
-  CategoryID?: number;
-  QuantityPerUnit?: string;
-  UnitPrice: number;
-  UnitsInStock?: number;
-  UnitsOnOrder?: number;
-  ReorderLevel?: number;
-  Discontinued?: boolean;
-  Category: {
-    CategoryID: number;
-    CategoryName: string;
-    Description?: string;
-  };
-}
+import { ColumnComponent, GridComponent } from '@progress/kendo-angular-grid';
 
 /**
  * Cách sử dụng component grid:
@@ -31,55 +15,39 @@ interface Product {
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent  implements OnInit, OnDestroy {
+export class GridComponentCustom implements OnInit, OnDestroy, AfterContentInit {
   @Input() titleGrid: string = 'Danh sách';
   @Input() isLoading: boolean = false;
-  @Input() initState: State = {}
+  @Input() listData: any[] = [];
+  @Input() initState: State = {};
+  @Input() listPageSize: number[] = [15, 30, 50, 75];
+  @Input() limitButton: number = 3;
+  // @ViewChild('myCustomGrid') public customGrid: GridComponent;
+  // @ContentChildren(ColumnComponent) columns: QueryList<ColumnComponent>;
+  // @ContentChildren(TemplateRef) templates: QueryList<TemplateRef<any>>;
 
-  constructor(private gridService: GridService){}
+  @ViewChild('myCustomGrid') public customGrid: GridComponent;
+  @ContentChildren(ColumnComponent) columns: QueryList<ColumnComponent>;
+  @ContentChildren(TemplateRef) templates: QueryList<TemplateRef<any>>;
+  
+
+  constructor(private gridService: GridService) { }
+  ngAfterContentInit(): void {
+    console.log(this.columns.toArray());
+  }
 
   private subscription: Subscription;
-  
+
   ngOnInit(): void {
     this.getDataFilter();
   }
 
   // Hàm nhận dataFilter từ component cha thông qua service ngay khi có sự thay đổi
-  getDataFilter(){
+  getDataFilter() {
     this.subscription = this.gridService.filter$.subscribe(data => {
-      console.log(data);
+      // console.log(data);
     })
   }
-
-  public gridData: Product[] = [
-    {
-      ProductID: 1,
-      ProductName: "Chai",
-      UnitPrice: 18,
-      Category: {
-        CategoryID: 1,
-        CategoryName: "Beverages",
-      },
-    },
-    {
-      ProductID: 2,
-      ProductName: "Chang",
-      UnitPrice: 19,
-      Category: {
-        CategoryID: 1,
-        CategoryName: "Beverages",
-      },
-    },
-    {
-      ProductID: 3,
-      ProductName: "Aniseed Syrup",
-      UnitPrice: 10,
-      Category: {
-        CategoryID: 2,
-        CategoryName: "Condiments",
-      },
-    },
-  ];
 
   ngOnDestroy(): void {
     if (this.subscription) {

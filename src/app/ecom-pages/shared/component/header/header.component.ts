@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
     this.dataModuleHeader.forEach(element => {
       if(element.id == action){
         element.isSelected = true
+        localStorage.setItem('headerRoute', element.text)
       }
       else{
         element.isSelected = false

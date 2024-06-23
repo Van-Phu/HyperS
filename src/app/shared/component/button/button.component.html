@@ -14,7 +14,8 @@
     'padding-left.px': paddingHorizontal,
     'padding-right.px': paddingHorizontal,
     'box-shadow': boxShadow,
-  }" class="component-button">
+    'justify-content':justify,
+  }" class="component-button" (click)="onClickButton()">
 
     <i [ngStyle]="{ 'font-size.px': size }" *ngIf="classIconFontAwesome" class="fa-solid {{classIconFontAwesome}}"></i>
     <span *ngIf="text" [ngStyle]="{ 'font-style': textStyle, 'font-weight': fontWeight, 'font-size.px': size }">{{ text }}</span>

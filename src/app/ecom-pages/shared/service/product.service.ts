@@ -14,6 +14,9 @@ export class ProductService {
 
   urlGetListProduct = "https://hypersapi.onrender.com/api/Product/GetListProduct"
   urlGetProductByID = "https://hypersapi.onrender.com/api/Product/GetProduct"
+  urlGetListProductType = "https://hypersapi.onrender.com/api/Product/GetListProductType"
+  urlGetListBrand = "https://hypersapi.onrender.com/api/Brand/GetAllBrands"
+
 
   getHttpOptions() {
     return {
@@ -25,15 +28,15 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
   
-  getListProduct():Observable<DTOResponse>{
-    const httpOption = this.getHttpOptions()
-    const body = {}
-    return this.httpClient.post<DTOResponse>(this.urlGetListProduct, body, httpOption)
-    .pipe(
-    );
-  }
+  // getListProduct():Observable<DTOResponse>{
+  //   const httpOption = this.getHttpOptions()
+  //   const body = {}
+  //   return this.httpClient.post<DTOResponse>(this.urlGetListProduct, body, httpOption)
+  //   .pipe(
+  //   );
+  // }
 
-  getListProductDesc( filter: State): Observable<DTOResponse> {
+  getListProduct( filter: State): Observable<DTOResponse> {
     const httpOptions = this.getHttpOptions();
     return this.httpClient.post<DTOResponse>(this.urlGetListProduct, filter, httpOptions)
       .pipe(
@@ -51,6 +54,18 @@ export class ProductService {
     }
     return this.httpClient.post<DTOResponse>(this.urlGetProductByID, body, httpOptions)
     .pipe();
+  }
+
+  getListProductType():Observable<DTOResponse>{
+    const httpOptions = this.getHttpOptions();
+    const body = {}
+    return this.httpClient.post<DTOResponse>(this.urlGetListProductType, body, httpOptions)
+  }
+
+  getListBrand():any{
+    const httpOptions = this.getHttpOptions();
+    const body = {}
+    return this.httpClient.post<DTOResponse>(this.urlGetListBrand, body, httpOptions)
   }
 
 }

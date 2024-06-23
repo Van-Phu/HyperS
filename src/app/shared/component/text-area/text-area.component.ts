@@ -20,7 +20,8 @@ export class TextAreaComponent {
   @Input() labelWidth: number = 80;
   @Input() rounded: number = 5;
   @Input() label: string = 'Tiêu đề';
-  @Input() fontsize: number = 13;
+  @Input() fontsize: number = 15;
+  @Input() widthBox: number = 300;
   @Output() valueTextArea = new EventEmitter();
 
   // blur ra rồi emit

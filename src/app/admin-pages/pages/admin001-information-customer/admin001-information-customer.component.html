@@ -1,1 +1,9 @@
-<component-text-dropdown></component-text-dropdown>
+<component-grid titleGrid="Danh sách khách hàng" [isLoading]="isLoading" [listData]="listOriginCustomer">
+    <ng-template let-data>
+        <kendo-grid-column title="Code" field="Code">
+        </kendo-grid-column>
+        <kendo-grid-column title="Name" field="Name">
+        </kendo-grid-column>
+
+    </ng-template>
+</component-grid>

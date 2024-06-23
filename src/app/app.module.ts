@@ -43,7 +43,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
 import { GridModule } from "@progress/kendo-angular-grid";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
-import { GridComponent } from './shared/component/grid/grid.component';
+import { GridComponentCustom } from './shared/component/grid/grid.component';
 import { TextAreaComponent } from './shared/component/text-area/text-area.component';
 import { PopupConfirmComponent } from './shared/component/popup-confirm/popup-confirm.component';
 import { ImportImageComponent } from './admin-pages/shared/component/import-image/import-image.component';
@@ -54,7 +54,9 @@ import { UploadsModule } from '@progress/kendo-angular-upload';
 import { EcomProductCardComponent } from './ecom-pages/shared/component/ecom-product-card/ecom-product-card.component';
 import { NotificationModule } from "@progress/kendo-angular-notification";
 import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-product/ecom-filter-product.component';
+import { FormsModule } from '@angular/forms';
 import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
+import { PagerGridDirective } from './shared/directive/pagergrid.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +86,7 @@ import { ImportImageDirective } from './admin-pages/shared/directive/import.dire
     TextDropDownDirective,
     DatepickerComponent,
     StatusColorPipe,
-    GridComponent,
+    GridComponentCustom,
     TextAreaComponent,
     PopupConfirmComponent,
     ImportImageComponent,
@@ -93,7 +95,8 @@ import { ImportImageDirective } from './admin-pages/shared/directive/import.dire
     DrawerDetailComponent,
     EcomProductCardComponent,
     EcomFilterProductComponent,
-    ImportImageDirective
+    ImportImageDirective,
+    PagerGridDirective
   ],
   imports: [
     BrowserModule,
@@ -113,7 +116,8 @@ import { ImportImageDirective } from './admin-pages/shared/directive/import.dire
     GridModule,
     ButtonsModule,
     UploadsModule,
-    NotificationModule
+    NotificationModule,
+    FormsModule
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]
