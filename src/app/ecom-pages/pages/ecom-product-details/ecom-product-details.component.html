@@ -22,10 +22,10 @@
                 </div>
                 <div class="price-area">
                     <div class="price">
-                        {{product.PriceAfterDiscount}}đ
+                        {{product.PriceAfterDiscount | number: "1.0-0"}}đ
                     </div>
-                    <div  class="price-origin">
-                        {{product.Price}}đ
+                    <div *ngIf="product.PriceAfterDiscount < product.Price" class="price-origin">
+                        {{product.Price | number: "1.0-0"}}đ
                     </div>
                 </div>
                 <div class="size-area">

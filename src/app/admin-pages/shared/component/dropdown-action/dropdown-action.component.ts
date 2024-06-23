@@ -19,10 +19,9 @@ export class DropdownActionComponent{
   
 
   //truyen Output khi click item trong dropdown-action
-  onClickItemDropdown(value: any){
-    if(value){
-      alert(value)
-      this.sendValue.emit(value);
+  onClickItemDropdown(obj: any){
+    if(obj){
+      this.sendValue.emit(obj);
     }
   }
 }

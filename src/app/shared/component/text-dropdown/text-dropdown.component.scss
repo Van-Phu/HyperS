@@ -3,10 +3,11 @@
 ::ng-deep {
   component-text-dropdown {
     .text-dropdown {
-      display: inline-block;
-
+      display: flex;
+      justify-content: space-between;
       .label{
         text-wrap: nowrap;
+        @include center-vertical;
       }
       
       kendo-dropdownlist {
