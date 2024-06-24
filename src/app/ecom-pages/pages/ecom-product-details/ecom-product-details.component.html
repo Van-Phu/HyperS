@@ -1,9 +1,11 @@
+<app-loading [isLoading]="isLoading"></app-loading>
+
 <div class="main">
     <div class="head-main">
         <div class="content-area">
             <div class="image-area">
                 <div class="list-image">
-                    <div class="image" *ngFor="let item of product.ListOfImage">
+                    <div class="image" *ngFor="let item of product?.ListOfImage">
                         <img (click)="handleChangeImageShow(item.ImgUrl)" src="{{item.ImgUrl}}" alt="">
                     </div>
                 </div>
@@ -15,17 +17,17 @@
             </div>
             <div class="info-area">
                 <div class="name">
-                    {{product.Name}}
+                    {{product?.Name}}
                 </div>
                 <div class="type">
-                    {{product.ProductType}}
+                    {{product?.ProductType}}
                 </div>
                 <div class="price-area">
                     <div class="price">
-                        {{product.PriceAfterDiscount | number: "1.0-0"}}đ
+                        {{product?.PriceAfterDiscount | number: "1.0-0"}}đ
                     </div>
-                    <div *ngIf="product.PriceAfterDiscount < product.Price" class="price-origin">
-                        {{product.Price | number: "1.0-0"}}đ
+                    <div *ngIf="product?.PriceAfterDiscount < product?.Price" class="price-origin">
+                        {{product?.Price | number: "1.0-0"}}đ
                     </div>
                 </div>
                 <div class="size-area">
@@ -33,7 +35,7 @@
                         Your size
                     </div>
                     <div class="list-size">
-                        <div  *ngFor="let size of product.ListOfSize">
+                        <div  *ngFor="let size of product?.ListOfSize">
                             <div (click)="handleSelectedSize(size.Code)" [ngClass]="size.Code == sizeSelected ? 'item-selected': 'item'">
                                 {{size.Size}}
                             </div>

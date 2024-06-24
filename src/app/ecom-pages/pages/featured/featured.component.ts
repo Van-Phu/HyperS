@@ -58,7 +58,11 @@ export class FeaturedComponent implements OnDestroy {
   }
 
   navigateToDetail() {
-    console.log(1);
     this.router.navigate(['ecom/product-detail'])
+  }
+
+  handleGetShoses(router: string, type: string){
+    localStorage.setItem('headerRoute', router)
+    this.router.navigate(['ecom/shose'])
   }
 }

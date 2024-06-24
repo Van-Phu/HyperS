@@ -56,6 +56,8 @@ import { NotificationModule } from "@progress/kendo-angular-notification";
 import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-product/ecom-filter-product.component';
 import { FormsModule } from '@angular/forms';
 import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
+import { LoadingComponent } from './ecom-pages/shared/component/loading/loading.component';
+import { PaymentComponent } from './ecom-pages/pages/payment/payment.component';
 import { PagerGridDirective } from './shared/directive/pagergrid.directive';
 import { ImportMultiImageComponent } from './admin-pages/shared/component/import-multi-image/import-multi-image.component';
 import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-manage-product/admin009-manage-product.component';
@@ -98,6 +100,8 @@ import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-man
     EcomProductCardComponent,
     EcomFilterProductComponent,
     ImportImageDirective,
+    LoadingComponent,
+    PaymentComponent,
     PagerGridDirective,
     ImportMultiImageComponent,
     Admin009ManageProductComponent

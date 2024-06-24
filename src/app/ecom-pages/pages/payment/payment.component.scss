@@ -1,0 +1,32 @@
+::ng-deep{
+    app-payment{
+        centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          };
+        .main{
+            height: 100%;
+            width: 100%;
+   
+            .content{
+                @extend centered;
+                margin-top: 30px;
+                gap: 50px;
+                .info-area{
+                    width: 700px;
+                    height: 800px;
+                    background-color: red;
+                    border-radius: 10px;
+                }
+
+                .price-area{
+                    width: 500px;
+                    height: 800px;
+                    background-color: blue;
+                    border-radius: 10px;
+                }
+            }
+        }
+    }
+}

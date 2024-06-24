@@ -9,6 +9,7 @@ import { DTOGetListCartRequest } from '../../shared/dto/DTOGetListCartRequest';
 import { takeUntil } from 'rxjs/operators';
 import { NotiService } from '../../shared/service/noti.service';
 import { DTOProductInCart } from '../../shared/dto/DTOProductInCart';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ecom-cart',
@@ -17,7 +18,6 @@ import { DTOProductInCart } from '../../shared/dto/DTOProductInCart';
 })
 export class EcomCartComponent implements OnInit{
   cart: DTOCart 
-  // listProductCart: DTOProductInCart[] = []
   listGuessCartProduct: DTOGuessCartProduct[] = []
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
   requestGetListCart: DTOGetListCartRequest = {CodeCustomer: null, ListGuessCartProduct: []}
@@ -25,12 +25,15 @@ export class EcomCartComponent implements OnInit{
   subTotalItem: number = 0
   totalPrice: number = 0
   totalItem: number = 0
+  isLoading: boolean = false
 
 
-  constructor(private cartService: CartService, private notificationService: NotiService){}
+  constructor(private router: Router,private cartService: CartService, private notificationService: NotiService){
+    this.getDataInCache()
+
+  }
   
   ngOnInit(): void {
-    this.getDataInCache()
     this.APIGetListCartProduct()
   }
 
@@ -54,8 +57,7 @@ export class EcomCartComponent implements OnInit{
   handleAddQuantityProduct(code: number, size: number){
     const productCart = localStorage.getItem('cacheCart')
     const listData = JSON.parse(productCart) as DTOGuessCartProduct[]
-
-    let item = listData.find(element => element.Code == code && element.SelectedSize == size )
+    let item = listData.find(element => element.Code == code && element.SelectedSize == size)
     if(item){
       if(item.Quantity >= 10){
         this.notificationService.Show("This maximun you can pick 🥳", "success")
@@ -66,7 +68,7 @@ export class EcomCartComponent implements OnInit{
       this.getDataInCache()
       this.APIGetListCartProduct()
     }
-
+    this.handleUnCheckItem(code)
   }
 
   handleMinusQuantityProduct(code: number, size: number){
@@ -92,7 +94,10 @@ export class EcomCartComponent implements OnInit{
       this.getDataInCache()
       this.APIGetListCartProduct()
     }
+    this.handleUnCheckItem(code)
   }
+
+
 
   handleDeleteItem(code: number, size: number){
     const productCart = localStorage.getItem('cacheCart')
@@ -114,6 +119,11 @@ export class EcomCartComponent implements OnInit{
     }
   }
 
+  handleUnCheckItem(codeGet: number){
+    this.listItemSelected = []
+    this.handleCalPrice()
+  }
+
   handleCheckItem(itemGet: DTOProductInCart){
     const index = this.listItemSelected.findIndex(item =>item.Product.Code == itemGet.Product.Code && item.SizeSelected.Code == itemGet.SizeSelected.Code)
     if(index != -1){
@@ -122,7 +132,15 @@ export class EcomCartComponent implements OnInit{
       this.listItemSelected.push(itemGet)
     }
     this.handleCalPrice()
-    console.log(this.listItemSelected);
+  }
+
+  navigate(route: string) {
+    if(this.listItemSelected.length > 0){
+      this.router.navigate([route])
+    }else{
+      this.notificationService.Show("Vui lòng chọn hàng muốn thanh toán!", "warning")
+    }
+
   }
 
   handleCalPrice(){

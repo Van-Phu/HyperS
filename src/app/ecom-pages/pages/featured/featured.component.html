@@ -18,7 +18,7 @@
             </div>
             <div class="btn-shop">
                 <div data-tooltip="Sold out" class="button">
-                    <div (click)="log()" class="button-wrapper">
+                    <div (click)="handleGetShoses('Main', 'full')" class="button-wrapper">
                       <div class="text">Buy Now</div>
                         <span class="icon">
                           <svg viewBox="0 0 16 16" class="bi bi-cart2" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@
                     <div class="text">
                         {{item.text}}
                     </div>
-                    <div class="btn-shop">
+                    <div (click)="handleGetShoses(item.route, item.type)" class="btn-shop">
                         <button class="button type1">
                             <span class="btn-txt">{{'Shop now' | uppercase}}</span>
                           </button>
