@@ -1,19 +1,30 @@
+@import '../../../../../styles.scss';
+
 ::ng-deep{
     component-form{
         .boxForm{
-            background-color: aqua;
-            width: 1632px;
+            width: 100%;
+            height: auto;
             .label{
                 font-size: 16px;
                 font-weight: 600;
                 text-wrap: nowrap;
+                margin-bottom: 5px;
             }
             
             .form{
-                background-color: red;
-                height: 200px;
                 padding: 15px;
+                border-radius: 5px;
+                box-shadow: $box-shadow3;
             }
+
+            .content-form{
+                max-width: 100%;
+                display: block;
+                overflow-x: auto;
+            }
+
+            
         }
     }
 }
