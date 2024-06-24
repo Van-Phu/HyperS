@@ -6,9 +6,17 @@
             display: flex;
             text-wrap: nowrap;
             cursor: pointer;
-
             &:hover{
                 filter: brightness(130%);
+            }
+
+            i, span{
+                @include center-vertical;
+            }
+
+            i{
+                justify-content: center;
+                width: 20px;
             }
         }
     }

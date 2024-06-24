@@ -1,1 +1,44 @@
-<p>popup-confirm works!</p>
+<div class="backgroundPopUp">
+    <div class="PopUp" [ngStyle]="{'width.px': widthPopUp, 'height.px': heightPopUp}">
+        <div class="headerPopUp" [style.height.px]="heightHeader">
+            <div class="contentHeader" [style.gap.px]="gap">
+                <i *ngIf="classIconFontAwesome" class="fa-solid {{classIconFontAwesome}}" [ngStyle]="{
+                    'font-size.px':sizeIcon,
+                    'color': color,
+                }"></i>
+                <span class="textHeader" [ngStyle]="{
+                    'color':color,
+                    'font-size.px':fontSizeHeader,
+                    'font-weight.px':fontWeightHeader,
+                }">{{textHeader}}</span>
+            </div>
+        </div>
+        
+        <div class="contentPopUp">
+            <div #contentPopupCheck>
+                <ng-content select=".content-popup"></ng-content>
+            </div>
+            <ng-container *ngIf="contentPopupCheck.innerHTML.trim().length === 0">
+                <div class="contentDefault">
+                    <div class="contentQuestion">Xác nhận thay đổi trạng thái đơn hàng?</div>
+                    <div class="contentWarning">Đơn hàng sẽ không thể quay về trạng thái cũ</div>
+                </div>
+            </ng-container>
+        </div>
+        
+        <div class="footerPopUp">
+            <div #footerPopUpCheck>
+                <ng-content select=".button-popup"></ng-content>
+            </div>
+            <ng-container *ngIf="footerPopUpCheck.innerHTML.trim().length === 0">
+                <div class="footerDefault">
+                    <component-button [text]="'Không đổi'" [classIconFontAwesome]="''" [width]="184"  [height]="58" [rounded]="0" 
+                    [bgColor]="'#FFFFFF'" [color]="'#959DB3'" [size]="16"></component-button>
+                    <component-button [text]="'Đóng gói'" [classIconFontAwesome]="'fa-share'" [width]="184" [height]="58" [rounded]="0" 
+                    [bgColor]="'#09880E'" [color]="'#FFFFFF'" [size]="16"></component-button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+

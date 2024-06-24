@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'component-form',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent {
-
+  @Input() text: string="THÔNG TIN CÁ NHÂN";
 }

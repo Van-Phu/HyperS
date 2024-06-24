@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class TextDropdownComponent {
   @Input() label: string = '';
   @Input() listItem: any[] = [];
-  @Input() widthTextBox: number = 300;
+  @Input() widthTextBox: number = 250;
   @Input() heightTextBox: number = 30;
   @Input() widthBlock: number = 300;
   @Input() bgColor: string = '#fff';
@@ -21,4 +21,6 @@ export class TextDropdownComponent {
   @Input() defaultItem: any;
   @Input() textField: string;
   @Input() valueField: string;
+  @Input() size: number = 13;
+
 }

@@ -1,0 +1,15 @@
+@import '../../../../styles.scss';
+
+::ng-deep{
+    app-admin009-manage-product{
+        .manage-product{
+            .content-form{
+                .block{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                }
+            }
+        }
+    }
+}

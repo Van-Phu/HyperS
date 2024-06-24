@@ -43,7 +43,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
 import { GridModule } from "@progress/kendo-angular-grid";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
-import { GridComponent } from './shared/component/grid/grid.component';
+import { GridComponentCustom } from './shared/component/grid/grid.component';
 import { TextAreaComponent } from './shared/component/text-area/text-area.component';
 import { PopupConfirmComponent } from './shared/component/popup-confirm/popup-confirm.component';
 import { ImportImageComponent } from './admin-pages/shared/component/import-image/import-image.component';
@@ -58,6 +58,9 @@ import { FormsModule } from '@angular/forms';
 import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
 import { LoadingComponent } from './ecom-pages/shared/component/loading/loading.component';
 import { PaymentComponent } from './ecom-pages/pages/payment/payment.component';
+import { PagerGridDirective } from './shared/directive/pagergrid.directive';
+import { ImportMultiImageComponent } from './admin-pages/shared/component/import-multi-image/import-multi-image.component';
+import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-manage-product/admin009-manage-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,7 +90,7 @@ import { PaymentComponent } from './ecom-pages/pages/payment/payment.component';
     TextDropDownDirective,
     DatepickerComponent,
     StatusColorPipe,
-    GridComponent,
+    GridComponentCustom,
     TextAreaComponent,
     PopupConfirmComponent,
     ImportImageComponent,
@@ -98,7 +101,10 @@ import { PaymentComponent } from './ecom-pages/pages/payment/payment.component';
     EcomFilterProductComponent,
     ImportImageDirective,
     LoadingComponent,
-    PaymentComponent
+    PaymentComponent,
+    PagerGridDirective,
+    ImportMultiImageComponent,
+    Admin009ManageProductComponent
   ],
   imports: [
     BrowserModule,

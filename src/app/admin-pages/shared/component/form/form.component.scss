@@ -1,0 +1,33 @@
+@import '../../../../../styles.scss';
+
+::ng-deep{
+    component-form{
+        .boxForm{
+            width: 100%;
+            height: auto;
+            .label-form{
+                font-size: 14px;
+                font-weight: 600;
+                text-wrap: nowrap;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+            }
+            
+            .form{
+                font-size: 13px;
+                padding: 16px 13px;
+                border-radius: 5px;
+                box-shadow: $box-shadow3;
+            }
+
+            .content-form{
+                max-width: 100%;
+                overflow-x: auto;
+                display: flex;
+                gap: 40px;
+            }
+
+            
+        }
+    }
+}

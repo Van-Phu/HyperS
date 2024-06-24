@@ -13,18 +13,27 @@
     [defaultItem]="defaultItemStatusBill"
     [widthTextBox]="200"
     [heightTextBox]="35"
+    [label]="'Mã người dùng'"
+    [widthBlock]="350"
     ></component-text-dropdown>
 </div>
 <component-text-area [label]="'Lí do hủy đơn:'"
 [labelWidth]="100"
 [height]="47"
 [width]="180"
-[fontsize]="14"
+[fontsize]="15"
 ></component-text-area>
-
-<component-import-image [imgWidth]="150" [imgHeight]="150" [rounded]="5" [text]="'Ảnh sản phẩm'"></component-import-image>
+<br><br><br>
+<component-text-input [label]="'Mã người dùng'"></component-text-input>
+<br><br><br>
+<component-import-image [imgWidth]="150" [imgHeight]="150" [rounded]="3" [text]="'Ảnh sản phẩm'"></component-import-image>
+<br><br><br>
 
 <!-- <component-text-dropdown [listItem]="listStatus" textField="Status" valueField="Code"></component-text-dropdown> -->
 
-<component-dropdown-action></component-dropdown-action>
+<component-dropdown-action [listItem]="listStatus" [rounded]="3"></component-dropdown-action>
+<br><br><br>
+
+<!-- <component-popup-confirm></component-popup-confirm> -->
+<component-form><div class="content-form"></div></component-form>
 

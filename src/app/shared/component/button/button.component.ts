@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 /**
  * Component cung cấp nút bao gồm icon và text
@@ -30,4 +30,13 @@ export class ButtonComponent {
   @Input() boxShadow: string;
   @Input() textStyle: string;
   @Input() fontWeight: number = 600;
+  @Input() value: any;
+  @Input() justify: string = "center";
+  @Output() sendValue = new EventEmitter();
+
+  onClickButton(){
+    if(this.value){
+      this.sendValue.emit(this.value);
+    }
+  }
 }
