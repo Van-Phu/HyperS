@@ -22,16 +22,24 @@ export class EcomProductDetailsComponent implements OnInit {
   ListSizeOfProduct: DTOSize[] = []
   sizeSelected: number = -1
   dataProductSend: DTOGuessCartProduct = {Code: 0, SelectedSize: 0, Quantity: 0}
-
+  isLoading: boolean = false
 
   constructor(private cartService: CartService,private productService: ProductService, private notificationService: NotiService){
-    const productData = localStorage.getItem('productSelected');
-    if (productData) {
-      const data = JSON.parse(productData) as DTOProduct;
-      if (data && data.Code) {
-        this.idProduct = Number(data.Code);
+    try{
+      this.isLoading = true
+      const productData = localStorage.getItem('productSelected');
+      if (productData) {
+        const data = JSON.parse(productData) as DTOProduct;
+        if (data && data.Code) {
+          this.idProduct = Number(data.Code);
+        }
       }
+    }catch{
+
+    }finally{
+      this.isLoading = false
     }
+   
   }
 
   ngOnInit(): void {
@@ -39,16 +47,24 @@ export class EcomProductDetailsComponent implements OnInit {
   }
 
   APIGetProductByID(id: number){
+    this.isLoading = true
     this.productService.getProductById(id).pipe(takeUntil(this.destroy)).subscribe(data => {
-      if(data.ErrorString != "" || data.StatusCode != 0){
-        alert("Lỗi khi lấy api")
-        return
+      try{
+        if(data.ErrorString != "" || data.StatusCode != 0){
+          alert("Lỗi khi lấy api")
+          return
+        }
+        this.product = data.ObjectReturn.Data[0]
+        this.imageShowSelected = this.product.ListOfImage[0].ImgUrl
+        this.ListSizeOfProduct = this.product.ListOfSize
+        this.ListSizeOfProduct.sort((a, b) => a.Size - b.Size);
+      }catch{
+
+      }finally{
+        this.isLoading = false
       }
-      this.product = data.ObjectReturn.Data[0]
-      this.imageShowSelected = this.product.ListOfImage[0].ImgUrl
-      this.ListSizeOfProduct = this.product.ListOfSize
-      this.ListSizeOfProduct.sort((a, b) => a.Size - b.Size);
-      
+     
+
     })
   }
 

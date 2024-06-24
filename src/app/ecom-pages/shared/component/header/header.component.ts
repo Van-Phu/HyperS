@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DTOGuessCartProduct } from '../../dto/DTOGuessCartProduct';
 import { CartService } from '../../service/cart.service';
 import { Subscription } from 'rxjs';
+import { HeaderService } from '../../service/header.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
   totalItemCart: number = 0
   cartUpdateSubscription: Subscription;
 
-  constructor(private router: Router, private cartService: CartService){}
+  constructor(private headerService: HeaderService, private cartService: CartService){}
 
   handleSelectActionCenter(action: number){
     this.dataModuleHeader.forEach(element => {
@@ -28,11 +29,7 @@ export class HeaderComponent implements OnInit {
         element.isSelected = false
       }
     });
-    // const selectedItem = this.dataModuleHeader.find(item => item.id === action);
-    // console.log(selectedItem);
-    // if (selectedItem) {
-    //   this.router.navigate([selectedItem.route]);
-    // }
+    this.headerService.emitHeaderChange()
   }
 
   ngOnInit(): void {

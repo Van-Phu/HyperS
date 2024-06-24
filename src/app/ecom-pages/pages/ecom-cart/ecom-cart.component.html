@@ -1,3 +1,5 @@
+<app-loading [isLoading]="isLoading"></app-loading>
+
 <div class="main">
     <div class="title">
         {{"your bag" | uppercase}}
@@ -5,7 +7,6 @@
     <div class="line-area">
         <div class="under-line"></div>
     </div>
-
     <div class="content-area">
         <div class="cart-item">
             <div class="content">
@@ -14,15 +15,20 @@
                         For you
                     </div>
                     <div class="text-item-have">
-                        {{cart.ListProductInCart.length}} Your Style
+                        {{cart?.ListProductInCart.length}} Your Style
                     </div>
                 </div>
                 <div class="under-line"></div>
                 <div class="item-area">
-                    <div class="item" *ngFor="let item of cart.ListProductInCart">
+                    <div class="item" *ngFor="let item of cart?.ListProductInCart">
                         <div class="infor">
                             <label class="custom-checkbox">
-                                <input (change)="handleCheckItem(item)" name="dummy" type="checkbox">
+                                <input 
+    
+                                    (change)="handleCheckItem(item)" 
+                                    name="dummy" 
+                                    type="checkbox"
+                                >
                                 <span class="checkmark"></span>
                               </label>
                             <div class="image">
@@ -137,7 +143,7 @@
                             {{totalPrice}}
                         </div>
                     </div>
-                    <div class="btn-checkout">
+                    <div (click)="navigate('ecom/payment')" class="btn-checkout">
                         Check out
                     </div>
                 </div>

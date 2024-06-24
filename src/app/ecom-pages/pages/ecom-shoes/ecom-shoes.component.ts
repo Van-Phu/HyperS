@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { DTOProduct } from '../../shared/dto/DTOProduct';
 import { ProductService } from '../../shared/service/product.service';
 import { DTOProductType } from '../../shared/dto/DTOProductType';
@@ -6,22 +6,23 @@ import { NotiService } from '../../shared/service/noti.service';
 import { DTOBrand } from '../../shared/dto/DTOBrand';
 import { CompositeFilterDescriptor, State } from '@progress/kendo-data-query';
 import { Router } from '@angular/router';
+import { ReplaySubject, Subscription } from 'rxjs';
+import { HeaderService } from '../../shared/service/header.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ecom-shoes',
   templateUrl: './ecom-shoes.component.html',
-  styleUrls: ['./ecom-shoes.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./ecom-shoes.component.scss']
 
 })
-export class EcomShoesComponent implements OnInit {
+export class EcomShoesComponent implements OnInit, OnDestroy {
   ListProduct: DTOProduct[] =[]
   listProductType: DTOProductType[] = []
   typeSelected: number = -1
   listBrand: DTOBrand[] = []
 
   listCategorySelected: DTOProductType[] = []
-  listGenderSelected: any[] = []
   listBrandSelected: DTOBrand[] = []
 
   minRange: number = 0
@@ -30,10 +31,13 @@ export class EcomShoesComponent implements OnInit {
   minPrice: number = this.valueRange[0]
   maxPrice:number = 15000000
 
+  headerChangeSubscription: Subscription
+  destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
+
   listGender:any[] = [
     {id:0, text:"For all", checked: false},
-    {id: 1, text: "Man", checked: false},
-    {id: 2, text: "Woman", checked: false}
+    {id: 1, text: "Men", checked: false},
+    {id: 2, text: "Women", checked: false}
   ]
 
   productFilter: State = {
@@ -53,56 +57,117 @@ export class EcomShoesComponent implements OnInit {
     }
   }   
 
+  isLoading: boolean = false
 
-  constructor(private productService: ProductService, private notiService: NotiService, private router: Router){
-    this.handleGetRoute()
+
+  constructor(
+    private headerService: HeaderService,
+    private productService: ProductService,
+    private notiService: NotiService,
+    private router: Router
+  ) {
+    this.initializeData();
   }
 
+  async initializeData(): Promise<void> {
+    await this.APIGetListProductType();
+    await this.APIGetListBrand();
+
+    this.handleGetRoute(); // Sau khi đã lấy được dữ liệu từ API, gọi handleGetRoute()
+  }
+  
   ngOnInit(): void {
-    this.APIGetListProduct()
-    this.APIGetListProductType()
-    this.APIGetListBrand()
-    
+    this.APIGetListProduct();
+    this.headerChangeSubscription = this.headerService.headerChange.subscribe(() => {
+      this.ListProduct = [];
+      this.handleGetRoute();
+      this.handleFilterItem();
+    });
   }
 
-  handleGetRoute():void{
+  handleGetRoute(){
     const data = localStorage.getItem('headerRoute')
     switch(data){
+      case "Main":
+        break
       case "Men":
-        this.handleSelectedGender(this.listGender[1])
+        this.listGender.forEach(element => {
+          if(element.text == "Men")
+            element.checked = true
+          else
+            element.checked = false
+        });
         break
       case "Women":
-        this.handleSelectedGender(this.listGender[2])
+        this.listGender.forEach(element => {
+          if(element.text == "Women")
+            element.checked = true
+          else
+            element.checked = false
+        });
         break
+      case "Nike":
+        this.listBrand.forEach(element => {
+          if(element.BrandName == "Nike"){
+            this.listBrandSelected.push(element)
+          }
+        });
+        break
+
     }
     this.handleFilterItem()
   }
 
   APIGetListProduct():void{
-    this.productService.getListProduct(this.productFilter).subscribe(data => {
-      if(data.ErrorString != "" || data.StatusCode != 0){
-        this.notiService.Show("Err when fetching data product 😭", "error")
-        return
+    this.isLoading = true
+    this.productService.getListProduct(this.productFilter).pipe(takeUntil(this.destroy)).subscribe(data => {
+      try{
+        if(data.ErrorString != "" || data.StatusCode != 0){
+          this.notiService.Show("Err when fetching data product 😭", "error")
+          return
+        }
+        this.ListProduct = data.ObjectReturn.Data
+      }catch{
+
+      }finally{
+        this.isLoading = false
       }
-      this.ListProduct = data.ObjectReturn.Data
+     
     })
   }
 
-  APIGetListProductType():void{
-    this.productService.getListProductType().subscribe(data => {
-      if(data.ErrorString != "" || data.StatusCode != 0){
-        this.notiService.Show("Err when fetching data 😭", "error")
-        return
+  async APIGetListProductType():Promise<void>{
+    this.productService.getListProductType().pipe(takeUntil(this.destroy)).subscribe(data => {
+      try{
+        if(data.ErrorString != "" || data.StatusCode != 0){
+          this.notiService.Show("Err when fetching data 😭", "error")
+          return
+        }
+        this.listProductType = data.ObjectReturn.Data
+      }catch{
+
+      }finally{
+        this.isLoading = false
       }
-      this.listProductType = data.ObjectReturn.Data
+     
     })
   }
 
-  APIGetListBrand():void{
-    this.productService.getListBrand().subscribe((data: []) => {
-      this.listBrand = data
-    })
+  APIGetListBrand(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.productService.getListBrand().pipe(takeUntil(this.destroy)).subscribe((data: []) => {
+        try {
+          this.listBrand = data;
+          resolve(); // Đánh dấu rằng đã lấy dữ liệu thành công
+        } catch (error) {
+          reject(error); // Xử lý lỗi nếu có
+        } finally {
+          this.isLoading = false;
+        }
+      });
+    });
   }
+  
 
   handleSeletedType(idType: number):void{
     this.typeSelected = idType
@@ -131,15 +196,6 @@ export class EcomShoesComponent implements OnInit {
     }
   }
 
-  handleSelectedGender(itemGet: any):void{
-    const index = this.listGenderSelected.findIndex(item => item.id == itemGet.id)
-    if(index != -1){
-      console.log(1);
-      this.listGenderSelected.splice(index, 1)
-    }else{
-      this.listGenderSelected.push(itemGet)
-    }
-  }
 
 
   handleFilterItem():void{
@@ -155,8 +211,8 @@ export class EcomShoesComponent implements OnInit {
 
     const filterGender: CompositeFilterDescriptor = {logic: 'or', filters: []}
     filterGender.filters = []
-    this.listGenderSelected.forEach((item) => {
-      if(item){
+    this.listGender.forEach((item) => {
+      if(item.checked){
         filterGender.filters.push({field: "Gender", operator: 'eq', value: item.id})
       }
     });
@@ -188,12 +244,26 @@ export class EcomShoesComponent implements OnInit {
     }
 
     this.productFilter.filter.filters.push(filter)
-    console.log(this.productFilter);
     this.APIGetListProduct()
   }
 
   handleApplyFilter():void{
     this.handleFilterItem()
+  }
+
+  isCheckedInputCategory(type: DTOProductType):boolean{
+    return this.listCategorySelected.some(item => item.Code === type.Code);
+  }
+
+  log(){
+    this.listBrand.forEach(element => {
+      console.log(element.BrandName);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.next()
+    this.destroy.complete()
   }
 
 

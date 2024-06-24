@@ -56,6 +56,8 @@ import { NotificationModule } from "@progress/kendo-angular-notification";
 import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-product/ecom-filter-product.component';
 import { FormsModule } from '@angular/forms';
 import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
+import { LoadingComponent } from './ecom-pages/shared/component/loading/loading.component';
+import { PaymentComponent } from './ecom-pages/pages/payment/payment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +96,9 @@ import { ImportImageDirective } from './admin-pages/shared/directive/import.dire
     DrawerDetailComponent,
     EcomProductCardComponent,
     EcomFilterProductComponent,
-    ImportImageDirective
+    ImportImageDirective,
+    LoadingComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

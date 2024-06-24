@@ -1,3 +1,7 @@
+<app-loading [isLoading]="isLoading"></app-loading>
+<!-- <div (click)="log()">
+    click me
+</div> -->
 <div class="main">
     <div class="content">
         <div class="sidebar">
@@ -9,7 +13,7 @@
                         <div *ngFor="let type of listProductType">
                             <div class="type">
                                 <label class="custom-checkbox">
-                                    <input (change)="handleSelectedCatelogy(type)" name="dummy" type="checkbox">
+                                    <input [checked]="isCheckedInputCategory(type)" (change)="handleSelectedCatelogy(type)" name="dummy" type="checkbox">
                                     <span class="checkmark"></span>
                                 </label>
                                 <div [ngClass]="type.Code == typeSelected ? 'type-selected' : 'item-type'">
@@ -27,7 +31,7 @@
                         <div *ngFor="let gen of listGender">
                             <div class="gender">
                                 <label class="custom-checkbox">
-                                    <input [checked]="gen.checked" (change)="handleSelectedGender(gen)" name="dummy" type="checkbox">
+                                    <input [(ngModel)]="gen.checked" name="dummy" type="checkbox">
                                     <span class="checkmark"></span>
                                 </label>
                                 <div>
