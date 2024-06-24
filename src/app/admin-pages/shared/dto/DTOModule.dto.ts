@@ -40,6 +40,15 @@ export const listModule: DTOModule[] = [
         IsExpanded: false
     },
     {
+        RouteLink: '/admin/manage-product',
+        ModuleName: 'Quản lý sản phẩm',
+        ClassIconFontAwesome: 'fa-store',
+        IsChild: false,
+        IsSelected: false,
+        IsExpanded: false,
+        BreadCrumb: 'Quản lý sản phẩm'
+    },
+    {
         RouteLink: '/admin/manage-module',
         ModuleName: 'Quản lý danh mục',
         ClassIconFontAwesome: 'fa-rectangle-list',

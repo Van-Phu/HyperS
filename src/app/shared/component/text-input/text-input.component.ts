@@ -30,8 +30,8 @@ export class TextInputComponent {
   @Input() boxShadow: string = 'rgba(0, 0, 0, 0.15) 0px 5px 15px';
   @Input() borderWidth: number = 1;
   @Input() borderColor: string = '#B6B6B6';
-  @Input() typeValue: 'text' | 'number' = 'number';
-  @Input() size: number = 15;
+  @Input() typeValue: 'text' | 'number' = 'text';
+  @Input() size: number = 13;
   @Output() getValue = new EventEmitter();
   valueTextBox: string = '';
 

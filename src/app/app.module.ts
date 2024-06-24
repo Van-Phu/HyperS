@@ -57,6 +57,8 @@ import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-produ
 import { FormsModule } from '@angular/forms';
 import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
 import { PagerGridDirective } from './shared/directive/pagergrid.directive';
+import { ImportMultiImageComponent } from './admin-pages/shared/component/import-multi-image/import-multi-image.component';
+import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-manage-product/admin009-manage-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,7 +98,9 @@ import { PagerGridDirective } from './shared/directive/pagergrid.directive';
     EcomProductCardComponent,
     EcomFilterProductComponent,
     ImportImageDirective,
-    PagerGridDirective
+    PagerGridDirective,
+    ImportMultiImageComponent,
+    Admin009ManageProductComponent
   ],
   imports: [
     BrowserModule,

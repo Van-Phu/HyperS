@@ -33,7 +33,7 @@ export class GridComponentCustom implements OnInit, OnDestroy, AfterContentInit 
 
   constructor(private gridService: GridService) { }
   ngAfterContentInit(): void {
-    console.log(this.columns.toArray());
+    // console.log(this.columns.toArray());
   }
 
   private subscription: Subscription;
