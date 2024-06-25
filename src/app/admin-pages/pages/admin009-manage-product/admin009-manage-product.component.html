@@ -38,7 +38,7 @@
             </kendo-grid-column>
 
             <!-- Tên sản phẩm -->
-            <kendo-grid-column title="Tên sản phẩm" [width]="250">
+            <kendo-grid-column title="Tên sản phẩm" [width]="350">
                 <ng-template kendoGridCellTemplate let-item>
                     <div class="column-3">
                         <div class="idproduct">{{item.IdProduct}}</div>
@@ -48,14 +48,14 @@
             </kendo-grid-column>
 
             <!-- Loại sản phẩm -->
-            <kendo-grid-column title="Loại sản phẩm" [width]="100">
+            <kendo-grid-column title="Loại sản phẩm" [width]="200">
                 <ng-template kendoGridCellTemplate let-item>
                     <div class="column-4">{{item.ProductType}}</div>
                 </ng-template>
             </kendo-grid-column>
 
             <!-- Thương hiệu -->
-            <kendo-grid-column title="Thương hiệu" [width]="100">
+            <kendo-grid-column title="Thương hiệu" [width]="170">
                 <ng-template kendoGridCellTemplate let-item>
                     <div class="column-5">{{item.BrandName}}</div>
                 </ng-template>
@@ -69,9 +69,23 @@
             </kendo-grid-column>
 
             <!-- Đơn giá -->
-            <kendo-grid-column title="Đơn giá" [width]="150">
+            <kendo-grid-column title="Đơn giá" [width]="200">
                 <ng-template kendoGridCellTemplate let-item>
                     <div class="column-7">{{item.Price}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Trạng thái -->
+            <kendo-grid-column title="Trạng thái" [width]="150">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-8" [style.color]="item.Status | statusColor">{{checkStatusProduct(item.Status)}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- ToolBox -->
+            <kendo-grid-column [width]="50">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <component-button [width]="30" [height]="30" [size]="15" bgColor="#CBCBCB" classIconFontAwesome="fa-ellipsis" text=""></component-button>
                 </ng-template>
             </kendo-grid-column>
 

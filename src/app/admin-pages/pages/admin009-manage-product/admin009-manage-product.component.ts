@@ -129,11 +129,18 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // Kiểm tra giới tính
-  checkGender(idGender: number){
-    if(idGender === 0) return 'Unisex';
-    if(idGender === 1) return 'Name';
-    if(idGender === 2) return 'Nữ';
+  checkGender(idGender: number) {
+    if (idGender === 0) return 'Unisex';
+    if (idGender === 1) return 'Name';
+    if (idGender === 2) return 'Nữ';
     return 'Lỗi giới tính';
+  }
+
+  // Kiểm tra giới tính
+  checkStatusProduct(idStatus: number) {
+    if (idStatus === 0) return 'Hoạt động';
+    if (idStatus === 1) return 'Vô hiệu hóa';
+    return 'Lỗi trạng thái';
   }
 
   ngOnDestroy(): void {
