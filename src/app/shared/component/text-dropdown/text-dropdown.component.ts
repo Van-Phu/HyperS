@@ -10,7 +10,7 @@ export class TextDropdownComponent {
   @Input() listItem: any[] = [];
   @Input() widthTextBox: number = 250;
   @Input() heightTextBox: number = 30;
-  @Input() widthBlock: number = 300;
+  @Input() widthBlock: number = 250;
   @Input() bgColor: string = '#fff';
   @Input() rounded: number = 5;
   @Input() paddingLeft: number;

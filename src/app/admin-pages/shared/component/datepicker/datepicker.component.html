@@ -1,4 +1,7 @@
-<div class="component-datepicker">
+<div class="component-datepicker" [style.width.px]="widthBlock">
+    <ng-container *ngIf="hasLabel">
+        <span>{{label}}</span>
+    </ng-container>
     <kendo-datepicker 
         #datePicker
         calendarType="classic"
