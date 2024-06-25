@@ -7,7 +7,7 @@ import { DatePickerComponent } from '@progress/kendo-angular-dateinputs';
  * Having 1 output: datePicked(date is picked)
  */
 @Component({
-  selector: 'app-datepicker',
+  selector: 'component-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss']
 })
@@ -16,6 +16,9 @@ export class DatepickerComponent implements OnInit {
   @Output() datePicked = new EventEmitter();
   @Input() minDate: Date = new Date();
   @Input() maxDate: Date = new Date();
+  @Input() label: string;
+  @Input() hasLabel: boolean = false;
+  @Input() widthBlock: number;
   @ViewChild('datePicker', { static: false }) datePicker!: DatePickerComponent;
   valueDate: Date = null;
 

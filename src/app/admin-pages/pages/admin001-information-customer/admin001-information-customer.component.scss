@@ -1,0 +1,11 @@
+::ng-deep{
+    app-admin001-information-customer{
+        .admin001-info-customer{
+            .block{
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    }
+}
