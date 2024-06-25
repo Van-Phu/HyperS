@@ -21,56 +21,95 @@
                     text-wrap: nowrap;
                 }
     
-                .searchBar{
+                .line{
+                    background-color: black;
+                    width: 15px;
+                    height: 2px;
+                }
+        
+                .timeStartEnd{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
                     // background-color: red;
-                    // width: 600px;
                 }
             }
     
-            .line{
-                background-color: black;
-                width: 15px;
-                height: 2px;
-            }
-    
-            .timeStartEnd{
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                // background-color: red;
-            }
+
 
             .showList{
-                
-                th.k-table-th[aria-colindex="1"]{
-                    @include center;
-                }
-                .column-MDH{
-                    @include center;
-                    height: 62px;
-                }
+                .grid-custom-container{
+                    height: calc(100vh - 61px - 60px);
 
-                th.k-table-th[aria-colindex="3"]{
-                    @include center;
-                }
-                
-                th.k-table-th[aria-colindex="4"]{
-                    justify-content: center;
-                }
+                    th.k-table-th[aria-colindex="2"],
+                    th.k-table-th[aria-colindex="4"],
+                    th.k-table-th[aria-colindex="5"],
+                    th.k-table-th[aria-colindex="6"],
+                    th.k-table-th[aria-colindex="7"],
+                    th.k-table-th[aria-colindex="8"],
+                    th.k-table-th[aria-colindex="9"]{
+                        justify-content: center;
+                    }
+    
+                    td{
+                        text-wrap: nowrap !important;
+                    }
 
-                .column-SDT{
-                    @include center-horizontal;
+                    span{
+                        cursor: auto !important;
+                    }
+    
+                    .column-Code,
+                    .column-PhoneNumber,
+                    .column-TotalBill{
+                        text-align: center;
+                    }  
+    
+                    th.k-table-th[aria-colindex="10"]{
+                        justify-content: end;
+                    }
+    
+                    .column-CreateAt,
+                    .column-PaymentMethod,
+                    .column-Voucher{
+                        text-align: center;
+                    }
+    
+    
+                    .column-Status{                    
+                        display: flex;
+                        justify-content: end;
+                    }
+    
+                    .column-ShippingAddress{
+                        text-wrap: wrap !important;
+                    }
+    
+                    th.k-table-th[aria-colindex="11"]{
+                        background-color: transparent;
+                    }
+    
+                    // td.k-table-td[aria-colindex="11"]{
+    
+                    // }
+                    td.k-table-td[aria-colindex="11"] {
+                        border-left: 1px solid gray !important;
+                        height: 44px;
+                    }
+    
+                    .column-button{
+                        div{
+                            background-color: transparent !important;
+                        }
+                        i{
+                            color:black
+                        }
+                            .component-button:hover {
+                                background: #9c9c9c !important;
+                            }
+                        
+                    }
                 }
-
-                th.k-table-th[aria-colindex="5"]{
-                    justify-content: center;
-                }
-
-                .column-NKT{
-                    @include center-horizontal;
-                }
-                
-
             }
 
     }

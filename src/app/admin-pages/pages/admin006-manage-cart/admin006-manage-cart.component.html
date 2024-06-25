@@ -16,22 +16,59 @@
 </div>
 <div class="showList">
     <div class="grid-custom-container">
-        <kendo-grid [pageable]="true" [data]="listBill">
-            <kendo-grid-column field="Code" title="Mã đơn hàng" class="column-MDH"></kendo-grid-column>
-            <kendo-grid-column field="CustomerName" title="Tên khách hàng"></kendo-grid-column>
-            <kendo-grid-column field="ShippingAddress" title="Địa chỉ giao hàng" class="column-DCGH" [width]="350"></kendo-grid-column>
-            <kendo-grid-column field="PhoneNumber" title="Số điện thoại" class="column-SDT"></kendo-grid-column>
-            <kendo-grid-column field="CreateAt" title="Ngày khởi tạo" >
+        <kendo-grid [pageable]="true" [data]="listBill"
+        [selectable]="{ checkboxOnly: true }"
+        (selectionChange)="onSelectionChange($event)"
+        >
+        <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
+
+            <kendo-grid-column field="Code" title="Mã đơn hàng" class="column-Code" [width]="140"></kendo-grid-column>
+            <kendo-grid-column field="CustomerName" title="Tên khách hàng" [width]="200"></kendo-grid-column>
+            <kendo-grid-column field="ShippingAddress" title="Địa chỉ giao hàng" class="column-ShippingAddress" [width]="350"></kendo-grid-column>
+            <kendo-grid-column field="PhoneNumber" title="Số điện thoại" class="column-PhoneNumber" [width]="120"></kendo-grid-column>
+            <kendo-grid-column field="CreateAt" title="Ngày khởi tạo" [width]="140">
                 <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                    <div class="column-NKT">
-                        {{getFormattedCreateAt(dataItem.CreateAt)}}
+                    <div class="column-CreateAt">
+                        {{formattedCreateAt(dataItem.CreateAt)}}
                     </div>
-                  
                 </ng-template>
               </kendo-grid-column>
-            <kendo-grid-column field="PaymentMethod" title="Phương thức thanh toán"></kendo-grid-column>
-            <kendo-grid-column field="TotalBill" title="Tổng tiền"></kendo-grid-column>
-            <kendo-grid-column field="Status" title="Trạng thái"></kendo-grid-column>
+            <kendo-grid-column field="PaymentMethod" title="Phương thức" [width]="120">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    <div class="column-PaymentMethod">
+                        {{dataItem.PaymentMethod}}
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="Voucher" title="Voucher" [width]="140">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    <div class="column-Voucher">
+                        {{dataItem.Voucher}}
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="TotalBill" title="Tổng tiền" class="column-TotalBill" [width]="140">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    <div>
+                        {{formatCurrency(dataItem.TotalBill)}}
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="Status" title="Trạng thái"  [width]="140">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    <div class="column-Status" [style.color]="dataItem.Status | statusColor">
+                        {{dataItem.Status}}
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column class="column-button"  [width]="59" [sticky]="true">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    <component-button class="button-action" text="" classIconFontAwesome="fa-ellipsis" [width]="30" [height]="30"></component-button>
+                    <!-- <div class="column-Voucher">
+                        {{dataItem.Voucher}}
+                    </div> -->
+                </ng-template>
+            </kendo-grid-column>
 
             
 
@@ -39,7 +76,7 @@
                 <kendo-pager-page-sizes pagerGrid [pageSizes]="[1,2,3,4]"></kendo-pager-page-sizes>
                 <div class="pager-buttons">
                     <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
-                    <kendo-pager-numeric-buttons [buttonCount]="3"></kendo-pager-numeric-buttons>
+                    <kendo-pager-numeric-buttons [buttonCount]="3" ></kendo-pager-numeric-buttons>
                     <kendo-pager-next-buttons></kendo-pager-next-buttons>
                 </div>
             </ng-template>
