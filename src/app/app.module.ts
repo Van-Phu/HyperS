@@ -43,7 +43,6 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { StatusColorPipe } from './admin-pages/shared/pipe/StatusColorPipe';
 import { GridModule } from "@progress/kendo-angular-grid";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
-import { GridComponentCustom } from './shared/component/grid/grid.component';
 import { TextAreaComponent } from './shared/component/text-area/text-area.component';
 import { PopupConfirmComponent } from './shared/component/popup-confirm/popup-confirm.component';
 import { ImportImageComponent } from './admin-pages/shared/component/import-image/import-image.component';
@@ -90,7 +89,6 @@ import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-man
     TextDropDownDirective,
     DatepickerComponent,
     StatusColorPipe,
-    GridComponentCustom,
     TextAreaComponent,
     PopupConfirmComponent,
     ImportImageComponent,
