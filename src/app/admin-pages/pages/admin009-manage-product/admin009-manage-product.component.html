@@ -6,11 +6,12 @@
     </div>
 
     <div class="header-filter">
-        <div class="delete-filter">Xóa bộ lọc</div>
+        <div class="label-delete-filter">Xóa bộ lọc</div>
+
         <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
 
-        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="RangePrice" valueField="Code"
-            [listItem]="listPrice" [defaultItem]="defaultPrice" />
+        <component-text-dropdown (getValue)="getFilterPrice($event)" [widthBlock]="160" [widthTextBox]="160"
+            textField="RangePrice" valueField="Code" [listItem]="listPrice" [defaultItem]="defaultPrice" />
         <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code"
             [listItem]="listProductType" [defaultItem]="defaultProductType" />
         <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="BrandName" valueField="Code"
@@ -19,11 +20,21 @@
             [listItem]="listGender" [defaultItem]="defaultGender" />
         <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code"
             [listItem]="listStatus" [defaultItem]="defaultStatus" />
-        <div class="label">Danh sách sản phẩm</div>
     </div>
 
     <div class="grid-custom-container">
-        <kendo-grid [pageable]="true" [data]="listOriginProduct" [selectable]="{ checkboxOnly: true }">
+        <kendo-grid 
+            [skip]="productFilter.skip" 
+            [loading]="isLoading" 
+            (pageChange)="onPageChange($event)"
+            [pageSize]="productFilter.take" 
+            [pageable]="{
+                type: 'numeric',
+                info: true,
+                pageSizes: true,
+            }" 
+            [data]="listOriginProduct"
+            [selectable]="{ checkboxOnly: true }">
 
             <!-- Checkbox -->
             <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
@@ -78,19 +89,21 @@
             <!-- Trạng thái -->
             <kendo-grid-column title="Trạng thái" [width]="150">
                 <ng-template kendoGridCellTemplate let-item>
-                    <div class="column-8" [style.color]="item.Status | statusColor">{{checkStatusProduct(item.Status)}}</div>
+                    <div class="column-8" [style.color]="item.Status | statusColor">{{checkStatusProduct(item.Status)}}
+                    </div>
                 </ng-template>
             </kendo-grid-column>
 
             <!-- ToolBox -->
-            <kendo-grid-column [width]="50">
+            <kendo-grid-column [sticky]="true" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <component-button [width]="30" [height]="30" [size]="15" bgColor="#CBCBCB" classIconFontAwesome="fa-ellipsis" text=""></component-button>
+                    <component-button [width]="30" [height]="30" [size]="15" bgColor="#CBCBCB"
+                        classIconFontAwesome="fa-ellipsis" text=""></component-button>
                 </ng-template>
             </kendo-grid-column>
 
             <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
-                <kendo-pager-page-sizes pagerGrid [pageSizes]="[1,2,3,4]"></kendo-pager-page-sizes>
+                <kendo-pager-page-sizes [pageSizes]="listPageSize"></kendo-pager-page-sizes>
                 <div class="pager-buttons">
                     <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
                     <kendo-pager-numeric-buttons [buttonCount]="3"></kendo-pager-numeric-buttons>

@@ -4,31 +4,50 @@
 ::ng-deep {
     app-admin009-manage-product {
         height: 100%;
-        display: block;
 
         .admin009 {
             height: 100%;
-            display: block;
             position: relative;
+            width: 100%;
+
 
             .header-filter-color {
                 padding: 10px 0;
-                display: flex;
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 15px;
+                @include center-vertical;
 
                 .label-filter-color {
-                    @include center-vertical;
                     font-size: 14px;
                     text-transform: uppercase;
                     font-weight: 600;
+                    text-wrap: nowrap;
                 }
             }
 
             .header-filter {
-                display: flex;
+                gap: 20px;
+                @include center-vertical;
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+
+                .label-delete-filter{
+                    text-decoration: underline;
+                    @include center-vertical;
+                    cursor: pointer;
+                    color: rgb(255, 97, 97);
+                    text-wrap: nowrap;
+
+                    &:hover{
+                        color: $color-cancel;
+                    }
+                }
             }
 
             .grid-custom-container {
-                height: calc(100vh - 262px - 61px - 20px);
+                height: calc(100vh - 55px - 57px - 61px - 10px);
 
                 kendo-grid {
                     height: 100%;

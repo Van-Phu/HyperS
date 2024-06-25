@@ -87,15 +87,13 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
   listOriginProduct: DTOProduct[] = [];
   listColor: DTOColor[] = listColor;
+  listPageSize: number[] = [1,2,3,4];
+  isLoading: boolean = true;
 
   productFilter: State = {
     skip: 0,
-    take: 0,
+    take: 4,
     sort: [
-      {
-        field: "Code",
-        dir: "asc"
-      }
     ],
     filter: {
       logic: "and",
@@ -110,7 +108,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getListProductType();
     this.getListBrand();
-    this.getListOriginProduct();
+    this.getListProduct();
   }
 
   // Lấy danh sách các product type
@@ -124,8 +122,12 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // Lấy danh sách các product
-  getListOriginProduct() {
-    this.producService.getListProduct(this.productFilter).pipe(takeUntil(this.destroy)).subscribe(list => this.listOriginProduct = list.ObjectReturn.Data)
+  getListProduct() {
+    this.isLoading = true;
+    this.producService.getListProduct(this.productFilter).pipe(takeUntil(this.destroy)).subscribe(list => {
+      this.listOriginProduct = list.ObjectReturn.Data;
+      this.isLoading = false;
+    })
   }
 
   // Kiểm tra giới tính
@@ -141,6 +143,16 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     if (idStatus === 0) return 'Hoạt động';
     if (idStatus === 1) return 'Vô hiệu hóa';
     return 'Lỗi trạng thái';
+  }
+
+  getFilterPrice(value: any){
+    console.log(value);
+  }
+
+  onPageChange(value: any) {
+    this.productFilter.skip = value.skip;
+    this.productFilter.take = value.take;
+    this.getListProduct();
   }
 
   ngOnDestroy(): void {
