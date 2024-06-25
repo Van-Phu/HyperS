@@ -13,8 +13,6 @@ export class CheckboxlistComponent implements OnInit {
   @Output() listChecked: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit(): void {
-    this.listCheckBox = listColor;
-    this.textField = 'Color'
   }
 
   onClickItemCheckBox(item: any){

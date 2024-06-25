@@ -5,13 +5,16 @@ import { DTOBrand } from 'src/app/ecom-pages/shared/dto/DTOBrand';
 import { DTOProductType } from 'src/app/ecom-pages/shared/dto/DTOProductType';
 import { ProductService } from 'src/app/ecom-pages/shared/service/product.service';
 import { DTOStatus, listStatusActive } from '../../shared/dto/DTOStatus.dto';
+import { DTOProduct } from 'src/app/ecom-pages/shared/dto/DTOProduct';
+import { State } from '@progress/kendo-data-query';
+import { DTOColor, listColor } from '../../shared/dto/DTOColor.dto.';
 
 interface DropDownPrice {
   Code: number
   RangePrice: string
 }
 
-interface Gender{
+interface Gender {
   Code: number
   Gender: string
 }
@@ -82,20 +85,47 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     Status: '-- Trạng thái --',
     Icon: ''
   }
+  listOriginProduct: DTOProduct[] = [];
+  listColor: DTOColor[] = listColor;
 
-  constructor(private producService: ProductService){}
+  productFilter: State = {
+    skip: 0,
+    take: 0,
+    sort: [
+      {
+        field: "Code",
+        dir: "asc"
+      }
+    ],
+    filter: {
+      logic: "and",
+      filters: [
+
+      ]
+    }
+  }
+
+  constructor(private producService: ProductService) { }
 
   ngOnInit(): void {
     this.getListProductType();
     this.getListBrand();
+    this.getListOriginProduct();
   }
 
-  getListProductType(){
+  // Lấy danh sách các product type
+  getListProductType() {
     this.producService.getListProductType().pipe(takeUntil(this.destroy)).subscribe(list => this.listProductType = list.ObjectReturn.Data);
   }
 
-  getListBrand(){
+  // Lấy danh sách các brand
+  getListBrand() {
     // this.producService.getListProductType().subscribe(list => this.listProductType = list.ObjectReturn.Data);
+  }
+
+  // Lấy danh sách các product
+  getListOriginProduct() {
+    this.producService.getListProduct(this.productFilter).pipe(takeUntil(this.destroy)).subscribe(list => this.listOriginProduct = list.ObjectReturn.Data)
   }
 
   ngOnDestroy(): void {

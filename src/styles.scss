@@ -101,11 +101,16 @@ $box-shadow71: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16p
     background-color: #8d8d8d;
 }
 
-kendo-popup{
+kendo-popup {
+
     .k-list-item:focus,
     .k-list-optionlabel:focus,
     .k-list-item.k-focus,
     .k-focus.k-list-optionlabel {
         box-shadow: none;
+    }
+
+    .k-list {
+        font-size: 13px;
     }
 }

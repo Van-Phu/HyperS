@@ -1,50 +1,32 @@
 <div class="admin009">
 
+    <div class="header-filter-color">
+        <div class="label-filter-color">Lọc theo màu</div>
+        <component-checkboxlist textField="Color" [listCheckBox]="listColor"></component-checkboxlist>
+    </div>
+
     <div class="header-filter">
-        <div class="label">Danh sách sản phẩm</div>
-        <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
         <div class="delete-filter">Xóa bộ lọc</div>
-        <component-checkboxlist></component-checkboxlist>
-        <component-text-dropdown 
-            [widthBlock]="160" 
-            [widthTextBox]="160"
-            textField="RangePrice"
-            valueField="Code"
-            [listItem]="listPrice"
-            [defaultItem]="defaultPrice"/>
-        <component-text-dropdown 
-            [widthBlock]="160" 
-            [widthTextBox]="160"
-            textField="Name"
-            valueField="Code"
-            [listItem]="listProductType"
-            [defaultItem]="defaultProductType"/>
-        <component-text-dropdown 
-            [widthBlock]="160" 
-            [widthTextBox]="160"
-            textField="BrandName"
-            valueField="Code"
-            [listItem]="listBrand"
-            [defaultItem]="defaultBrand"/>
-        <component-text-dropdown 
-            [widthBlock]="160" 
-            [widthTextBox]="160"
-            textField="Gender"
-            valueField="Code"
-            [listItem]="listGender"
-            [defaultItem]="defaultGender"/>  
-        <component-text-dropdown 
-            [widthBlock]="160" 
-            [widthTextBox]="160"
-            textField="Status"
-            valueField="Code"
-            [listItem]="listStatus"
-            [defaultItem]="defaultStatus"/>  
+        <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
+        
+        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="RangePrice" valueField="Code"
+        [listItem]="listPrice" [defaultItem]="defaultPrice" />
+        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code"
+        [listItem]="listProductType" [defaultItem]="defaultProductType" />
+        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="BrandName" valueField="Code"
+        [listItem]="listBrand" [defaultItem]="defaultBrand" />
+        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Gender" valueField="Code"
+        [listItem]="listGender" [defaultItem]="defaultGender" />
+        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code"
+        [listItem]="listStatus" [defaultItem]="defaultStatus" />
+        <div class="label">Danh sách sản phẩm</div>
     </div>
 
     <div class="grid-custom-container">
-        <kendo-grid [pageable]="true">
-    
+        <kendo-grid [pageable]="true" [data]="listOriginProduct">
+
+            <!-- <kendo-grid-column field="Name" title="Tên sản phẩm"></kendo-grid-column> -->
+
             <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
                 <kendo-pager-page-sizes pagerGrid [pageSizes]="[1,2,3,4]"></kendo-pager-page-sizes>
                 <div class="pager-buttons">
@@ -53,7 +35,8 @@
                     <kendo-pager-next-buttons></kendo-pager-next-buttons>
                 </div>
             </ng-template>
+
         </kendo-grid>
     </div>
-    
+
 </div>

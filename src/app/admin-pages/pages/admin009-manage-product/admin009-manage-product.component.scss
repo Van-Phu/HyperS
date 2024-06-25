@@ -9,6 +9,30 @@
             height: 100%;
             display: block;
             position: relative;
+
+            .header-filter-color{
+                padding: 10px 0;
+                display: flex;
+
+                .label-filter-color{
+                    @include center-vertical;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                }
+            }
+
+            .header-filter{
+                display: flex;
+            }
+
+            .grid-custom-container{
+                height: calc(100vh - 262px - 61px - 20px);
+
+                kendo-grid{
+                    height: 100%;
+                }
+            }
         }
     }
 }
