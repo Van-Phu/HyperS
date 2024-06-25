@@ -31,6 +31,36 @@
 
                 kendo-grid{
                     height: 100%;
+
+                    tr.k-table-row{
+                        max-height: 60px;
+                        height: 60px;
+                    }
+
+                    th.k-table-th[aria-colindex="2"],
+                    th.k-table-th[aria-colindex="4"],
+                    th.k-table-th[aria-colindex="5"],
+                    th.k-table-th[aria-colindex="6"],
+                    th.k-table-th[aria-colindex="7"]{
+                        .k-column-title{
+                            margin: auto;
+                        }
+                    }
+
+                    .column-2,
+                    .column-4,
+                    .column-5,
+                    .column-6,
+                    .column-7{
+                        text-align: center;
+
+                        img{
+                            height: 38px;
+                            width: 38px;
+                            object-fit: cover;
+                            border-radius: 3px;
+                        }
+                    }
                 }
             }
         }

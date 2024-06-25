@@ -1,6 +1,6 @@
 @import '../../../../styles.scss';
 
-::ng-deep{
+::ng-deep {
     .grid-custom-container {
         position: absolute;
         bottom: 0;
@@ -75,36 +75,56 @@
                 }
             }
 
-            .k-grid-content{
+            .k-grid-content {
                 overflow-y: auto !important;
             }
 
-            .k-grid-header{
+            .k-grid-header {
                 padding: 0 !important;
+            }
+
+            .k-checkbox:checked,
+            .k-checkbox.k-checked {
+                border: $color-main;
+                background-color: $color-main;
+            }
+
+            .k-checkbox:checked:focus,
+            .k-checkbox.k-checked.k-focus {
+                box-shadow: none;
+            }
+
+            .k-checkbox {
+                border: 1px solid $color-main
+            }
+
+            .k-table-tbody .k-table-row.k-selected>.k-table-td,
+            .k-table-list .k-table-row.k-selected {
+                background-color: $color-item-grid-selected;
             }
         }
 
-        kendo-pager-page-sizes{
+        kendo-pager-page-sizes {
             flex-direction: row-reverse;
         }
 
-        .pager-buttons{
+        .pager-buttons {
             display: flex;
         }
 
-        kendo-resize-sensor{
+        kendo-resize-sensor {
             display: none;
         }
 
-        kendo-pager{
+        kendo-pager {
             display: flex;
             justify-content: space-between;
             background: none;
             border-top: 1px solid black;
         }
 
-        kendo-pager-numeric-buttons{
-            select{
+        kendo-pager-numeric-buttons {
+            select {
                 display: none;
             }
         }

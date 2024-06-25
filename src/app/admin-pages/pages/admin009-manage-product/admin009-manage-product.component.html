@@ -8,24 +8,72 @@
     <div class="header-filter">
         <div class="delete-filter">Xóa bộ lọc</div>
         <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
-        
+
         <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="RangePrice" valueField="Code"
-        [listItem]="listPrice" [defaultItem]="defaultPrice" />
+            [listItem]="listPrice" [defaultItem]="defaultPrice" />
         <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code"
-        [listItem]="listProductType" [defaultItem]="defaultProductType" />
+            [listItem]="listProductType" [defaultItem]="defaultProductType" />
         <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="BrandName" valueField="Code"
-        [listItem]="listBrand" [defaultItem]="defaultBrand" />
+            [listItem]="listBrand" [defaultItem]="defaultBrand" />
         <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Gender" valueField="Code"
-        [listItem]="listGender" [defaultItem]="defaultGender" />
+            [listItem]="listGender" [defaultItem]="defaultGender" />
         <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code"
-        [listItem]="listStatus" [defaultItem]="defaultStatus" />
+            [listItem]="listStatus" [defaultItem]="defaultStatus" />
         <div class="label">Danh sách sản phẩm</div>
     </div>
 
     <div class="grid-custom-container">
-        <kendo-grid [pageable]="true" [data]="listOriginProduct">
+        <kendo-grid [pageable]="true" [data]="listOriginProduct" [selectable]="{ checkboxOnly: true }">
 
-            <!-- <kendo-grid-column field="Name" title="Tên sản phẩm"></kendo-grid-column> -->
+            <!-- Checkbox -->
+            <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
+
+            <!-- Hình ảnh -->
+            <kendo-grid-column title="Hình ảnh" [width]="100">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-2">
+                        <img src="../../../../assets/johnwick.jpg" alt="">
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Tên sản phẩm -->
+            <kendo-grid-column title="Tên sản phẩm" [width]="250">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-3">
+                        <div class="idproduct">{{item.IdProduct}}</div>
+                        <div class="name">{{item.Name}}</div>
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Loại sản phẩm -->
+            <kendo-grid-column title="Loại sản phẩm" [width]="100">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-4">{{item.ProductType}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Thương hiệu -->
+            <kendo-grid-column title="Thương hiệu" [width]="100">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-5">{{item.BrandName}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Giới tính -->
+            <kendo-grid-column title="Giới tính" [width]="100">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-6">{{checkGender(item.Gender)}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Đơn giá -->
+            <kendo-grid-column title="Đơn giá" [width]="150">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-7">{{item.Price}}</div>
+                </ng-template>
+            </kendo-grid-column>
 
             <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
                 <kendo-pager-page-sizes pagerGrid [pageSizes]="[1,2,3,4]"></kendo-pager-page-sizes>

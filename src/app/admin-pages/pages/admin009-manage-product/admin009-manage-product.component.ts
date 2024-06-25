@@ -128,6 +128,14 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.producService.getListProduct(this.productFilter).pipe(takeUntil(this.destroy)).subscribe(list => this.listOriginProduct = list.ObjectReturn.Data)
   }
 
+  // Kiểm tra giới tính
+  checkGender(idGender: number){
+    if(idGender === 0) return 'Unisex';
+    if(idGender === 1) return 'Name';
+    if(idGender === 2) return 'Nữ';
+    return 'Lỗi giới tính';
+  }
+
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
