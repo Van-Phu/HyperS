@@ -1,21 +1,17 @@
-<div class="manage-product">
-    <component-form text="Thông tin sản phẩm">
-        <div class="content-form">
-            <div class="block block-1">
-                <component-text-input [widthBlock]="350" [widthTextBox]="240" label="Mã sản phẩm"></component-text-input>
-                <component-text-input [widthBlock]="350" [widthTextBox]="240" label="Tên sản phẩm"></component-text-input>
-                <component-text-input [widthBlock]="350" [widthTextBox]="240" label="Giá sản phẩm"></component-text-input>
-            </div>
+<div class="admin009">
 
-            <div class="block block-2">
-                <component-text-dropdown label="Loại sản phẩm" [widthBlock]="300" [widthTextBox]="200"></component-text-dropdown>
-                <component-text-dropdown label="Thương hiệu" [widthBlock]="300" [widthTextBox]="200"></component-text-dropdown>
-                <component-text-dropdown label="Màu sắc" [widthBlock]="300" [widthTextBox]="200"></component-text-dropdown>
-            </div>
-
-            <div class="block block-3"></div>
-
-            <div class="block block-4"></div>
-        </div>
-    </component-form>
+    <div class="grid-custom-container">
+        <kendo-grid [pageable]="true">
+    
+            <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
+                <kendo-pager-page-sizes pagerGrid [pageSizes]="[1,2,3,4]"></kendo-pager-page-sizes>
+                <div class="pager-buttons">
+                    <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+                    <kendo-pager-numeric-buttons [buttonCount]="3"></kendo-pager-numeric-buttons>
+                    <kendo-pager-next-buttons></kendo-pager-next-buttons>
+                </div>
+            </ng-template>
+        </kendo-grid>
+    </div>
+    
 </div>

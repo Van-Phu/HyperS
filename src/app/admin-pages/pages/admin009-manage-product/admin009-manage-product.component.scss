@@ -1,15 +1,14 @@
 @import '../../../../styles.scss';
+@import '../../shared/style/grid.scss';
 
 ::ng-deep{
     app-admin009-manage-product{
-        .manage-product{
-            .content-form{
-                .block{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 16px;
-                }
-            }
+        height: 100%;
+        display: block;
+        .admin009{
+            height: 100%;
+            display: block;
+            position: relative;
         }
     }
 }
