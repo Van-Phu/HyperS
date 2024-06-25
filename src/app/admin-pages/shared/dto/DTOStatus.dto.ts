@@ -32,7 +32,7 @@ export const listStatus: DTOStatus[] = [
     }
 ]
 
-export const listStatusAccount: DTOStatus[] = [
+export const listStatusActive: DTOStatus[] = [
     {
         Code: 6,
         Status: "Hoạt động",

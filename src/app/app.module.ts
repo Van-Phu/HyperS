@@ -60,6 +60,7 @@ import { PaymentComponent } from './ecom-pages/pages/payment/payment.component';
 import { PagerGridDirective } from './shared/directive/pagergrid.directive';
 import { ImportMultiImageComponent } from './admin-pages/shared/component/import-multi-image/import-multi-image.component';
 import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-manage-product/admin009-manage-product.component';
+import { CheckboxlistComponent } from './admin-pages/shared/component/checkboxlist/checkboxlist.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,7 +103,8 @@ import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-man
     PaymentComponent,
     PagerGridDirective,
     ImportMultiImageComponent,
-    Admin009ManageProductComponent
+    Admin009ManageProductComponent,
+    CheckboxlistComponent
   ],
   imports: [
     BrowserModule,

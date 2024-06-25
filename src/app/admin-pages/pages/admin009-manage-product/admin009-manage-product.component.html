@@ -4,6 +4,42 @@
         <div class="label">Danh sách sản phẩm</div>
         <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
         <div class="delete-filter">Xóa bộ lọc</div>
+        <component-checkboxlist></component-checkboxlist>
+        <component-text-dropdown 
+            [widthBlock]="160" 
+            [widthTextBox]="160"
+            textField="RangePrice"
+            valueField="Code"
+            [listItem]="listPrice"
+            [defaultItem]="defaultPrice"/>
+        <component-text-dropdown 
+            [widthBlock]="160" 
+            [widthTextBox]="160"
+            textField="Name"
+            valueField="Code"
+            [listItem]="listProductType"
+            [defaultItem]="defaultProductType"/>
+        <component-text-dropdown 
+            [widthBlock]="160" 
+            [widthTextBox]="160"
+            textField="BrandName"
+            valueField="Code"
+            [listItem]="listBrand"
+            [defaultItem]="defaultBrand"/>
+        <component-text-dropdown 
+            [widthBlock]="160" 
+            [widthTextBox]="160"
+            textField="Gender"
+            valueField="Code"
+            [listItem]="listGender"
+            [defaultItem]="defaultGender"/>  
+        <component-text-dropdown 
+            [widthBlock]="160" 
+            [widthTextBox]="160"
+            textField="Status"
+            valueField="Code"
+            [listItem]="listStatus"
+            [defaultItem]="defaultStatus"/>  
     </div>
 
     <div class="grid-custom-container">
