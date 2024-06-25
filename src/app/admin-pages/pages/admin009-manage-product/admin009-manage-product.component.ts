@@ -83,7 +83,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   defaultStatus: DTOStatus = {
     Code: -1,
     Status: '-- Trạng thái --',
-    Icon: ''
+    Icon: '',
   }
   listOriginProduct: DTOProduct[] = [];
   listColor: DTOColor[] = listColor;
