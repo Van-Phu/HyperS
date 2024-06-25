@@ -15,7 +15,7 @@ export class PopupConfirmComponent{
   @Input() fontWeightHeader: number = 600;
   @Input() fontSizeHeader: number = 18;
   // @Input() heightIconHeader: number = 26;
-  @Input() textHeader: string = 'Đóng gói';
+  @Input() textHeader: string = 'Thông báo';
   @Input() sizeIcon: number = 26;
   @Input() classIconFontAwesome: string = 'fa-triangle-exclamation';
   @Input() heightHeader: number = 50;

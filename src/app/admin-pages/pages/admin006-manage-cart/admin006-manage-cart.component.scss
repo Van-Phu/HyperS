@@ -1,21 +1,23 @@
 @import '../../.././../styles.scss';
+@import '../../shared/style/grid.scss';
 
 ::ng-deep{
     app-admin006-manage-cart{
+        display: block;
+        height: 100%;
+        position: relative;
             .headerFilter{
-                // background-color: red;
                 display: flex;
                 overflow-x: auto;
-                // width: 100%;
-                padding: 0 10px;
-                justify-content: space-between;
+
+                gap: 30px;
                 @include center-vertical;
     
                 .titlePage{
                     font-size: 16px;
                     font-weight: bold;
                     // background-color: aqua;
-                    // width: 250px;
+                    // min-width: 200px;
                     text-wrap: nowrap;
                 }
     
@@ -33,10 +35,42 @@
     
             .timeStartEnd{
                 display: flex;
-                justify-content: space-between;
                 align-items: center;
+                gap: 10px;
                 // background-color: red;
-                width: 310px;
+            }
+
+            .showList{
+                
+                th.k-table-th[aria-colindex="1"]{
+                    @include center;
+                }
+                .column-MDH{
+                    @include center;
+                    height: 62px;
+                }
+
+                th.k-table-th[aria-colindex="3"]{
+                    @include center;
+                }
+                
+                th.k-table-th[aria-colindex="4"]{
+                    justify-content: center;
+                }
+
+                .column-SDT{
+                    @include center-horizontal;
+                }
+
+                th.k-table-th[aria-colindex="5"]{
+                    justify-content: center;
+                }
+
+                .column-NKT{
+                    @include center-horizontal;
+                }
+                
+
             }
 
     }

@@ -1,3 +1,5 @@
+import { DTOBillInfo } from "./DTOBillInfo.dto";
+
 export class DTOBill {
     Code: number = 0;
     CustomerName: string;
@@ -6,8 +8,13 @@ export class DTOBill {
     CreateAt: Date;
     PaymentMethod: string;
     Status: string;
+    ListBillInfo:DTOBillInfo[];
+    Voucher: string = "Không có";
+    TotalDiscount: number;
     TotalBill: number;
 }
+
+
 
 export const listBill: DTOBill[] = [
     {
@@ -18,6 +25,44 @@ export const listBill: DTOBill[] = [
         CreateAt: new Date('2024-06-20'),
         PaymentMethod: 'Momo',
         Status: 'Chờ xác nhận',
+        ListBillInfo: [
+            {
+                Code: 1,
+                IDProduct: 'NIKEAZP38',
+                Name: 'Nike Air Zoom Pegasus 38',
+                ImageUrl: '...',
+                Size: '42',
+                Price: 500000,
+                Quantity: 2,
+                Discount: 100000,
+                TotalCost: 900000
+            },
+            {
+                Code: 2,
+                IDProduct: 'NIKEAW10N',
+                Name: 'Nike Air Winflo 10 Nam',
+                ImageUrl: '...',
+                Size: '42',
+                Price: 500000,
+                Quantity: 1,
+                Discount: 100000,
+                TotalCost: 400000
+            }
+            ,
+            {
+                Code: 3,
+                IDProduct: 'NIKEAZP38',
+                Name: 'Nike Air Zoom Pegasus 38',
+                ImageUrl: '...',
+                Size: '43',
+                Price: 500000,
+                Quantity: 1,
+                Discount: 100000,
+                TotalCost: 400000
+            }
+        ],
+        Voucher: 'Không có',
+        TotalDiscount: 0,
         TotalBill: 2252000,
     },
     {
@@ -28,6 +73,44 @@ export const listBill: DTOBill[] = [
         CreateAt: new Date('2024-06-20'),
         PaymentMethod: 'Momo',
         Status: 'Đang đóng gói',
+        ListBillInfo: [
+            {
+                Code: 1,
+                IDProduct: 'NIKEAZP38',
+                Name: 'Nike Air Zoom Pegasus 38',
+                ImageUrl: '...',
+                Size: '42',
+                Price: 500000,
+                Quantity: 2,
+                Discount: 100000,
+                TotalCost: 900000
+            },
+            {
+                Code: 2,
+                IDProduct: 'NIKEAW10N',
+                Name: 'Nike Air Winflo 10 Nam',
+                ImageUrl: '...',
+                Size: '42',
+                Price: 500000,
+                Quantity: 1,
+                Discount: 100000,
+                TotalCost: 400000
+            }
+            ,
+            {
+                Code: 3,
+                IDProduct: 'NIKEAZP38',
+                Name: 'Nike Air Zoom Pegasus 38',
+                ImageUrl: '...',
+                Size: '43',
+                Price: 500000,
+                Quantity: 1,
+                Discount: 100000,
+                TotalCost: 400000
+            }
+        ],
+        Voucher: 'Không có',
+        TotalDiscount: 0,
         TotalBill: 2252000,
     },
     {
@@ -38,6 +121,44 @@ export const listBill: DTOBill[] = [
         CreateAt: new Date('2024-06-20'),
         PaymentMethod: 'Momo',
         Status: 'Đang vận chuyển',
+        ListBillInfo: [
+            {
+                Code: 1,
+                IDProduct: 'NIKEAZP38',
+                Name: 'Nike Air Zoom Pegasus 38',
+                ImageUrl: '...',
+                Size: '42',
+                Price: 500000,
+                Quantity: 2,
+                Discount: 100000,
+                TotalCost: 900000
+            },
+            {
+                Code: 2,
+                IDProduct: 'NIKEAW10N',
+                Name: 'Nike Air Winflo 10 Nam',
+                ImageUrl: '...',
+                Size: '42',
+                Price: 500000,
+                Quantity: 1,
+                Discount: 100000,
+                TotalCost: 400000
+            }
+            ,
+            {
+                Code: 3,
+                IDProduct: 'NIKEAZP38',
+                Name: 'Nike Air Zoom Pegasus 38',
+                ImageUrl: '...',
+                Size: '43',
+                Price: 500000,
+                Quantity: 1,
+                Discount: 100000,
+                TotalCost: 400000
+            }
+        ],
+        Voucher: 'Không có',
+        TotalDiscount: 0,
         TotalBill: 2252000,
     },
     {
@@ -48,6 +169,45 @@ export const listBill: DTOBill[] = [
         CreateAt: new Date('2024-06-20'),
         PaymentMethod: 'Momo',
         Status: 'Thành công',
+        ListBillInfo: [
+            {
+                Code: 1,
+                IDProduct: 'NIKEAZP38',
+                Name: 'Nike Air Zoom Pegasus 38',
+                ImageUrl: '...',
+                Size: '42',
+                Price: 500000,
+                Quantity: 2,
+                Discount: 100000,
+                TotalCost: 900000
+            },
+            {
+                Code: 2,
+                IDProduct: 'NIKEAW10N',
+                Name: 'Nike Air Winflo 10 Nam',
+                ImageUrl: '...',
+                Size: '42',
+                Price: 500000,
+                Quantity: 1,
+                Discount: 100000,
+                TotalCost: 400000
+            }
+            ,
+            {
+                Code: 3,
+                IDProduct: 'NIKEAZP38',
+                Name: 'Nike Air Zoom Pegasus 38',
+                ImageUrl: '...',
+                Size: '43',
+                Price: 500000,
+                Quantity: 1,
+                Discount: 100000,
+                TotalCost: 400000
+            }
+        ],
+        Voucher: 'HYPERSZ20',
+        TotalDiscount: 100,
         TotalBill: 2252000,
     },
 ]
+
