@@ -27,7 +27,7 @@ export class ProductService {
   }
 
   constructor(private httpClient: HttpClient) { }
-  
+
   // getListProduct():Observable<DTOResponse>{
   //   const httpOption = this.getHttpOptions()
   //   const body = {}
@@ -36,7 +36,7 @@ export class ProductService {
   //   );
   // }
 
-  getListProduct( filter: State): Observable<DTOResponse> {
+  getListProduct(filter: State): Observable<DTOResponse> {
     const httpOptions = this.getHttpOptions();
     return this.httpClient.post<DTOResponse>(this.urlGetListProduct, filter, httpOptions)
       .pipe(
@@ -47,25 +47,24 @@ export class ProductService {
       );
   }
 
-  getProductById(id: number): Observable<DTOResponse>{
+  getProductById(id: number): Observable<DTOResponse> {
     const httpOptions = this.getHttpOptions();
-    const body ={
+    const body = {
       'Code': id
     }
     return this.httpClient.post<DTOResponse>(this.urlGetProductByID, body, httpOptions)
-    .pipe();
+      .pipe();
   }
 
-  getListProductType():Observable<DTOResponse>{
+  getListProductType(): Observable<DTOResponse> {
     const httpOptions = this.getHttpOptions();
     const body = {}
     return this.httpClient.post<DTOResponse>(this.urlGetListProductType, body, httpOptions)
   }
 
-  getListBrand():any{
+  getListBrand(): Observable<DTOResponse> {
     const httpOptions = this.getHttpOptions();
-    const body = {}
-    return this.httpClient.post<DTOResponse>(this.urlGetListBrand, body, httpOptions)
+    return this.httpClient.post<DTOResponse>(this.urlGetListBrand, httpOptions)
   }
 
 }

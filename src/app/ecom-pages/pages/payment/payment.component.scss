@@ -1,10 +1,19 @@
+@import '../../../../styles.scss';
+
 ::ng-deep{
+    .k-list-item.k-selected {
+        color: var(--kendo-color-on-primary, #ffffff);
+        background-color: var(--kendo-color-primary, #0026fd) !important;
+    }
     app-payment{
         centered {
             display: flex;
             align-items: center;
             justify-content: center;
           };
+
+
+        
         .main{
             height: 100%;
             width: 100%;
@@ -16,15 +25,101 @@
                 .info-area{
                     width: 700px;
                     height: 800px;
-                    background-color: red;
                     border-radius: 10px;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+
+                    .title{
+                        font-size: 25px;
+                    }
+
+                    .form-area{
+                        margin-top: 30px;
+                        .textbox{
+                            margin: 20px 0;
+                            .title{
+                                font-size: 18px;
+                                margin-bottom: 10px;
+                            }
+    
+                            .k-input-inner{
+                                font-size: 20px !important;
+                            }
+                        }
+
+                        .payment-method-select-area{
+                            .title-method{
+                                font-size: 18px;
+                                margin-bottom: 10px;
+                            }
+
+                            .area-button-method{
+                                display: flex;
+                                justify-content: space-between;
+                                .method{
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    width: 200px;
+                                    height: 80px;
+                                    border-radius: 10px;
+                                    border: 3px solid rgb(199, 199, 199);
+                                    cursor: pointer;
+                                    color: rgb(199, 199, 199);
+                                    &:hover{
+                                        border-color: $color-main;
+                                        color: $color-main;
+                                    }
+                          
+                                    .area{
+                                        .fa-solid{
+                                            margin-bottom: 10px;
+                                            font-size: 20px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        }
+                                    }
+                                }
+                               
+                            }
+                        } 
+                    }                    
                 }
 
                 .price-area{
-                    width: 500px;
+                    width: 400px;
                     height: 800px;
-                    background-color: blue;
                     border-radius: 10px;
+
+                    .title{
+                        font-size: 25px;
+                    }
+
+                    .price-description{
+                        .sub-total{
+                            display: flex;
+                            justify-content: space-between;
+                            margin: 20px 0;
+                            font-size: 18px;
+                            color: rgb(155, 155, 155);
+                        }
+                    }
+
+                    .price-total-area{
+                        .under-line{
+                            width: 100%;
+                            height: 1px;
+                            background-color: black;
+                        }
+
+                        .total-price{
+                            font-size: 20px;
+                            margin: 20px 0;
+                            @extend centered;
+                            justify-content: space-between;
+                        }
+                    }
                 }
             }
         }

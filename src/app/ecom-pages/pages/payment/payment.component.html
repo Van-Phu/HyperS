@@ -1,10 +1,111 @@
 <div class="main">
     <div class="content">
         <div class="info-area">
+            <div (click)="log()" class="title">
+                Payment
+            </div>
+            <div class="form-area">
+                <div class="textbox">
+                    <div class="title">Recipient's name</div>
+                    <kendo-textbox class="input" placeholder="Your name"></kendo-textbox>
+                </div> 
+                <div class="textbox">
+                    <div class="title">Mail</div>
+                    <kendo-textbox class="input" placeholder="Your mail"></kendo-textbox>
+                </div> 
+                <div class="textbox">
+                    <div class="title">Province</div>
+                    <kendo-dropdownlist  
+                        [loading]="isLoadingProvince"
+                        [data]="listProvince"
+                        textField="province_name"
+                        valueField="province_name"
+                        [filterable]="true"
+                        [(ngModel)]="provinceSelected"
+                        (valueChange)="handleChangeProvince()"
+                       ></kendo-dropdownlist>
+                </div> 
+                <div class="textbox">
+                    <div class="title">District</div>
+                    <kendo-dropdownlist  
+                        [loading]="isLoadingDistrict"
+                        [data]="listDistrict"
+                        textField="district_name"
+                        valueField="district_name"
+                        [filterable]="true"
+                        [disabled]="isDisableDistrict"
+                        [(ngModel)]="districtSelected"
+                        (valueChange)="handleChangeDistrict()"
+                       ></kendo-dropdownlist>
+                </div> 
+                <div class="textbox">
+                    <div class="title">Ward</div>
+                    <kendo-dropdownlist  
+                        [loading]="isLoadingWard"
+                        [data]="listWard"
+                        textField="ward_name"
+                        valueField="ward_name"
+                        [filterable]="true"
+                        [disabled]="isDisableWard"
+                       ></kendo-dropdownlist>
+                </div> 
+                <div class="textbox">
+                    <div class="title">Specific address</div>
+                    <kendo-textbox class="input" placeholder="Your specific address"></kendo-textbox>
+                </div> 
 
+                <div class="payment-method-select-area">
+                    <div class="title title-method">
+                        Payment method
+                    </div>
+                    <div class="area-button-method">
+                        <div class="method" *ngFor="let p of listPaymentMethod">
+                            <div (click)="handleSelectedPaymentMethod(p)" class="area">
+                                <i class="fa-solid {{p.icon}}"></i>
+                                <div>{{p.text}}</div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         <div class="price-area">
+            <div class="title">
+                Order summary
+            </div>
+            <div class="price-description">
+                <div class="sub-total">
+                    <div class="title-child">
+                        Subtotal
+                    </div>
+                    <div class="price-child">
+                        10000000000000đ
+                    </div>
+                </div>
+                <div class="sub-total">
+                    <div class="title-child">
+                        Delivery
+                    </div>
+                    <div class="price-child">
+                        free
+                    </div>
+                </div>
+            </div>
 
+            <div class="price-total-area">
+                <div class="under-line"></div>
+                <div class="total-price">
+                    <div class="title-child">
+                        Total price
+                    </div>
+                    <div class="price-child">
+                        free
+                    </div>
+                </div>
+                <div class="under-line"></div>
+            </div>
         </div>
     </div>
 </div>

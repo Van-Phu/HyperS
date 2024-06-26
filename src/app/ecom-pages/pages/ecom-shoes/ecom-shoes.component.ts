@@ -72,8 +72,7 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
   async initializeData(): Promise<void> {
     await this.APIGetListProductType();
     await this.APIGetListBrand();
-
-    this.handleGetRoute(); // Sau khi đã lấy được dữ liệu từ API, gọi handleGetRoute()
+    this.handleGetRoute();
   }
   
   ngOnInit(): void {
@@ -108,7 +107,7 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
         break
       case "Nike":
         this.listBrand.forEach(element => {
-          if(element.BrandName == "Nike"){
+          if(element.Name == "Nike"){
             this.listBrandSelected.push(element)
           }
         });
@@ -155,9 +154,10 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
 
   APIGetListBrand(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.productService.getListBrand().pipe(takeUntil(this.destroy)).subscribe((data: []) => {
+      this.productService.getListBrand().pipe(takeUntil(this.destroy)).subscribe(data => {
         try {
-          this.listBrand = data;
+          this.listBrand = data.ObjectReturn.Data;
+          console.log(this.listBrand);
           resolve(); // Đánh dấu rằng đã lấy dữ liệu thành công
         } catch (error) {
           reject(error); // Xử lý lỗi nếu có
@@ -257,7 +257,7 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
 
   log(){
     this.listBrand.forEach(element => {
-      console.log(element.BrandName);
+      console.log(element.Name);
     });
   }
 

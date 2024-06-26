@@ -53,7 +53,7 @@ import { UploadsModule } from '@progress/kendo-angular-upload';
 import { EcomProductCardComponent } from './ecom-pages/shared/component/ecom-product-card/ecom-product-card.component';
 import { NotificationModule } from "@progress/kendo-angular-notification";
 import { EcomFilterProductComponent } from './ecom-pages/pages/ecom-filter-product/ecom-filter-product.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImportImageDirective } from './admin-pages/shared/directive/import.directive';
 import { LoadingComponent } from './ecom-pages/shared/component/loading/loading.component';
 import { PaymentComponent } from './ecom-pages/pages/payment/payment.component';
@@ -125,7 +125,8 @@ import { CheckboxlistComponent } from './admin-pages/shared/component/checkboxli
     ButtonsModule,
     UploadsModule,
     NotificationModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [LayoutService],
   bootstrap: [AppComponent]

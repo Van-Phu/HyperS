@@ -34,12 +34,12 @@ export const listStatus: DTOStatus[] = [
 
 export const listStatusActive: DTOStatus[] = [
     {
-        Code: 6,
+        Code: 0,
         Status: "Hoạt động",
         Icon: "",
     },
     {
-        Code: 7,
+        Code: 1,
         Status: "Vô hiệu hóa",
         Icon: "",
     }
