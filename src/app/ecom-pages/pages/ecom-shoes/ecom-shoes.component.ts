@@ -71,9 +71,8 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
 
   async initializeData(): Promise<void> {
     await this.APIGetListProductType();
-    await this.APIGetListBrand();
-
-    this.handleGetRoute(); // Sau khi đã lấy được dữ liệu từ API, gọi handleGetRoute()
+    // await this.APIGetListBrand();
+    this.handleGetRoute();
   }
   
   ngOnInit(): void {
