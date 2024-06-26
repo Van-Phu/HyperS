@@ -6,15 +6,16 @@ import { DTOProductType } from 'src/app/ecom-pages/shared/dto/DTOProductType';
 import { ProductService } from 'src/app/ecom-pages/shared/service/product.service';
 import { DTOStatus, listStatusActive } from '../../shared/dto/DTOStatus.dto';
 import { DTOProduct } from 'src/app/ecom-pages/shared/dto/DTOProduct';
-import { State } from '@progress/kendo-data-query';
+import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/kendo-data-query';
 import { DTOColor, listColor } from '../../shared/dto/DTOColor.dto.';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 
 interface DropDownPrice {
   Code: number
   RangePrice: string
+  From: number
+  To: number
 }
-
 interface Gender {
   Code: number
   Gender: string
@@ -26,42 +27,44 @@ interface Gender {
   styleUrls: ['./admin009-manage-product.component.scss']
 })
 export class Admin009ManageProductComponent implements OnInit, OnDestroy {
+  // variable Subject
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1);
-  listPrice: DropDownPrice[] = [
+
+  // variable
+  isLoading: boolean = true;
+  pageSize: number = 1;
+
+  // variable list
+  listColor: DTOColor[] = listColor;
+  listPageSize: number[] = [1, 2, 3, 4];
+  listRangePrice: DropDownPrice[] = [
     {
       Code: 0,
-      RangePrice: 'Dưới 500 nghìn'
+      RangePrice: 'Dưới 500 nghìn',
+      From: 0,
+      To: 500000
     },
     {
       Code: 1,
-      RangePrice: '500 nghìn - 1 triệu'
+      RangePrice: '500 nghìn - 1 triệu',
+      From: 500000,
+      To: 1000000
     },
     {
       Code: 2,
-      RangePrice: '1 triệu - 3 triệu'
+      RangePrice: '1 triệu - 3 triệu',
+      From: 1000000,
+      To: 3000000
     },
     {
       Code: 3,
-      RangePrice: '3 triệu trở lên'
+      RangePrice: '3 triệu trở lên',
+      From: 3000000,
+      To: 100000000000000
     }
   ];
-  defaultPrice: DropDownPrice = {
-    Code: -1,
-    RangePrice: '-- Giá sản phẩm --'
-  };
   listProductType: DTOProductType[] = [];
-  defaultProductType: DTOProductType = {
-    Code: -1,
-    Name: '-- Loại sản phẩm --'
-  };
   listBrand: DTOBrand[] = [];
-  defaultBrand: DTOBrand = {
-    Code: -1,
-    IdBrand: '',
-    BrandName: '-- Thương hiệu --',
-    ImageUrl: '',
-    Products: ''
-  };
   listGender: Gender[] = [
     {
       Code: 0,
@@ -76,33 +79,75 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
       Gender: 'Nữ'
     }
   ];
+  listStatus: DTOStatus[] = listStatusActive;
+  listProduct: GridDataResult;
+
+  // variable Object
+  defaultPrice: DropDownPrice = {
+    Code: -1,
+    RangePrice: '-- Giá sản phẩm --',
+    From: 0,
+    To: 100000000000000
+  };
+  defaultProductType: DTOProductType = {
+    Code: -1,
+    Name: '-- Loại sản phẩm --'
+  };
+  defaultBrand: DTOBrand = {
+    Code: -1,
+    Name: '-- Thương hiệu --',
+    ImageUrl: '',
+  };
   defaultGender: Gender = {
     Code: -1,
     Gender: '-- Giới tính --'
   };
-  listStatus: DTOStatus[] = listStatusActive;
   defaultStatus: DTOStatus = {
     Code: -1,
     Status: '-- Trạng thái --',
     Icon: '',
   }
-  listProduct: GridDataResult;
-  listColor: DTOColor[] = listColor;
-  listPageSize: number[] = [1,2,3,4];
-  isLoading: boolean = true;
 
-  productFilter: State = {
+  // variable State
+  gridState: State = {
     skip: 0,
-    take: 4,
+    take: this.pageSize,
     sort: [
+      {
+        "field": "Code",
+        "dir": "asc"
+      }
     ],
     filter: {
       logic: "and",
-      filters: [
-
-      ]
+      filters: []
     }
   }
+  resetGridState: State = {
+    skip: 0,
+    take: this.pageSize,
+    sort: [
+      {
+        "field": "Code",
+        "dir": "asc"
+      }
+    ],
+    filter: {
+      logic: "and",
+      filters: []
+    }
+  }
+
+  // variable filter
+  filterSearch: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
+  filterProductType: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
+  filterBrand: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
+  filterGender: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
+  filterStatus: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
+
+  // variable CompositeFilterDescriptor
+  filterColor: CompositeFilterDescriptor = {logic: 'or', filters: []};
+  filterPrice: CompositeFilterDescriptor = {logic: 'and', filters: []};
 
   constructor(private producService: ProductService) { }
 
@@ -119,14 +164,14 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
 
   // Lấy danh sách các brand
   getListBrand() {
-    // this.producService.getListProductType().subscribe(list => this.listProductType = list.ObjectReturn.Data);
+    this.producService.getListProductType().pipe(takeUntil(this.destroy)).subscribe(list => this.listBrand = list.ObjectReturn.Data);
   }
 
   // Lấy danh sách các product
   getListProduct() {
     this.isLoading = true;
-    this.producService.getListProduct(this.productFilter).pipe(takeUntil(this.destroy)).subscribe(list => {
-      this.listProduct = {data: list.ObjectReturn.Data, total: list.ObjectReturn.Total};
+    this.producService.getListProduct(this.gridState).pipe(takeUntil(this.destroy)).subscribe(list => {
+      this.listProduct = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
       this.isLoading = false;
     })
   }
@@ -146,13 +191,57 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     return 'Lỗi trạng thái';
   }
 
-  getFilterPrice(value: any){
-    console.log(value);
+  // Set filter dropdown price
+  setFilterPrice(value: any) {
+    this.filterPrice.filters = [];
+    const filterFrom: FilterDescriptor = { field: 'Price', operator: 'gte', value: value.From };
+    const filterTo: FilterDescriptor = { field: 'Price', operator: 'lte', value: value.To };
+    if (value.Code !== -1) {
+      this.filterPrice.filters.push(filterFrom);
+      this.filterPrice.filters.push(filterTo);
+    }
+    this.setFilterData();
   }
 
+  // Set filter list checkbox color
+  setFilterColor(value: any) {
+    this.filterColor.filters = [];
+    value.forEach((item: DTOColor) => {
+      if (item.IsChecked) {
+        this.filterColor.filters.push({ field: 'Color', operator: 'eq', value: item.Color })
+      }
+    })
+    this.setFilterData();
+  }
+
+  /**
+   * 
+   * @param filter 
+   * @param field là field trong DTO
+   * @param operator là phép so sánh field với value
+   * @param valueField là trường Tên textfield của DTO được lấy từ dropdown
+   * @param value là giá trị được get từ dropdown, là 1 object
+   */
+  setFilterProductType(filter: FilterDescriptor, field: string, operator: string, valueField: any, value: any){
+    console.log(value);
+    filter.field = field;
+    filter.operator = operator;
+    filter.value = value[valueField];
+    filter.ignoreCase = true;
+    this.setFilterData();
+  }
+
+  // Set filter tất cả
+  setFilterData() {
+    this.gridState.filter.filters = [];
+    this.gridState.filter.filters.push(this.filterColor, this.filterPrice, this.filterBrand, this.filterGender, this.filterProductType, this.filterStatus, this.filterSearch);
+    console.log(this.gridState);
+  }
+
+  // Thao tác paging
   onPageChange(value: any) {
-    this.productFilter.skip = value.skip;
-    this.productFilter.take = value.take;
+    this.gridState.skip = value.skip;
+    this.gridState.take = value.take;
     this.getListProduct();
   }
 

@@ -1,6 +1,44 @@
 @import '../../../../styles.scss';
 
 ::ng-deep {
+
+    kendo-grid.k-grid .k-table-row.k-selected .k-grid-content-sticky::before,
+    kendo-grid.k-grid .k-selected.k-grid-row-sticky td::before,
+    kendo-grid.k-grid .k-grid-row-sticky td.k-selected::before,
+    kendo-grid.k-grid .k-selected.k-grid-row-sticky .k-table-td::before,
+    kendo-grid.k-grid .k-grid-row-sticky .k-table-td.k-selected::before,
+    kendo-grid.k-grid .k-selected.k-grid-content-sticky::before {
+        background-color: #fff;
+    }
+
+    kendo-grid.k-grid .k-table-row.k-selected:hover .k-grid-content-sticky::before,
+    kendo-grid.k-grid .k-table-row.k-selected.k-hover .k-grid-content-sticky::before,
+    kendo-grid.k-grid .k-selected.k-grid-row-sticky:hover td::before,
+    kendo-grid.k-grid .k-selected.k-grid-row-sticky.k-hover td::before,
+    kendo-grid.k-grid .k-selected.k-table-alt-row.k-grid-row-sticky:hover td::before,
+    kendo-grid.k-grid .k-selected.k-table-alt-row.k-grid-row-sticky.k-hover td::before,
+    kendo-grid.k-grid .k-selected.k-grid-row-sticky:hover .k-table-td::before,
+    kendo-grid.k-grid .k-selected.k-grid-row-sticky.k-hover .k-table-td::before,
+    kendo-grid.k-grid .k-selected.k-table-alt-row.k-grid-row-sticky:hover .k-table-td::before,
+    kendo-grid.k-grid .k-selected.k-table-alt-row.k-grid-row-sticky.k-hover .k-table-td::before,
+    kendo-grid.k-grid .k-table-row.k-selected.k-table-alt-row:hover .k-grid-content-sticky::before,
+    kendo-grid.k-grid .k-table-row.k-selected.k-table-alt-row.k-hover .k-grid-content-sticky::before,
+    kendo-grid.k-grid .k-grid-row-sticky:hover td.k-selected::before,
+    kendo-grid.k-grid .k-grid-row-sticky.k-hover td.k-selected::before,
+    kendo-grid.k-grid .k-grid-row-sticky:hover .k-table-td.k-selected::before,
+    kendo-grid.k-grid .k-grid-row-sticky.k-hover .k-table-td.k-selected::before,
+    kendo-grid.k-grid .k-table-row:hover .k-grid-content-sticky.k-selected::before,
+    kendo-grid.k-grid .k-table-row.k-hover .k-grid-content-sticky.k-selected::before {
+        background-color: #fff;
+    }
+
+    kendo-grid.k-grid .k-table-row.k-selected.k-table-alt-row .k-grid-content-sticky::before,
+    kendo-grid.k-grid .k-selected.k-table-alt-row.k-grid-row-sticky td::before,
+    kendo-grid.k-grid .k-selected.k-table-alt-row.k-grid-row-sticky .k-table-td::before,
+    kendo-grid.k-grid .k-table-alt-row .k-selected.k-grid-content-sticky::before {
+        background-color: #fff;
+    }
+
     .grid-custom-container {
         position: absolute;
         bottom: 0;
@@ -48,6 +86,7 @@
 
         kendo-grid {
             height: 100%;
+
             .k-grid-header {
                 border: none;
                 padding: 0;

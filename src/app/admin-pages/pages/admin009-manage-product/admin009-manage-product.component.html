@@ -2,7 +2,7 @@
 
     <div class="header-filter-color">
         <div class="label-filter-color">Lọc theo màu</div>
-        <component-checkboxlist textField="Color" [listCheckBox]="listColor"></component-checkboxlist>
+        <component-checkboxlist (getListChecked)="setFilterColor($event)" textField="Color" [listCheckBox]="listColor"></component-checkboxlist>
     </div>
 
     <div class="header-filter">
@@ -10,24 +10,24 @@
 
         <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
 
-        <component-text-dropdown (getValue)="getFilterPrice($event)" [widthBlock]="160" [widthTextBox]="160"
-            textField="RangePrice" valueField="Code" [listItem]="listPrice" [defaultItem]="defaultPrice" />
-        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code"
+        <component-text-dropdown (getValue)="setFilterPrice($event)" [widthBlock]="160" [widthTextBox]="160"
+            textField="RangePrice" valueField="Code" [listItem]="listRangePrice" [defaultItem]="defaultPrice" />
+        <component-text-dropdown (getValue)="setFilterProductType(filterProductType, 'ProductType', 'eq', 'Name', $event)" [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code"
             [listItem]="listProductType" [defaultItem]="defaultProductType" />
-        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="BrandName" valueField="Code"
+        <component-text-dropdown (getValue)="setFilterProductType(filterBrand, 'BrandName', 'eq', 'Name', $event)" [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code"
             [listItem]="listBrand" [defaultItem]="defaultBrand" />
-        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Gender" valueField="Code"
+        <component-text-dropdown (getValue)="setFilterProductType(filterGender, 'Gender', 'eq', 'Code', $event)" [widthBlock]="160" [widthTextBox]="160" textField="Gender" valueField="Code"
             [listItem]="listGender" [defaultItem]="defaultGender" />
-        <component-text-dropdown [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code"
+        <component-text-dropdown (getValue)="setFilterProductType(filterStatus, 'Status', 'eq', 'Code', $event)" [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code"
             [listItem]="listStatus" [defaultItem]="defaultStatus" />
     </div>
 
     <div class="grid-custom-container">
         <kendo-grid 
-            [skip]="productFilter.skip" 
+            [skip]="gridState.skip" 
             [loading]="isLoading" 
             (pageChange)="onPageChange($event)"
-            [pageSize]="productFilter.take" 
+            [pageSize]="gridState.take" 
             [pageable]="{
                 type: 'numeric',
                 pageSizes: true,
@@ -96,8 +96,10 @@
             <!-- ToolBox -->
             <kendo-grid-column [sticky]="true" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <component-button [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
-                        classIconFontAwesome="fa-ellipsis" text=""></component-button>
+                    <div style="position: relative; z-index: 100; margin: auto;">
+                        <component-button [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
+                            classIconFontAwesome="fa-ellipsis" text=""></component-button>
+                    </div>
                 </ng-template>
             </kendo-grid-column>
 

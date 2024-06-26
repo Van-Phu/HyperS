@@ -10,7 +10,7 @@ export class CheckboxlistComponent implements OnInit {
   @Input() listCheckBox: any;
   @Input() textField: string;
   @Input() valueField: any;
-  @Output() listChecked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() getListChecked: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit(): void {
   }
@@ -19,5 +19,6 @@ export class CheckboxlistComponent implements OnInit {
     if(item.IsChecked || !item.IsChecked){
       item.IsChecked = !item.IsChecked;
     }
+    this.getListChecked.emit(this.listCheckBox);
   }
 }
