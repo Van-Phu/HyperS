@@ -19,5 +19,6 @@ export class DTOProduct {
     Stock: number = 0;
     Sold: number = 0;
     Gender: number = 0;
-    Status: number = 0
+    Status: number = 0;
+    ThumnailImg: string = ""
 }
