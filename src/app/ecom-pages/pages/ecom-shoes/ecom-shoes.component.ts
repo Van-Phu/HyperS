@@ -107,7 +107,7 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
         break
       case "Nike":
         this.listBrand.forEach(element => {
-          if(element.BrandName == "Nike"){
+          if(element.Name == "Nike"){
             this.listBrandSelected.push(element)
           }
         });
@@ -256,7 +256,7 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
 
   log(){
     this.listBrand.forEach(element => {
-      console.log(element.BrandName);
+      console.log(element.Name);
     });
   }
 
