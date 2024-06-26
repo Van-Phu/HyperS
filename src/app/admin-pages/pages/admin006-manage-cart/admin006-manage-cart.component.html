@@ -19,13 +19,13 @@
             (selectionChange)="onSelectionChange($event)" [pageSize]="2" [loading]="isLoading">
             <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
 
-            <kendo-grid-column field="Code" title="Mã đơn hàng" class="column-Code" [width]="140"></kendo-grid-column>
-            <kendo-grid-column field="CustomerName" title="Tên khách hàng" [width]="200"></kendo-grid-column>
+            <kendo-grid-column field="Code" title="Mã đơn" class="column-Code" [width]="100"></kendo-grid-column>
+            <kendo-grid-column field="CustomerName" title="Tên khách hàng" [width]="170"></kendo-grid-column>
             <kendo-grid-column field="ShippingAddress" title="Địa chỉ giao hàng" class="column-ShippingAddress"
                 [width]="350"></kendo-grid-column>
             <kendo-grid-column field="PhoneNumber" title="Số điện thoại" class="column-PhoneNumber"
                 [width]="120"></kendo-grid-column>
-            <kendo-grid-column field="CreateAt" title="Ngày khởi tạo" [width]="120">
+            <kendo-grid-column field="CreateAt" title="Ngày khởi tạo" [width]="130">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="column-CreateAt">
                         {{formattedCreateAt(dataItem.CreateAt)}}
@@ -50,19 +50,17 @@
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div>
                         {{formatCurrency(dataItem.TotalBill)}}
-                        <br>
-                        {{dataItem.TotalBill | json}}
                     </div>
                 </ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="Status" title="Trạng thái" [width]="140">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <div class="column-Status" [style.color]="dataItem.Status | statusColor">
+                    <div class="column-Status" [style.color]="formatStatus(dataItem.Status) | statusColor">
                         {{formatStatus(dataItem.Status)}}
                     </div>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column class="column-button" [width]="59">
+            <kendo-grid-column class="column-button" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="block-Action">
                         <div (click)="ClickButtonAction()" class="block-buttonAction">
