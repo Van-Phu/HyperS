@@ -30,10 +30,9 @@
             [pageSize]="productFilter.take" 
             [pageable]="{
                 type: 'numeric',
-                info: true,
                 pageSizes: true,
             }" 
-            [data]="listOriginProduct"
+            [data]="listProduct"
             [selectable]="{ checkboxOnly: true }">
 
             <!-- Checkbox -->
@@ -97,7 +96,7 @@
             <!-- ToolBox -->
             <kendo-grid-column [sticky]="true" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <component-button [width]="30" [height]="30" [size]="15" bgColor="#CBCBCB"
+                    <component-button [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
                         classIconFontAwesome="fa-ellipsis" text=""></component-button>
                 </ng-template>
             </kendo-grid-column>

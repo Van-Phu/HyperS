@@ -8,6 +8,7 @@ import { DTOStatus, listStatusActive } from '../../shared/dto/DTOStatus.dto';
 import { DTOProduct } from 'src/app/ecom-pages/shared/dto/DTOProduct';
 import { State } from '@progress/kendo-data-query';
 import { DTOColor, listColor } from '../../shared/dto/DTOColor.dto.';
+import { GridDataResult } from '@progress/kendo-angular-grid';
 
 interface DropDownPrice {
   Code: number
@@ -85,7 +86,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     Status: '-- Trạng thái --',
     Icon: '',
   }
-  listOriginProduct: DTOProduct[] = [];
+  listProduct: GridDataResult;
   listColor: DTOColor[] = listColor;
   listPageSize: number[] = [1,2,3,4];
   isLoading: boolean = true;
@@ -125,7 +126,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   getListProduct() {
     this.isLoading = true;
     this.producService.getListProduct(this.productFilter).pipe(takeUntil(this.destroy)).subscribe(list => {
-      this.listOriginProduct = list.ObjectReturn.Data;
+      this.listProduct = {data: list.ObjectReturn.Data, total: list.ObjectReturn.Total};
       this.isLoading = false;
     })
   }

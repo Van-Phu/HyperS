@@ -76,17 +76,19 @@
                     }
 
                     td.k-table-td[aria-colindex="9"] {
-                        background-color: $color-tool-box;
-                        box-shadow: 1px 3px 6px 1px #8f9ba633;
+                        background-color: #fff;
+                        box-shadow: $box-shadow2;
                         height: 44px;
                         @include center-horizontal;
 
                         component-button {
                             margin: auto;
+                            box-shadow: $box-shadow3;
                         }
 
                         .component-button:hover {
                             background: #464646 !important;
+                            color: #fff !important;
                         }
                     }
 
