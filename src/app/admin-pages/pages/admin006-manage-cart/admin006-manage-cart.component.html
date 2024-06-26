@@ -11,12 +11,13 @@
     </div>
     <component-text-dropdown [listItem]="listStatus" textField="Status" valueField="Code"
         [defaultItem]="defaultItemStatusBill" [heightTextBox]="35"
-        (getValue)="getFilterStatus($event)"></component-text-dropdown>
+        (getValue)="setFilterProperty(filterStatus, 'Status', 'eq', 'Code', $event)"></component-text-dropdown>
 </div>
 <div class="showList">
     <div class="grid-custom-container">
         <kendo-grid [pageable]="true" [data]="listBillPage" [selectable]="{ checkboxOnly: true }"
-            (selectionChange)="onSelectionChange($event)" [pageSize]="2" [loading]="isLoading">
+            (selectionChange)="onSelectionChange($event)" (pageChange)="onPageChange($event)" [skip]="gridState.skip" [pageSize]="gridState.take"
+            [loading]="isLoading">
             <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
 
             <kendo-grid-column field="Code" title="Mã đơn" class="column-Code" [width]="100"></kendo-grid-column>
@@ -29,7 +30,7 @@
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="column-CreateAt">
                         {{formattedCreateAt(dataItem.CreateAt)}}
-+                    </div>
+                        + </div>
                 </ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="PaymentMethod" title="Phương thức" [width]="120">
