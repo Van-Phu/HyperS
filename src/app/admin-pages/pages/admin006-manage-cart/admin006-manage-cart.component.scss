@@ -38,6 +38,18 @@
 
 
             .showList{
+                // .dropDown-action{
+                //     position: absolute;
+                //     top: 0px !important;
+                //     background-color: red;
+                //     // left: -155px;
+                //     right: 30px;
+                //     z-index: 10 !important;
+                //     .dropdown{
+                //         background-color: $color-tool-box !important; 
+                //     }
+                // }
+
                 .grid-custom-container{
                     height: calc(100vh - 61px - 60px);
 
@@ -98,15 +110,40 @@
                     }
     
                     .column-button{
+                        z-index: 10;
+                        position: relative;
                         div{
                             background-color: transparent !important;
                         }
-                        i{
-                            color:black
-                        }
-                            .component-button:hover {
-                                background: #9c9c9c !important;
+                        .block-buttonAction{
+                            .component-button {
+                                box-shadow: $box-shadow3;
+                            
+                                &:hover {
+                                    background-color: #464646 !important;
+                                }
+    
+                                #idIconFontAwsome{
+                                    color: black;
+                                }
                             }
+                            
+                            .component-button:hover #idIconFontAwsome {
+                                color: white !important;
+                            }
+                        }
+
+                        .dropDown-action{
+                            position: absolute;
+                            top: 15px !important;
+                            left: -145px;
+                            // right: 50px;
+                            z-index: 10 !important;
+
+                            .dropdown{
+                                background-color: $color-tool-box !important; 
+                            }
+                        }
                         
                     }
                 }

@@ -2,6 +2,7 @@
 
 ::ng-deep{
     component-dropdown-action{
+        position: absolute;
         .dropdown{
             box-shadow: $box-shadow3;
             display: inline-block;
