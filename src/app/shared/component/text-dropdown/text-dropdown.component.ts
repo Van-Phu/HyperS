@@ -23,8 +23,13 @@ export class TextDropdownComponent {
   @Input() valueField: string;
   @Input() size: number = 13;
   @Output() getValue = new EventEmitter();
+  value: any;
 
   onClickItem(value: any){
     this.getValue.emit(value);
+  }
+
+  resetValue(){
+    this.value = this.defaultItem;
   }
 }

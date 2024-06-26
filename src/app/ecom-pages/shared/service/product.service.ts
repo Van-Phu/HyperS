@@ -64,8 +64,7 @@ export class ProductService {
 
   getListBrand(): Observable<DTOResponse> {
     const httpOptions = this.getHttpOptions();
-    const body = {}
-    return this.httpClient.post<DTOResponse>(this.urlGetListBrand, body, httpOptions)
+    return this.httpClient.post<DTOResponse>(this.urlGetListBrand, httpOptions)
   }
 
 }
