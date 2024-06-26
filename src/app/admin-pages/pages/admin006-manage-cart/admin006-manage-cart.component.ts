@@ -91,7 +91,17 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (type === 'end') {
       this.endDate = value;
     }
+    console.log(this.formatDateTime(this.startDate));
+    console.log(this.formatDateTime(this.endDate));
+    // console.log(this.formattedCreateAt(value));
+    this.setFilterDate();
   }
+
+  formatDateTime(date: Date) {
+    return date.toISOString().split('.')[0];
+  }
+
+  
 
 
   formattedCreateAt(createAt: any) {
@@ -153,12 +163,10 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   getFilterStatus(value: any) {
     if (value.Code !== -1) {
-      // alert(value.Status);
     }
   }
 
   ClickButtonAction() {
-    // alert(this.isClickButton);
     this.isClickButton = !this.isClickButton;
   }
 
@@ -196,11 +204,20 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     this.setFilterData();
   }
 
+  // Set filter dropdown date
+  setFilterDate() {
+    const filterFrom: FilterDescriptor = { field: 'CreateAt', operator: 'gte', value: this.formatDateTime(this.startDate) };
+    this.filterDate.filters.push(filterFrom);
+    const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.formatDateTime(this.endDate) };
+    this.filterDate.filters.push(filterTo);
+    this.setFilterData();
+  }  
 
   // Set filter tất cả
   setFilterData() {
     this.gridState.filter.filters = [];
     // this.pushToGridState(this.filterSearch, null)
+    this.pushToGridState(null, this.filterDate);
     this.pushToGridState(this.filterStatus, null);
     console.log(this.gridState);
     this.getListBill();
@@ -222,7 +239,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   // Reset tất cả các filter
   resetFilter() {
-    // this.childRangeDate.resetValue();
+    this.childRangeDate.resetValue();
     this.childStatus.resetValue();
     this.gridState.filter.filters = [];
     this.gridState.skip = 0;

@@ -4,7 +4,7 @@
         [width]="500"></component-search-bar>
     <div class="timeStartEnd">
         <component-datepicker [minDate]="minDate" [maxDate]="endDate"
-            (datePicked)="getDateFromDatePicker($event, 'start')"></component-datepicker>
+            (datePicked)="getDateFromDatePicker($event, 'start')" ></component-datepicker>
         <div class="line"></div>
         <component-datepicker [minDate]="startDate" [maxDate]="maxDate"
             (datePicked)="getDateFromDatePicker($event, 'end')"></component-datepicker>
