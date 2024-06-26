@@ -71,7 +71,7 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
 
   async initializeData(): Promise<void> {
     await this.APIGetListProductType();
-    // await this.APIGetListBrand();
+    await this.APIGetListBrand();
     this.handleGetRoute();
   }
   
@@ -154,9 +154,10 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
 
   APIGetListBrand(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.productService.getListBrand().pipe(takeUntil(this.destroy)).subscribe((data: []) => {
+      this.productService.getListBrand().pipe(takeUntil(this.destroy)).subscribe(data => {
         try {
-          this.listBrand = data;
+          this.listBrand = data.ObjectReturn.Data;
+          console.log(this.listBrand);
           resolve(); // Đánh dấu rằng đã lấy dữ liệu thành công
         } catch (error) {
           reject(error); // Xử lý lỗi nếu có
