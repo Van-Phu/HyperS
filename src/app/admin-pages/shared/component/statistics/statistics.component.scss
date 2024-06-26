@@ -1,0 +1,29 @@
+@import '../../../../../styles.scss';
+
+::ng-deep {
+    component-statistics {
+        .statistics-ctn {
+            .block-1 {
+                position: relative;
+                display: inline-block;
+                background-color: rgb(41, 55, 182);
+                box-shadow: $box-shadow3;
+                border-radius: 8px;
+                padding: 10px;
+
+                .block-2{
+                    justify-content: space-between;
+                    height: 100%;
+                    color: #fff;
+                    font-size: 18px;
+                    @include center-vertical;
+                    gap: 10px;
+
+                    .value{
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}
