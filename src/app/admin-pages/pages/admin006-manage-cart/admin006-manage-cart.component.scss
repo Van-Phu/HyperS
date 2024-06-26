@@ -1,42 +1,115 @@
 @import '../../.././../styles.scss';
+@import '../../shared/style/grid.scss';
 
 ::ng-deep{
     app-admin006-manage-cart{
+        display: block;
+        height: 100%;
+        position: relative;
             .headerFilter{
-                // background-color: red;
                 display: flex;
                 overflow-x: auto;
-                // width: 100%;
-                padding: 0 10px;
-                justify-content: space-between;
+
+                gap: 30px;
                 @include center-vertical;
     
                 .titlePage{
                     font-size: 16px;
                     font-weight: bold;
                     // background-color: aqua;
-                    // width: 250px;
+                    // min-width: 200px;
                     text-wrap: nowrap;
                 }
     
-                .searchBar{
+                .line{
+                    background-color: black;
+                    width: 15px;
+                    height: 2px;
+                }
+        
+                .timeStartEnd{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
                     // background-color: red;
-                    // width: 600px;
                 }
             }
     
-            .line{
-                background-color: black;
-                width: 15px;
-                height: 2px;
-            }
+
+
+            .showList{
+                .grid-custom-container{
+                    height: calc(100vh - 61px - 60px);
+
+                    th.k-table-th[aria-colindex="2"],
+                    th.k-table-th[aria-colindex="4"],
+                    th.k-table-th[aria-colindex="5"],
+                    th.k-table-th[aria-colindex="6"],
+                    th.k-table-th[aria-colindex="7"],
+                    th.k-table-th[aria-colindex="8"],
+                    th.k-table-th[aria-colindex="9"]{
+                        justify-content: center;
+                    }
     
-            .timeStartEnd{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                // background-color: red;
-                width: 310px;
+                    td{
+                        text-wrap: nowrap !important;
+                    }
+
+                    span{
+                        cursor: auto !important;
+                    }
+    
+                    .column-Code,
+                    .column-PhoneNumber,
+                    .column-TotalBill{
+                        text-align: center;
+                    }  
+    
+                    th.k-table-th[aria-colindex="10"]{
+                        justify-content: end;
+                    }
+    
+                    .column-CreateAt,
+                    .column-PaymentMethod,
+                    .column-Voucher{
+                        text-align: center;
+                    }
+    
+    
+                    .column-Status{                    
+                        display: flex;
+                        justify-content: end;
+                    }
+    
+                    .column-ShippingAddress{
+                        text-wrap: wrap !important;
+                    }
+    
+                    th.k-table-th[aria-colindex="11"]{
+                        background-color: transparent;
+                    }
+    
+                    // td.k-table-td[aria-colindex="11"]{
+    
+                    // }
+                    td.k-table-td[aria-colindex="11"] {
+                        border-left: 1px solid gray !important;
+                        height: 44px;
+                    }
+    
+                    .column-button{
+                        div{
+                            background-color: transparent !important;
+                        }
+                        i{
+                            color:black
+                        }
+                            .component-button:hover {
+                                background: #9c9c9c !important;
+                            }
+                        
+                    }
+                }
             }
 
     }

@@ -1,0 +1,9 @@
+<div class="checkboxlist-container" style="font-size: 14px;">
+    <ng-container *ngFor="let item of listCheckBox">
+        <div class="checkbox" (click)="onClickItemCheckBox(item)" [ngClass]="{'checked-border': item.IsChecked}">
+            <kendo-label class="k-checkbox-label"
+                [text]="item[textField]"></kendo-label>
+            <input type="checkbox" [checked]="item.IsChecked" kendoCheckBox />
+        </div>
+    </ng-container>
+</div>

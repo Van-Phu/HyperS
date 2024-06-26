@@ -8,39 +8,39 @@ export const listStatus: DTOStatus[] = [
     {
         Code: 1,
         Status: "Chờ xác nhận",
-        Icon: "fa-eye"
+        Icon: "fa-eye",
     },
     {
         Code: 2,
         Status: "Đang đóng gói",
-        Icon: "fa-share"
+        Icon: "fa-share",
     },
     {
         Code: 3,
         Status: "Đang vận chuyển",
-        Icon: "fa-cart-flatbed"
+        Icon: "fa-cart-flatbed",
     },
     {
         Code: 4,
         Status: "Thành công",
-        Icon: "fa-circle-check"
+        Icon: "fa-circle-check",
     },
     {
         Code: 5,
         Status: "Thất bại",
-        Icon: "fa-circle-xmark"
+        Icon: "fa-circle-xmark",
     }
 ]
 
-export const listStatusAccount: DTOStatus[] = [
+export const listStatusActive: DTOStatus[] = [
     {
         Code: 6,
         Status: "Hoạt động",
-        Icon: ""
+        Icon: "",
     },
     {
         Code: 7,
         Status: "Vô hiệu hóa",
-        Icon: ""
+        Icon: "",
     }
 ]

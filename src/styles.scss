@@ -8,7 +8,7 @@
     box-sizing: border-box;
     @import "@progress/kendo-font-icons/dist/index.css";
 
-    div{
+    div {
         font-family: "Mulish", sans-serif;
     }
 }
@@ -17,7 +17,9 @@ centered {
     display: flex;
     align-items: center;
     justify-content: center;
-  };
+}
+
+;
 
 // .fa-solid {
 //     padding: initial; /* or specific values you want for .fa-solid */
@@ -34,6 +36,8 @@ $color-add: #09880E; // Màu thêm mới
 $color-cancel: #FF1D1D; // Màu hủy, xóa
 $color-send: #069DF1; // Màu gửi đi
 $color-bg-side-expanded: #384C5E; // Màu sidebar được expanded
+$color-item-grid-selected: #c0cbd4; // Màu item trong grid được chọn
+$color-tool-box: #CBCBCB; // Màu của toolbox
 
 
 
@@ -63,22 +67,52 @@ $box-shadow71: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16p
     }
 }
 
-@mixin center-vertical(){
+@mixin center-vertical() {
     display: flex !important;
     align-items: center !important;
 }
 
-@mixin center-horizontal(){
+@mixin center-horizontal() {
     display: flex !important;
     justify-content: center !important;
 }
 
-@mixin center(){
+@mixin center() {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
 }
 
-// .fa-solid{
-//     font-family:Fon;
-// }
+::-webkit-scrollbar {
+    z-index: 2;
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #bdbdbd;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #8d8d8d;
+}
+
+kendo-popup {
+
+    .k-list-item:focus,
+    .k-list-optionlabel:focus,
+    .k-list-item.k-focus,
+    .k-focus.k-list-optionlabel {
+        box-shadow: none;
+    }
+
+    .k-list {
+        font-size: 13px;
+    }
+}

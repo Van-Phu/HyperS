@@ -1,13 +1,115 @@
 @import '../../../../styles.scss';
+@import '../../shared/style/grid.scss';
 
-::ng-deep{
-    app-admin009-manage-product{
-        .manage-product{
-            .content-form{
-                .block{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 16px;
+::ng-deep {
+    app-admin009-manage-product {
+        height: 100%;
+
+        .admin009 {
+            height: 100%;
+            position: relative;
+            width: 100%;
+
+
+            .header-filter-color {
+                padding: 10px 0;
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 15px;
+                @include center-vertical;
+
+                .label-filter-color {
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    text-wrap: nowrap;
+                }
+            }
+
+            .header-filter {
+                gap: 20px;
+                @include center-vertical;
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+
+                .label-delete-filter{
+                    text-decoration: underline;
+                    @include center-vertical;
+                    cursor: pointer;
+                    color: rgb(255, 97, 97);
+                    text-wrap: nowrap;
+
+                    &:hover{
+                        color: $color-cancel;
+                    }
+                }
+            }
+
+            .grid-custom-container {
+                height: calc(100vh - 55px - 57px - 61px - 10px);
+
+                kendo-grid {
+                    height: 100%;
+
+                    tr.k-table-row {
+                        max-height: 60px;
+                        height: 60px;
+                        color: #000 !important;
+                    }
+
+                    th.k-table-th[aria-colindex="2"],
+                    th.k-table-th[aria-colindex="4"],
+                    th.k-table-th[aria-colindex="5"],
+                    th.k-table-th[aria-colindex="6"],
+                    th.k-table-th[aria-colindex="7"] {
+                        .k-column-title {
+                            margin: auto;
+                        }
+                    }
+
+                    th.k-table-th[aria-colindex="8"] {
+                        .k-link {
+                            display: flex;
+                            justify-content: end;
+                        }
+                    }
+
+                    td.k-table-td[aria-colindex="9"] {
+                        background-color: #fff;
+                        box-shadow: $box-shadow2;
+                        height: 44px;
+                        @include center-horizontal;
+
+                        component-button {
+                            margin: auto;
+                            box-shadow: $box-shadow3;
+                        }
+
+                        .component-button:hover {
+                            background: #464646 !important;
+                            color: #fff !important;
+                        }
+                    }
+
+                    .column-2,
+                    .column-4,
+                    .column-5,
+                    .column-6,
+                    .column-7 {
+                        text-align: center;
+
+                        img {
+                            height: 38px;
+                            width: 38px;
+                            object-fit: cover;
+                            border-radius: 3px;
+                        }
+                    }
+
+                    .column-8 {
+                        text-align: right;
+                    }
                 }
             }
         }

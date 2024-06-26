@@ -21,7 +21,7 @@ export class SearchBarComponent {
   @Input() rounded: number = 100;
   @Input() paddingLeft: number = 30;
   @Input() paddingRight: number = 10;
-  @Input() boxShadow: string = 'rgba(0, 0, 0, 0.15) 0px 5px 15px';
+  @Input() boxShadow: string = 'rgba(0, 0, 0, 0.1) 0px 5px 5px';
   @Input() borderWidth: number;
   @Input() borderColor: string;
   @Output() getValue = new EventEmitter();

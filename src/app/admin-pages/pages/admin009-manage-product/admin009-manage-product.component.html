@@ -1,21 +1,118 @@
-<div class="manage-product">
-    <component-form text="Thông tin sản phẩm">
-        <div class="content-form">
-            <div class="block block-1">
-                <component-text-input [widthBlock]="350" [widthTextBox]="240" label="Mã sản phẩm"></component-text-input>
-                <component-text-input [widthBlock]="350" [widthTextBox]="240" label="Tên sản phẩm"></component-text-input>
-                <component-text-input [widthBlock]="350" [widthTextBox]="240" label="Giá sản phẩm"></component-text-input>
-            </div>
+<div class="admin009">
 
-            <div class="block block-2">
-                <component-text-dropdown label="Loại sản phẩm" [widthBlock]="300" [widthTextBox]="200"></component-text-dropdown>
-                <component-text-dropdown label="Thương hiệu" [widthBlock]="300" [widthTextBox]="200"></component-text-dropdown>
-                <component-text-dropdown label="Màu sắc" [widthBlock]="300" [widthTextBox]="200"></component-text-dropdown>
-            </div>
+    <div class="header-filter-color">
+        <div class="label-filter-color">Lọc theo màu</div>
+        <component-checkboxlist (getListChecked)="setFilterColor($event)" textField="Color" [listCheckBox]="listColor"></component-checkboxlist>
+    </div>
 
-            <div class="block block-3"></div>
+    <div class="header-filter">
+        <div class="label-delete-filter">Xóa bộ lọc</div>
 
-            <div class="block block-4"></div>
-        </div>
-    </component-form>
+        <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
+
+        <component-text-dropdown (getValue)="setFilterPrice($event)" [widthBlock]="160" [widthTextBox]="160"
+            textField="RangePrice" valueField="Code" [listItem]="listRangePrice" [defaultItem]="defaultPrice" />
+        <component-text-dropdown (getValue)="setFilterProductType(filterProductType, 'ProductType', 'eq', 'Name', $event)" [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code"
+            [listItem]="listProductType" [defaultItem]="defaultProductType" />
+        <component-text-dropdown (getValue)="setFilterProductType(filterBrand, 'BrandName', 'eq', 'Name', $event)" [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code"
+            [listItem]="listBrand" [defaultItem]="defaultBrand" />
+        <component-text-dropdown (getValue)="setFilterProductType(filterGender, 'Gender', 'eq', 'Code', $event)" [widthBlock]="160" [widthTextBox]="160" textField="Gender" valueField="Code"
+            [listItem]="listGender" [defaultItem]="defaultGender" />
+        <component-text-dropdown (getValue)="setFilterProductType(filterStatus, 'Status', 'eq', 'Code', $event)" [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code"
+            [listItem]="listStatus" [defaultItem]="defaultStatus" />
+    </div>
+
+    <div class="grid-custom-container">
+        <kendo-grid 
+            [skip]="gridState.skip" 
+            [loading]="isLoading" 
+            (pageChange)="onPageChange($event)"
+            [pageSize]="gridState.take" 
+            [pageable]="{
+                type: 'numeric',
+                pageSizes: true,
+            }" 
+            [data]="listProduct"
+            [selectable]="{ checkboxOnly: true }">
+
+            <!-- Checkbox -->
+            <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
+
+            <!-- Hình ảnh -->
+            <kendo-grid-column title="Hình ảnh" [width]="100">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-2">
+                        <img src="../../../../assets/johnwick.jpg" alt="">
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Tên sản phẩm -->
+            <kendo-grid-column title="Tên sản phẩm" [width]="350">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-3">
+                        <div class="idproduct">{{item.IdProduct}}</div>
+                        <div class="name">{{item.Name}}</div>
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Loại sản phẩm -->
+            <kendo-grid-column title="Loại sản phẩm" [width]="200">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-4">{{item.ProductType}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Thương hiệu -->
+            <kendo-grid-column title="Thương hiệu" [width]="170">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-5">{{item.BrandName}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Giới tính -->
+            <kendo-grid-column title="Giới tính" [width]="100">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-6">{{checkGender(item.Gender)}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Đơn giá -->
+            <kendo-grid-column title="Đơn giá" [width]="200">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-7">{{item.Price}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Trạng thái -->
+            <kendo-grid-column title="Trạng thái" [width]="150">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-8" [style.color]="item.Status | statusColor">{{checkStatusProduct(item.Status)}}
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- ToolBox -->
+            <kendo-grid-column [sticky]="true" [width]="50">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <div style="position: relative; z-index: 100; margin: auto;">
+                        <component-button [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
+                            classIconFontAwesome="fa-ellipsis" text=""></component-button>
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
+                <kendo-pager-page-sizes [pageSizes]="listPageSize"></kendo-pager-page-sizes>
+                <div class="pager-buttons">
+                    <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+                    <kendo-pager-numeric-buttons [buttonCount]="3"></kendo-pager-numeric-buttons>
+                    <kendo-pager-next-buttons></kendo-pager-next-buttons>
+                </div>
+            </ng-template>
+
+        </kendo-grid>
+    </div>
+
 </div>
