@@ -1,14 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DTOBrand } from 'src/app/ecom-pages/shared/dto/DTOBrand';
 import { DTOProductType } from 'src/app/ecom-pages/shared/dto/DTOProductType';
 import { ProductService } from 'src/app/ecom-pages/shared/service/product.service';
 import { DTOStatus, listStatusActive } from '../../shared/dto/DTOStatus.dto';
-import { DTOProduct } from 'src/app/ecom-pages/shared/dto/DTOProduct';
 import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/kendo-data-query';
 import { DTOColor, listColor } from '../../shared/dto/DTOColor.dto.';
 import { GridDataResult } from '@progress/kendo-angular-grid';
+import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/text-dropdown.component';
 
 interface DropDownPrice {
   Code: number
@@ -32,7 +32,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
 
   // variable
   isLoading: boolean = true;
-  pageSize: number = 1;
+  pageSize: number = 4;
 
   // variable list
   listColor: DTOColor[] = listColor;
@@ -139,15 +139,22 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // variable filter
-  filterSearch: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
-  filterProductType: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
-  filterBrand: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
-  filterGender: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
-  filterStatus: FilterDescriptor = {field: '', operator: '', value: null, ignoreCase: true};
+  filterSearch: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
+  filterProductType: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
+  filterBrand: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
+  filterGender: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
+  filterStatus: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
 
   // variable CompositeFilterDescriptor
-  filterColor: CompositeFilterDescriptor = {logic: 'or', filters: []};
-  filterPrice: CompositeFilterDescriptor = {logic: 'and', filters: []};
+  filterColor: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+  filterPrice: CompositeFilterDescriptor = { logic: 'and', filters: [] };
+
+  // variable ViewChild
+  @ViewChild('rangeprice') childRangePrice!: TextDropdownComponent;
+  @ViewChild('producttype') childProductType!: TextDropdownComponent;
+  @ViewChild('brand') childBrand!: TextDropdownComponent;
+  @ViewChild('gender') childGender!: TextDropdownComponent;
+  @ViewChild('status') childStatus!: TextDropdownComponent;
 
   constructor(private producService: ProductService) { }
 
@@ -164,7 +171,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
 
   // Lấy danh sách các brand
   getListBrand() {
-    this.producService.getListProductType().pipe(takeUntil(this.destroy)).subscribe(list => this.listBrand = list.ObjectReturn.Data);
+    this.producService.getListBrand().pipe(takeUntil(this.destroy)).subscribe(list => this.listBrand = list.ObjectReturn.Data);
   }
 
   // Lấy danh sách các product
@@ -222,7 +229,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
    * @param valueField là trường Tên textfield của DTO được lấy từ dropdown
    * @param value là giá trị được get từ dropdown, là 1 object
    */
-  setFilterProductType(filter: FilterDescriptor, field: string, operator: string, valueField: any, value: any){
+  setFilterProperty(filter: FilterDescriptor, field: string, operator: string, valueField: any, value: any) {
     console.log(value);
     filter.field = field;
     filter.operator = operator;
@@ -234,8 +241,45 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // Set filter tất cả
   setFilterData() {
     this.gridState.filter.filters = [];
-    this.gridState.filter.filters.push(this.filterColor, this.filterPrice, this.filterBrand, this.filterGender, this.filterProductType, this.filterStatus, this.filterSearch);
-    console.log(this.gridState);
+    this.pushToGridState(null, this.filterColor)
+    this.pushToGridState(null, this.filterPrice)
+    this.pushToGridState(this.filterBrand, null)
+    this.pushToGridState(this.filterGender, null)
+    this.pushToGridState(this.filterProductType, null)
+    this.pushToGridState(this.filterStatus, null)
+    this.getListProduct();
+  }
+
+  // Push filter vào gridState
+  pushToGridState(filter: FilterDescriptor, comFilter: CompositeFilterDescriptor) {
+    if (filter) {
+      if (filter.value && filter.value !== -1) {
+        this.gridState.filter.filters.push(filter);
+      }
+    }
+    else if(comFilter){
+      if (comFilter.filters.length > 0) {
+        this.gridState.filter.filters.push(comFilter);
+      }
+    }
+  }
+
+  // Reset tất cả các filter
+  resetFilter(){
+    this.childRangePrice.resetValue();
+    this.childProductType.resetValue();
+    this.childBrand.resetValue();
+    this.childGender.resetValue();
+    this.childStatus.resetValue();
+    this.gridState.filter.filters = [];
+    this.gridState.skip = 0;
+    this.gridState.take = this.pageSize;
+    this.getListProduct();
+  }
+
+  // Dùng để format tiền VN
+  formatCurrency(value: number): string {
+    return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
   }
 
   // Thao tác paging
