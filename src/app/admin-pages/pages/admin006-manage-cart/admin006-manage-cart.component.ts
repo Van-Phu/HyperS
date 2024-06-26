@@ -53,7 +53,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.destroy.next();
+    this.destroy.complete();
   }
 
   getDateFromDatePicker(value: any, type: string){
