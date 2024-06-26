@@ -22,12 +22,12 @@ export const listStatus: DTOStatus[] = [
     },
     {
         Code: 4,
-        Status: "Thành công",
+        Status: "Giao hàng thành công",
         Icon: "fa-circle-check",
     },
     {
         Code: 5,
-        Status: "Thất bại",
+        Status: "Giao hàng thất bại",
         Icon: "fa-circle-xmark",
     }
 ]

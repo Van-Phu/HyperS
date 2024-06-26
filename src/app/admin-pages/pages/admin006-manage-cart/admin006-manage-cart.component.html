@@ -4,32 +4,33 @@
         [width]="500"></component-search-bar>
     <div class="timeStartEnd">
         <component-datepicker [minDate]="minDate" [maxDate]="endDate"
-            (datePicked)="getDateFromDatePicker($event, 'start')"></component-datepicker>
+            (datePicked)="getDateFromDatePicker($event, 'start')" ></component-datepicker>
         <div class="line"></div>
         <component-datepicker [minDate]="startDate" [maxDate]="maxDate"
             (datePicked)="getDateFromDatePicker($event, 'end')"></component-datepicker>
     </div>
     <component-text-dropdown [listItem]="listStatus" textField="Status" valueField="Code"
         [defaultItem]="defaultItemStatusBill" [heightTextBox]="35"
-        (getValue)="getFilterStatus($event)"></component-text-dropdown>
+        (getValue)="setFilterProperty(filterStatus, 'Status', 'eq', 'Code', $event)"></component-text-dropdown>
 </div>
 <div class="showList">
     <div class="grid-custom-container">
         <kendo-grid [pageable]="true" [data]="listBillPage" [selectable]="{ checkboxOnly: true }"
-            (selectionChange)="onSelectionChange($event)" [pageSize]="2" [loading]="isLoading">
+            (selectionChange)="onSelectionChange($event)" (pageChange)="onPageChange($event)" [skip]="gridState.skip" [pageSize]="gridState.take"
+            [loading]="isLoading">
             <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
 
-            <kendo-grid-column field="Code" title="Mã đơn hàng" class="column-Code" [width]="140"></kendo-grid-column>
-            <kendo-grid-column field="CustomerName" title="Tên khách hàng" [width]="200"></kendo-grid-column>
+            <kendo-grid-column field="Code" title="Mã đơn" class="column-Code" [width]="100"></kendo-grid-column>
+            <kendo-grid-column field="CustomerName" title="Tên khách hàng" [width]="170"></kendo-grid-column>
             <kendo-grid-column field="ShippingAddress" title="Địa chỉ giao hàng" class="column-ShippingAddress"
                 [width]="350"></kendo-grid-column>
             <kendo-grid-column field="PhoneNumber" title="Số điện thoại" class="column-PhoneNumber"
                 [width]="120"></kendo-grid-column>
-            <kendo-grid-column field="CreateAt" title="Ngày khởi tạo" [width]="120">
+            <kendo-grid-column field="CreateAt" title="Ngày khởi tạo" [width]="130">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="column-CreateAt">
                         {{formattedCreateAt(dataItem.CreateAt)}}
-+                    </div>
+                        + </div>
                 </ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="PaymentMethod" title="Phương thức" [width]="120">
@@ -50,19 +51,17 @@
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div>
                         {{formatCurrency(dataItem.TotalBill)}}
-                        <br>
-                        {{dataItem.TotalBill | json}}
                     </div>
                 </ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="Status" title="Trạng thái" [width]="140">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <div class="column-Status" [style.color]="dataItem.Status | statusColor">
+                    <div class="column-Status" [style.color]="formatStatus(dataItem.Status) | statusColor">
                         {{formatStatus(dataItem.Status)}}
                     </div>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column class="column-button" [width]="59">
+            <kendo-grid-column class="column-button" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="block-Action">
                         <div (click)="ClickButtonAction()" class="block-buttonAction">

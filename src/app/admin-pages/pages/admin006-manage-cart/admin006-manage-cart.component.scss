@@ -9,7 +9,7 @@
             .headerFilter{
                 display: flex;
                 overflow-x: auto;
-
+                padding-bottom: 10px;
                 gap: 30px;
                 @include center-vertical;
     
@@ -77,8 +77,8 @@
                         text-align: center;
                     }  
     
-                    th.k-table-th[aria-colindex="10"]{
-                        justify-content: end;
+                    th.k-table-th[aria-colindex="9"]{
+                        justify-content: flex-end;
                     }
     
                     .column-CreateAt,
@@ -90,21 +90,21 @@
     
                     .column-Status{                    
                         display: flex;
-                        justify-content: end;
+                        justify-content: flex-end;
                     }
     
                     .column-ShippingAddress{
                         text-wrap: wrap !important;
                     }
     
-                    th.k-table-th[aria-colindex="11"]{
+                    th.k-table-th[aria-colindex="10"]{
                         background-color: transparent;
                     }
     
                     // td.k-table-td[aria-colindex="11"]{
     
                     // }
-                    td.k-table-td[aria-colindex="11"] {
+                    td.k-table-td[aria-colindex="10"] {
                         border-left: 1px solid gray !important;
                         height: 44px;
                     }
@@ -112,24 +112,27 @@
                     .column-button{
                         z-index: 10;
                         position: relative;
-                        div{
-                            background-color: transparent !important;
-                        }
-                        .block-buttonAction{
-                            .component-button {
-                                box-shadow: $box-shadow3;
-                            
-                                &:hover {
-                                    background-color: #464646 !important;
+                        background-color: white !important;
+
+                        .block-Action{
+                            display: inline-block;
+
+                            .block-buttonAction{
+                                .component-button {
+                                    box-shadow: $box-shadow3;
+                                    background-color: white !important;
+                                    color: black !important;
+
+
+                                    &:hover {
+                                        background-color: #464646 !important;
+
+                                    }
                                 }
-    
-                                #idIconFontAwsome{
-                                    color: black;
+                                
+                                .component-button:hover #idIconFontAwsome {
+                                    color: white !important;
                                 }
-                            }
-                            
-                            .component-button:hover #idIconFontAwsome {
-                                color: white !important;
                             }
                         }
 
@@ -144,6 +147,7 @@
                                 background-color: $color-tool-box !important; 
                             }
                         }
+
                         
                     }
                 }

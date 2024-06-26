@@ -41,8 +41,8 @@ export class DatepickerComponent implements OnInit {
     const body = this.renderer.selectRootElement('body', true) as HTMLElement;
     const rootElement = body.querySelector('app-root') as HTMLElement;
     const popupElement = rootElement.querySelector('kendo-popup');
-    console.log(body);
-    console.log(popupElement);
+    // console.log(body);
+    // console.log(popupElement);
   }
 
 }
