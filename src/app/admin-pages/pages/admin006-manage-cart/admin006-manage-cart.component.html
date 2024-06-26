@@ -1,86 +1,96 @@
 <div class="headerFilter">
     <p class="titlePage">DANH SÁCH ĐƠN HÀNG</p>
-    <component-search-bar class="searchBar" placeholder="Tìm kiếm theo tên hoặc số điện thoại" [width]="500"></component-search-bar>
+    <component-search-bar class="searchBar" placeholder="Tìm kiếm theo tên hoặc số điện thoại"
+        [width]="500"></component-search-bar>
     <div class="timeStartEnd">
-        <component-datepicker [minDate]="minDate" [maxDate]="endDate" (datePicked)="getDateFromDatePicker($event, 'start')"></component-datepicker>
+        <component-datepicker [minDate]="minDate" [maxDate]="endDate"
+            (datePicked)="getDateFromDatePicker($event, 'start')"></component-datepicker>
         <div class="line"></div>
-        <component-datepicker [minDate]="startDate" [maxDate]="maxDate" (datePicked)="getDateFromDatePicker($event, 'end')"></component-datepicker>
+        <component-datepicker [minDate]="startDate" [maxDate]="maxDate"
+            (datePicked)="getDateFromDatePicker($event, 'end')"></component-datepicker>
     </div>
-    <component-text-dropdown 
-    [listItem]="listStatus" 
-    textField="Status" 
-    valueField="Code"
-    [defaultItem]="defaultItemStatusBill"
-    [heightTextBox]="35"
-    ></component-text-dropdown>
+    <component-text-dropdown [listItem]="listStatus" textField="Status" valueField="Code"
+        [defaultItem]="defaultItemStatusBill" [heightTextBox]="35"
+        (getValue)="getFilterStatus($event)"></component-text-dropdown>
 </div>
 <div class="showList">
     <div class="grid-custom-container">
-        <kendo-grid [pageable]="true" [data]="listBill"
-        [selectable]="{ checkboxOnly: true }"
-        (selectionChange)="onSelectionChange($event)"
-        >
-        <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
+        <kendo-grid [pageable]="true" [data]="listBillPage" [selectable]="{ checkboxOnly: true }"
+            (selectionChange)="onSelectionChange($event)" [pageSize]="2" [loading]="isLoading">
+            <kendo-grid-checkbox-column [showSelectAll]="true" [width]="40"></kendo-grid-checkbox-column>
 
             <kendo-grid-column field="Code" title="Mã đơn hàng" class="column-Code" [width]="140"></kendo-grid-column>
             <kendo-grid-column field="CustomerName" title="Tên khách hàng" [width]="200"></kendo-grid-column>
-            <kendo-grid-column field="ShippingAddress" title="Địa chỉ giao hàng" class="column-ShippingAddress" [width]="350"></kendo-grid-column>
-            <kendo-grid-column field="PhoneNumber" title="Số điện thoại" class="column-PhoneNumber" [width]="120"></kendo-grid-column>
-            <kendo-grid-column field="CreateAt" title="Ngày khởi tạo" [width]="140">
-                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+            <kendo-grid-column field="ShippingAddress" title="Địa chỉ giao hàng" class="column-ShippingAddress"
+                [width]="350"></kendo-grid-column>
+            <kendo-grid-column field="PhoneNumber" title="Số điện thoại" class="column-PhoneNumber"
+                [width]="120"></kendo-grid-column>
+            <kendo-grid-column field="CreateAt" title="Ngày khởi tạo" [width]="120">
+                <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="column-CreateAt">
                         {{formattedCreateAt(dataItem.CreateAt)}}
-                    </div>
++                    </div>
                 </ng-template>
-              </kendo-grid-column>
+            </kendo-grid-column>
             <kendo-grid-column field="PaymentMethod" title="Phương thức" [width]="120">
-                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="column-PaymentMethod">
-                        {{dataItem.PaymentMethod}}
+                        {{formatPaymentMethod(dataItem.PaymentMethod)}}
                     </div>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column field="Voucher" title="Voucher" [width]="140">
-                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+            <!-- <kendo-grid-column field="Voucher" title="Voucher" [width]="140">
+                <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="column-Voucher">
                         {{dataItem.Voucher}}
                     </div>
                 </ng-template>
-            </kendo-grid-column>
+            </kendo-grid-column> -->
             <kendo-grid-column field="TotalBill" title="Tổng tiền" class="column-TotalBill" [width]="140">
-                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                <ng-template kendoGridCellTemplate let-dataItem>
                     <div>
                         {{formatCurrency(dataItem.TotalBill)}}
+                        <br>
+                        {{dataItem.TotalBill | json}}
                     </div>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column field="Status" title="Trạng thái"  [width]="140">
-                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+            <kendo-grid-column field="Status" title="Trạng thái" [width]="140">
+                <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="column-Status" [style.color]="dataItem.Status | statusColor">
-                        {{dataItem.Status}}
+                        {{formatStatus(dataItem.Status)}}
                     </div>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column class="column-button"  [width]="59" [sticky]="true">
-                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                    <component-button class="button-action" text="" classIconFontAwesome="fa-ellipsis" [width]="30" [height]="30"></component-button>
-                    <!-- <div class="column-Voucher">
-                        {{dataItem.Voucher}}
-                    </div> -->
+            <kendo-grid-column class="column-button" [width]="59">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <div class="block-Action">
+                        <div (click)="ClickButtonAction()" class="block-buttonAction">
+                            <component-button class="button-action" text="" classIconFontAwesome="fa-ellipsis"
+                                [width]="30" [height]="30">
+                            </component-button>
+                        </div>
+                        <div *ngIf="isClickButton" class="dropDown-action">
+                            <component-dropdown-action [listItem]="listStatus"></component-dropdown-action>
+                        </div>
+                    </div>
                 </ng-template>
             </kendo-grid-column>
 
-            
+
+
 
             <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
                 <kendo-pager-page-sizes pagerGrid [pageSizes]="[1,2,3,4]"></kendo-pager-page-sizes>
                 <div class="pager-buttons">
                     <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
-                    <kendo-pager-numeric-buttons [buttonCount]="3" ></kendo-pager-numeric-buttons>
+                    <kendo-pager-numeric-buttons [buttonCount]="3"></kendo-pager-numeric-buttons>
                     <kendo-pager-next-buttons></kendo-pager-next-buttons>
                 </div>
             </ng-template>
         </kendo-grid>
+
+
     </div>
 </div>
 <!-- <component-text-area [label]="'Lí do hủy đơn:'"
@@ -102,4 +112,3 @@
 
 <component-popup-confirm></component-popup-confirm>
 <component-form><div class="content-form"></div></component-form> -->
-
