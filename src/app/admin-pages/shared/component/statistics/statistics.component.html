@@ -1,8 +1,6 @@
-<div class="statistics-ctn" [@countUp]>
-    <div class="block-1">
-        <div class="block-2">
-            <div class="text">{{ textField }}</div>
-            <div class="value">{{ currentCount }}</div>
-        </div>
+<div class="statistics-ctn" [style.boxShadow]="boxShadow" [@countUp] >
+    <div class="block">
+        <div class="value" [ngStyle]="{'background-color': color}">{{ currentCount }}</div>
+        <div class="text" [ngStyle]="{'color': color}">{{ textField }}</div>
     </div>
 </div>
