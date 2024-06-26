@@ -134,6 +134,11 @@ export class EcomCartComponent implements OnInit{
     this.handleCalPrice()
   }
 
+  handleCheckout():void{
+    localStorage.setItem('cacheCheckout', JSON.stringify(this.listItemSelected) )
+    this.navigate("ecom/payment")
+  }
+
   navigate(route: string) {
     if(this.listItemSelected.length > 0){
       this.router.navigate([route])

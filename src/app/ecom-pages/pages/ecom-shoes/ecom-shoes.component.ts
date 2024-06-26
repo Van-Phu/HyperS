@@ -34,8 +34,10 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
   headerChangeSubscription: Subscription
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
 
+  isLoading: boolean = false
+
   listGender:any[] = [
-    {id:0, text:"For all", checked: false},
+    {id: 0, text:"For all", checked: false},
     {id: 1, text: "Men", checked: false},
     {id: 2, text: "Women", checked: false}
   ]
@@ -57,7 +59,7 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
     }
   }   
 
-  isLoading: boolean = false
+
 
 
   constructor(
