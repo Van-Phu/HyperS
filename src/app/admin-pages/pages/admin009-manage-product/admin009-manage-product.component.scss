@@ -2,6 +2,77 @@
 @import '../../shared/style/grid.scss';
 
 ::ng-deep {
+    .col-5 {
+        text-align: right;
+        align-items: end;
+        padding: 0;
+
+        .tool-box {
+            padding: 15px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            margin: 0 auto;
+            border: 1px solid #EFF0F2;
+            box-shadow: $box-shadow5;
+            border-radius: 1px;
+            background-color: #FFF;
+            position: relative;
+
+            .k-i-more-horizontal {
+                width: 100%;
+            }
+
+            &:hover {
+                background-color: #D0D5E7;
+                border: 1px solid #3d3d3d;
+            }
+
+            .action-list-box {
+                border-radius: 4px 0 4px 4px;
+                position: absolute;
+                width: 220px;
+                left: -221px;
+                top: -1px;
+                // border: 1px solid #fff;
+                box-shadow: $box-shadow3;
+
+                .action-box {
+                    display: flex;
+                    gap: 8px;
+                    padding: 6px 8px;
+                    text-wrap: nowrap;
+                    text-align: left;
+                    color: #fff;
+
+                    &_icon {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    &:hover {
+                        background-color: #696969;
+                    }
+
+                    &:first-child {
+                        border-radius: 4px 0 0 0;
+                    }
+
+                    &:last-child {
+                        border-radius: 0 0 0 4px;
+                    }
+                }
+            }
+        }
+
+        .tool-box.active {
+            background-color: #D0D5E7;
+            border: 1px solid #3d3d3d;
+        }
+
+    }
     app-admin009-manage-product {
         height: 100%;
 
@@ -81,6 +152,7 @@
                         box-shadow: $box-shadow2;
                         height: 44px;
                         @include center-horizontal;
+                        overflow: visible;
 
                         component-button {
                             margin: auto;
@@ -111,6 +183,14 @@
 
                     .column-9 {
                         text-align: right;
+                    }
+
+                    .tool-box-container{
+                        position: relative;
+                        @include center;
+                        z-index: 1000;
+                        width: 100%;
+                        height: 100%;
                     }
                 }
             }

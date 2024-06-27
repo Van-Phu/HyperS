@@ -230,7 +230,6 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
    * @param value là giá trị được get từ dropdown, là 1 object
    */
   setFilterProperty(filter: FilterDescriptor, field: string, operator: string, valueField: any, value: any) {
-    console.log(value);
     filter.field = field;
     filter.operator = operator;
     filter.value = value[valueField];
@@ -248,14 +247,12 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.pushToGridState(this.filterProductType, null)
     this.pushToGridState(this.filterStatus, null)
     this.getListProduct();
-    
-    console.log(this.gridState);
   }
 
   // Push filter vào gridState
   pushToGridState(filter: FilterDescriptor, comFilter: CompositeFilterDescriptor) {
     if (filter) {
-      if ((filter.value || filter.value === 0) && filter.value !== -1) {
+      if (!!!filter.value) {
         this.gridState.filter.filters.push(filter);
       }
     }

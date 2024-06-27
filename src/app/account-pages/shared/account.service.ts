@@ -31,6 +31,6 @@ export class AccountService {
 
   checkLogin():Observable<DTOResponse>{
     const httpOption = this.getHttpOptions()
-    return this.httpClient.post<DTOResponse>(this.urlCheckLogin, httpOption).pipe()
+    return this.httpClient.post<DTOResponse>(this.urlCheckLogin, {}, httpOption).pipe()
   }
 }
