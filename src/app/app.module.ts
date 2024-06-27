@@ -64,6 +64,7 @@ import { CheckboxlistComponent } from './admin-pages/shared/component/checkboxli
 import { AccountPagesComponent } from './account-pages/account-pages.component';
 import { LoginComponent } from './account-pages/login/login.component';
 import { SignupComponent } from './account-pages/signup/signup.component';
+import { StatisticsComponent } from './admin-pages/shared/component/statistics/statistics.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,10 +111,9 @@ import { SignupComponent } from './account-pages/signup/signup.component';
     CheckboxlistComponent,
     AccountPagesComponent,
     LoginComponent,
-    SignupComponent
+    StatisticsComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     AdminRoutingModule,
     BrowserAnimationsModule,
