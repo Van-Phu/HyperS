@@ -61,6 +61,9 @@ import { PagerGridDirective } from './shared/directive/pagergrid.directive';
 import { ImportMultiImageComponent } from './admin-pages/shared/component/import-multi-image/import-multi-image.component';
 import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-manage-product/admin009-manage-product.component';
 import { CheckboxlistComponent } from './admin-pages/shared/component/checkboxlist/checkboxlist.component';
+import { AccountPagesComponent } from './account-pages/account-pages.component';
+import { LoginComponent } from './account-pages/login/login.component';
+import { SignupComponent } from './account-pages/signup/signup.component';
 import { StatisticsComponent } from './admin-pages/shared/component/statistics/statistics.component';
 @NgModule({
   declarations: [
@@ -106,6 +109,9 @@ import { StatisticsComponent } from './admin-pages/shared/component/statistics/s
     ImportMultiImageComponent,
     Admin009ManageProductComponent,
     CheckboxlistComponent,
+    AccountPagesComponent,
+    LoginComponent,
+    SignupComponent,
     StatisticsComponent
   ],
   imports: [

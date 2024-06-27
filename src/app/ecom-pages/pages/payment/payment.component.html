@@ -1,17 +1,17 @@
 <div class="main">
     <div class="content">
         <div class="info-area">
-            <div (click)="log()" class="title">
+            <div class="title">
                 Payment
             </div>
             <div class="form-area">
                 <div class="textbox">
                     <div class="title">Recipient's name</div>
-                    <kendo-textbox class="input" placeholder="Your name"></kendo-textbox>
+                    <kendo-textbox [(ngModel)]="name" class="input" placeholder="Your name"></kendo-textbox>
                 </div> 
                 <div class="textbox">
                     <div class="title">Mail</div>
-                    <kendo-textbox class="input" placeholder="Your mail"></kendo-textbox>
+                    <kendo-textbox [(ngModel)]="mail" class="input" placeholder="Your mail"></kendo-textbox>
                 </div> 
                 <div class="textbox">
                     <div class="title">Province</div>
@@ -23,6 +23,7 @@
                         [filterable]="true"
                         [(ngModel)]="provinceSelected"
                         (valueChange)="handleChangeProvince()"
+                        [defaultItem]="defaultValueProvince"
                        ></kendo-dropdownlist>
                 </div> 
                 <div class="textbox">
@@ -35,6 +36,7 @@
                         [filterable]="true"
                         [disabled]="isDisableDistrict"
                         [(ngModel)]="districtSelected"
+                        [defaultItem]="defaulValueDistrict"
                         (valueChange)="handleChangeDistrict()"
                        ></kendo-dropdownlist>
                 </div> 
@@ -47,11 +49,14 @@
                         valueField="ward_name"
                         [filterable]="true"
                         [disabled]="isDisableWard"
+                        [defaultItem]="defaultValueWard"
+                        [(ngModel)]="wardSelected"
+                        (valueChange)="handleChangeWard()"
                        ></kendo-dropdownlist>
                 </div> 
                 <div class="textbox">
                     <div class="title">Specific address</div>
-                    <kendo-textbox class="input" placeholder="Your specific address"></kendo-textbox>
+                    <kendo-textbox [(ngModel)]="specific" [disabled]="isDisableSpecific" class="input" placeholder="Your specific address"></kendo-textbox>
                 </div> 
 
                 <div class="payment-method-select-area">
@@ -59,8 +64,8 @@
                         Payment method
                     </div>
                     <div class="area-button-method">
-                        <div class="method" *ngFor="let p of listPaymentMethod">
-                            <div (click)="handleSelectedPaymentMethod(p)" class="area">
+                        <div (click)="handleSelectedPaymentMethod(p)" *ngFor="let p of listPaymentMethod" [ngClass]="paymenMethodSelected?.id == p.id ? 'method-selected' : 'method'">
+                            <div  class="area">
                                 <i class="fa-solid {{p.icon}}"></i>
                                 <div>{{p.text}}</div>
                             </div>
@@ -72,40 +77,88 @@
             
         </div>
         <div class="price-area">
-            <div class="title">
-                Order summary
-            </div>
-            <div class="price-description">
-                <div class="sub-total">
-                    <div class="title-child">
-                        Subtotal
+            <div class="price">
+                <div class="title">
+                    Order summary
+                </div>
+                <div class="price-description">
+                    <div class="sub-total">
+                        <div class="title-child">
+                            Subtotal
+                        </div>
+                        <div class="price-child">
+                            {{priceSubTotal}}
+                        </div>
                     </div>
-                    <div class="price-child">
-                        10000000000000đ
+                    <div class="sub-total">
+                        <div class="title-child">
+                            Delivery
+                        </div>
+                        <div class="price-child">
+                            {{priceDelivery}}
+                        </div>
+                    </div>
+                    <div class="sub-total">
+                        <div class="title-child">
+                            Coupon
+                        </div>
+                        <div class="price-child">
+                            {{priceCoupon}}
+                        </div>
                     </div>
                 </div>
-                <div class="sub-total">
-                    <div class="title-child">
-                        Delivery
+    
+                <div class="price-total-area">
+                    <div class="under-line"></div>
+                    <div class="total-price">
+                        <div class="title-child">
+                            Total price
+                        </div>
+                        <div class="price-child">
+                            {{totalPrice}}
+                        </div>
                     </div>
-                    <div class="price-child">
-                        free
-                    </div>
+                    <div class="under-line"></div>
+                </div>
+
+                <div (click)="handlePayment()" class="btn-payment">
+                    Payment
                 </div>
             </div>
 
-            <div class="price-total-area">
-                <div class="under-line"></div>
-                <div class="total-price">
-                    <div class="title-child">
-                        Total price
-                    </div>
-                    <div class="price-child">
-                        free
+            <div class="product">
+                <div class="title">
+                    Product
+                </div>
+                <div class="show-product">
+                    <div *ngFor="let product of listProductPayment" >
+                        <div class="item">
+                            <div class="image">
+                                <img src="{{product.Product.ListOfImage[1].ImgUrl}}" alt="">
+                            </div>
+                            <div class="area-info">
+                                <div class="info">
+                                    <div class="name">
+                                        {{product.Product.Name}}
+                                    </div>
+                                    <div class="size">
+                                        size: {{product.SizeSelected.Size}}
+                                    </div>
+                                    <div class="quantity">
+                                        x{{product.Quantity}}
+                                    </div>
+                                </div>
+                                <div (click)="handleDeleteProduct(product)" class="delete"> 
+                                    <i class="fa-solid fa-trash"></i>
+                                </div>
+                            </div>
+                           
+                        </div>
                     </div>
                 </div>
-                <div class="under-line"></div>
+                
             </div>
+           
         </div>
     </div>
 </div>
