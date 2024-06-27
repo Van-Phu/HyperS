@@ -1,0 +1,119 @@
+@import '../../../styles.scss';
+
+::ng-deep{
+    center{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    };
+
+    .k-input{
+        border-style: none !important;
+    }
+    
+
+    app-signup{
+        color: $color-main;
+        .main{
+            height: 100vh;
+            width: 100%;
+            @extend center;
+
+            .content{
+                height: 700px;
+                width: 1200px;
+                background-color: white;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                border-radius: 10px;
+       
+
+                .form{
+                    padding: 20px;
+                    // background-color: red;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 50px;
+                    height: 100%;
+                    .info{
+                        .title{
+                            font-size: 50px;
+                            font-weight: bolder;
+                            @extend center;
+                        }
+                        .sub-title{
+                            @extend center;
+                        }
+
+                        .input-area{
+                            margin: 20px 0;
+                            .input{
+                                margin-bottom: 20px;
+                                border: 1px solid rgb(233, 233, 233);
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                padding: 5px 10px;
+                                width: 100%;
+                                border-radius: 10px;
+                                height: 40px;
+                                
+
+                                input{
+                                    width: 350px;
+                                    border: none;
+                                    &:focus{
+                                        border: 0px solid;
+                                        outline: none;
+                                    } 
+                                }
+
+                                .fa-eye{
+                                    cursor: pointer;
+                                }
+                            }
+
+                            
+                        }
+
+                        .back{
+                            width: 100%;
+                            align-items: center;
+                            justify-content: right;
+                            display: flex;
+                            font-weight: 500;
+                            text-decoration-line: underline;
+                            cursor: pointer;
+                            
+                        }
+                        .btnlogin{
+                            @extend center;
+                            height: 40px;
+                            width: 100%;
+                            background-color: $color-main;
+                            color: white;
+                            font-size: 20px;
+                            font-weight: bold;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            margin: 50px 0;
+                        } 
+                        width: 50%;
+                        @extend center;
+                    }
+
+                    .image{
+                        height: 650px;
+                        width: 500px;
+
+                        img{
+                            height: 100%;
+                            width: 100%;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

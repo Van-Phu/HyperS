@@ -1,0 +1,72 @@
+<div class="main">
+    <div class="content">
+        <div class="form">
+            <div class="info">
+                <div>
+                    <div class="title">
+                        Welcome
+                    </div>
+                    <div class="sub-title">
+                        We will provide the best shose for you
+                    </div>
+                    <div class="input-area">
+                        <div class="input">
+                            <i [(ngModel)]="username" class="fa-solid fa-user"></i>
+                            <input placeholder="Email, Number phone"/>
+                        </div>
+                        <div class="input">
+                            <i class="fa-solid fa-lock"></i>
+                            <input [(ngModel)]="password" type="{{showPassword}}" placeholder="Password"/>
+                            <i (click)="handleChangeShowPassword()" class="fa-regular fa-eye"></i>
+                            </div>
+                    </div>
+                    <div class="forgot-stay-area">
+                        <div class="stay-area">
+                            <input type="checkbox">
+                            <div>Stay my account</div>
+                        </div>
+                        <div class="forgot-area">
+                            Forgot password
+                        </div>
+                    
+                    </div>
+                    <div (click)="handleLogin(username, password)" class="btnlogin">
+                        {{'login' | uppercase}}
+                    </div>
+                   
+                    <div class="sign-up-area">
+                        <div>
+                            Become to memeber?
+                        </div>
+                        <div (click)="handleNavigate('account/signup')" class="btn-sign">
+                            Sign up
+                        </div>
+                    </div>
+                    <div class="text">
+                        <div><span>Login with others</span></div>
+                    </div>
+                    <div class="other-login">
+                        <div class="btn">
+                            <div class="img">
+                                <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png" alt="">
+                            </div>
+                            <div>Login with Google</div>
+                        </div>
+                        <div class="btn">
+                            <div class="img">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/600px-Facebook_Logo_%282019%29.png" alt="">
+                            </div>
+                            <div>Login with Meta</div>
+                        </div>
+                    </div>
+                   
+                </div>
+               
+            </div>
+            <div class="image">
+                <img src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_812,c_limit/d1393302-2837-4c98-8686-ccd8af19ef90/image.png" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>
