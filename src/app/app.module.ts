@@ -111,9 +111,11 @@ import { StatisticsComponent } from './admin-pages/shared/component/statistics/s
     CheckboxlistComponent,
     AccountPagesComponent,
     LoginComponent,
+    SignupComponent,
     StatisticsComponent
   ],
   imports: [
+    BrowserModule,
     AppRoutingModule,
     AdminRoutingModule,
     BrowserAnimationsModule,
