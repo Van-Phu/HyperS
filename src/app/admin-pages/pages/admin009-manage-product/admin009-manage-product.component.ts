@@ -106,6 +106,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     Code: -1,
     Status: '-- Trạng thái --',
     Icon: '',
+    IsChecked: false
   }
 
   // variable State
