@@ -2,6 +2,7 @@
 
 ::ng-deep{
     component-button{
+        display: inline-block;
         .component-button{
             display: flex;
             text-wrap: nowrap;
