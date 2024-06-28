@@ -112,11 +112,11 @@
             </kendo-grid-column>
 
             <!-- ToolBox -->
-            <kendo-grid-column [sticky]="true" [width]="50">
+            <kendo-grid-column [sticky]="true" [resizable]="true" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <div style="position: relative; z-index: 100; margin: auto;">
+                    <div class="tool-box-container">
                         <component-button [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
-                            classIconFontAwesome="fa-ellipsis" text=""></component-button>
+                        classIconFontAwesome="fa-ellipsis" text=""></component-button>
                     </div>
                 </ng-template>
             </kendo-grid-column>
