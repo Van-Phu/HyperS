@@ -3,14 +3,28 @@
 
 ::ng-deep{
     app-admin006-manage-cart{
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
         height: 100%;
         position: relative;
-            .headerFilter{
+        padding-top: 10px;
+        
+            .header-filter{
+                display: flex;
+                text-wrap: nowrap;
+                align-items: center;
+
+                .label-filter{
+                    font-weight: 600;
+                }
+            }
+            .headerSearch{
                 display: flex;
                 overflow-x: auto;
-                padding-bottom: 10px;
+                padding-bottom: 15px;
                 gap: 30px;
+                text-wrap: nowrap;
                 @include center-vertical;
     
                 .titlePage{
@@ -18,7 +32,7 @@
                     font-weight: bold;
                     // background-color: aqua;
                     // min-width: 200px;
-                    text-wrap: nowrap;
+                    
                 }
     
                 .line{
@@ -51,7 +65,7 @@
                 // }
 
                 .grid-custom-container{
-                    height: calc(100vh - 61px - 60px);
+                    height: calc(100vh - 61px - 60px - 32px - 40px);
 
                     th.k-table-th[aria-colindex="2"],
                     th.k-table-th[aria-colindex="4"],

@@ -25,12 +25,14 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   pageSize: number = 4;
   isClickButton: boolean = false;
   listPageSize: number[] = [1, 2, 3, 4];
-
-  defaultItemStatusBill: DTOStatus = {
-    Code: -1,
-    Status: '-- Trạng thái --',
-    Icon: "",
-  }
+  PlusStartDate: Date;
+  PlusEndDate: Date;
+  // defaultItemStatusBill: DTOStatus = {
+  //   Code: -1,
+  //   Status: '-- Trạng thái --',
+  //   Icon: "",
+  //   IsChecked: false,
+  // }
   isLoading: boolean = true;
   gridState: State = {
     skip: 0,
@@ -65,10 +67,11 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   }
   // variable filter
   filterSearch: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
-  filterStatus: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
+  // filterStatus: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
 
   // variable CompositeFilterDescriptor
   filterDate: CompositeFilterDescriptor = { logic: 'and', filters: [] };
+  filterStatus: CompositeFilterDescriptor = { logic: 'or', filters: [] };
 
   // variable ViewChild
   @ViewChild('rangeDate') childRangeDate!: TextDropdownComponent;
@@ -91,9 +94,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (type === 'end') {
       this.endDate = value;
     }
-    console.log(this.formatDateTime(this.startDate));
-    console.log(this.formatDateTime(this.endDate));
-    // console.log(this.formattedCreateAt(value));
+    console.log(this.PlusStartDate);
+    console.log(this.PlusEndDate);
     this.setFilterDate();
   }
 
@@ -161,10 +163,10 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     }
   }
 
-  getFilterStatus(value: any) {
-    if (value.Code !== -1) {
-    }
-  }
+  // getFilterStatus(value: any) {
+  //   if (value.Code !== -1) {
+  //   }
+  // }
 
   ClickButtonAction() {
     this.isClickButton = !this.isClickButton;
@@ -195,7 +197,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
  * @param value là giá trị được get từ dropdown, là 1 object
  */
   setFilterProperty(filter: FilterDescriptor, field: string, operator: string, valueField: any, value: any) {
-    console.log('a');
     console.log(value);
     filter.field = field;
     filter.operator = operator;
@@ -206,19 +207,39 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   // Set filter dropdown date
   setFilterDate() {
-    const filterFrom: FilterDescriptor = { field: 'CreateAt', operator: 'gte', value: this.formatDateTime(this.startDate) };
+    this.filterDate.filters = [];
+    this.PlusStartDate = new Date(this.startDate);
+    this.PlusEndDate = new Date(this.endDate);
+    this.PlusStartDate.setDate(this.PlusStartDate.getDate());
+    this.PlusEndDate.setDate(this.PlusEndDate.getDate()+1);
+    console.log('a '+this.PlusStartDate)
+    console.log('a '+this.PlusEndDate)
+    const filterFrom: FilterDescriptor = { field: 'CreateAt', operator: 'gte', value: this.formatDateTime(this.PlusStartDate) };
     this.filterDate.filters.push(filterFrom);
-    const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.formatDateTime(this.endDate) };
+    const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.formatDateTime(this.PlusEndDate) };
     this.filterDate.filters.push(filterTo);
     this.setFilterData();
-  }  
+  }
+
+  // Set filter status
+  setFilterStatus(value: any) {
+    this.filterStatus.filters = [];
+    value.forEach((item: DTOStatus) => {
+      if (item.IsChecked) {
+        console.log({ field: 'Status', operator: 'eq', value: item.Status })
+        this.filterStatus.filters.push({ field: 'Status', operator: 'eq', value: item.Code })
+      }
+    })
+    this.setFilterData();
+  }
 
   // Set filter tất cả
   setFilterData() {
     this.gridState.filter.filters = [];
     // this.pushToGridState(this.filterSearch, null)
     this.pushToGridState(null, this.filterDate);
-    this.pushToGridState(this.filterStatus, null);
+    this.pushToGridState(null, this.filterStatus);
+    // this.pushToGridState(this.filterStatus, null);
     console.log(this.gridState);
     this.getListBill();
   }
