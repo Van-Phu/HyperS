@@ -246,13 +246,14 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.pushToGridState(this.filterGender, null)
     this.pushToGridState(this.filterProductType, null)
     this.pushToGridState(this.filterStatus, null)
+    console.log(this.gridState);
     this.getListProduct();
   }
 
   // Push filter vào gridState
   pushToGridState(filter: FilterDescriptor, comFilter: CompositeFilterDescriptor) {
     if (filter) {
-      if (!!!filter.value) {
+      if (filter.value && filter.value > 0) {
         this.gridState.filter.filters.push(filter);
       }
     }
