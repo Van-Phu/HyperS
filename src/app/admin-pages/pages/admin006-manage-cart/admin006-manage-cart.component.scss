@@ -121,6 +121,7 @@
                     td.k-table-td[aria-colindex="10"] {
                         border-left: 1px solid gray !important;
                         height: 44px;
+                        overflow: visible;
                     }
     
                     .column-button{
@@ -153,7 +154,7 @@
                         .dropDown-action{
                             position: absolute;
                             top: 15px !important;
-                            left: -145px;
+                            left: -180px;
                             // right: 50px;
                             z-index: 10 !important;
 

@@ -69,12 +69,12 @@
             <kendo-grid-column class="column-button" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="block-Action">
-                        <div (click)="ClickButtonAction()" class="block-buttonAction">
+                        <div (click)="ClickButtonAction(dataItem.Code)" class="block-buttonAction">
                             <component-button class="button-action" text="" classIconFontAwesome="fa-ellipsis"
                                 [width]="30" [height]="30">
                             </component-button>
                         </div>
-                        <div *ngIf="isClickButton" class="dropDown-action">
+                        <div *ngIf="isClickButton[dataItem.Code]" class="dropDown-action">
                             <component-dropdown-action [listItem]="listStatus"></component-dropdown-action>
                         </div>
                     </div>
@@ -97,6 +97,7 @@
 
     </div>
 </div>
+
 <!-- <component-text-area [label]="'Lí do hủy đơn:'"
 [labelWidth]="100"
 [height]="47"

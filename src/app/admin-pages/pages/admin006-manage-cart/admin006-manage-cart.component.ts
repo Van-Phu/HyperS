@@ -23,10 +23,13 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1);
   listBillPage: GridDataResult;
   pageSize: number = 4;
-  isClickButton: boolean = false;
   listPageSize: number[] = [1, 2, 3, 4];
   PlusStartDate: Date;
   PlusEndDate: Date;
+  idButton: number;
+  isClickButton: { [key: number]: boolean } = {};
+  tempID: number;
+
   // defaultItemStatusBill: DTOStatus = {
   //   Code: -1,
   //   Status: '-- Trạng thái --',
@@ -168,9 +171,17 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  ClickButtonAction() {
-    this.isClickButton = !this.isClickButton;
-  }
+  ClickButtonAction(id: number) {
+    const hasId = this.listStatus.some(status => status.Code === id);
+    if(this.tempID !== id){
+      this.isClickButton[this.tempID] = false;
+    }
+    
+    if (hasId) {
+      this.isClickButton[id] = !this.isClickButton[id];
+    }
+    this.tempID = id;
+}
 
   // Thao tác paging
   onPageChange(value: any) {
