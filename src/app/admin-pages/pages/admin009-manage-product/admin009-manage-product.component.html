@@ -1,10 +1,29 @@
 <div class="admin009">
 
+    <div class="header-statistics">
+        <!-- Tổng số lượng sản phẩm -->
+        <component-statistics [valueField]="valueTotalProduct" textField="Tổng số lượng sản phẩm"></component-statistics>
+
+        <!-- Số lượng sản phẩm hoạt động -->
+        <component-statistics [valueField]="valueProductStatusActive" textField="Số lượng sản phẩm hoạt động" color="#09880E"></component-statistics>
+
+        <!-- Số lượng sản phẩm vô hiệu hóa -->
+        <component-statistics [valueField]="valueProductStatusDisable" textField=" Số lượng sản phẩm vô hiệu hóa" color="#FF1D1D"></component-statistics>
+
+        <!-- Số lượng sản phẩm cho Nam -->
+        <component-statistics [valueField]="valueProductMale" textField="Số lượng sản phẩm cho Nam" color="#EB8D00"></component-statistics>
+        
+        <!-- Số lượng sản phẩm cho Nữ -->
+        <component-statistics [valueField]="valueProductFemale" textField="Số lượng sản phẩm cho Nữ" color="#FF34D2"></component-statistics>
+    </div>
+    
+
     <div class="header-filter-color">
         <div class="label-filter-color">Lọc theo màu</div>
         <component-checkboxlist (getListChecked)="setFilterColor($event)" textField="Color"
             [listCheckBox]="listColor"></component-checkboxlist>
     </div>
+
 
     <div class="header-filter">
         <!-- Xóa bộ lọc -->
@@ -38,6 +57,7 @@
             [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code" [listItem]="listStatus"
             [defaultItem]="defaultStatus" />
     </div>
+
 
     <div class="grid-custom-container">
         <kendo-grid [skip]="gridState.skip" [loading]="isLoading" (pageChange)="onPageChange($event)"
@@ -112,7 +132,7 @@
             </kendo-grid-column>
 
             <!-- ToolBox -->
-            <kendo-grid-column [sticky]="true" [resizable]="true" [width]="50">
+            <kendo-grid-column MakeColumnGridPopUpDirective [sticky]="true" [resizable]="true" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="tool-box-container">
                         <component-button [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"

@@ -17,10 +17,10 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router, private layoutService: LayoutService) { }
 
   ngOnInit(): void {
-    const dashboardModule = listModule.find(item => item.ModuleName === 'Dashboard');
+    const cartModule = listModule.find(item => item.ModuleName === 'Đơn hàng');
     if (!!!localStorage.getItem('moduleName')) {
-      this.onSelectItemDrawer(dashboardModule);
-      localStorage.setItem('breadcrumb', 'Dashboard');
+      this.onSelectItemDrawer(cartModule);
+      localStorage.setItem('breadcrumb', 'Đơn hàng');
     }
     this.getListModuleAndSub();
     this.listModuleAndSub.forEach(module => {

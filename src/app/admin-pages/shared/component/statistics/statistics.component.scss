@@ -7,12 +7,12 @@
             display: inline-block;
             background-color: #ffffff;
             border-radius: 6px;
-            // box-shadow: rgba(#2557A0, 0.3) 0px 5px 10px;
+            border: 1px solid #ebebeb;
 
             .block{
                 display: flex;
                 gap: 15px;
-                max-width: 180px;
+                max-width: 190px;
 
                 .value{
                     background-color: #2557A0;
@@ -34,6 +34,7 @@
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                     text-overflow: ellipsis;
+                    margin: auto;
                 }
             }
         }

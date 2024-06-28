@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 
 /**
@@ -20,16 +20,23 @@ import { trigger, style, animate, transition } from '@angular/animations';
     ])
   ]
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent implements OnChanges, OnInit {
   @Input() textField: string = 'Nhập tiêu đề...';
-  @Input() valueField: number = 100;
+  @Input() valueField: number;
   @Input() color: string = '#2557A0';
-  boxShadow: string = `${this.hexToRgba(this.color, 0.3)} 0px 5px 10px`;
-
+  boxShadow: string;
+  isStart: boolean = false;
+  
   currentCount: number = 0;
-
+  
   ngOnInit(): void {
-    this.countUp();
+    this.boxShadow = `${this.hexToRgba(this.color, 0.2)} 0px 5px 10px`;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['valueField'] && !changes['valueField'].isFirstChange()) {
+      this.countUp();
+    }
   }
 
   countUp() {

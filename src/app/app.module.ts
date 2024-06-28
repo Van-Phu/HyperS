@@ -18,7 +18,7 @@ import { FeaturedComponent } from './ecom-pages/pages/featured/featured.componen
 import { EcomShoesComponent } from './ecom-pages/pages/ecom-shoes/ecom-shoes.component';
 import { EcomRoutingModule } from './ecom-pages/ecom-routing.module';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EcomCartComponent } from './ecom-pages/pages/ecom-cart/ecom-cart.component';
 import { EcomProductDetailsComponent } from './ecom-pages/pages/ecom-product-details/ecom-product-details.component';
 import { ButtonComponent } from './shared/component/button/button.component';
@@ -65,6 +65,7 @@ import { AccountPagesComponent } from './account-pages/account-pages.component';
 import { LoginComponent } from './account-pages/login/login.component';
 import { SignupComponent } from './account-pages/signup/signup.component';
 import { StatisticsComponent } from './admin-pages/shared/component/statistics/statistics.component';
+import { JwtInterceptor } from './shared/services/JwtInterceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,7 +113,7 @@ import { StatisticsComponent } from './admin-pages/shared/component/statistics/s
     AccountPagesComponent,
     LoginComponent,
     SignupComponent,
-    StatisticsComponent
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
@@ -136,7 +137,7 @@ import { StatisticsComponent } from './admin-pages/shared/component/statistics/s
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [LayoutService],
+  providers: [LayoutService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

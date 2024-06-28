@@ -9,6 +9,7 @@ import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/ke
 import { DTOColor, listColor } from '../../shared/dto/DTOColor.dto.';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/text-dropdown.component';
+import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
 
 interface DropDownPrice {
   Code: number
@@ -123,20 +124,6 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
       filters: []
     }
   }
-  resetGridState: State = {
-    skip: 0,
-    take: this.pageSize,
-    sort: [
-      {
-        "field": "Code",
-        "dir": "asc"
-      }
-    ],
-    filter: {
-      logic: "and",
-      filters: []
-    }
-  }
 
   // variable filter
   filterSearch: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
@@ -156,12 +143,20 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   @ViewChild('gender') childGender!: TextDropdownComponent;
   @ViewChild('status') childStatus!: TextDropdownComponent;
 
+  // variable Statistics
+  valueTotalProduct: number = 0; // Thống kê tổng số sản phẩm
+  valueProductStatusActive: number = 0; // Thống kê tổng số sản phẩm Hoạt động
+  valueProductStatusDisable: number = 0; // Thống kê tổng số sản phẩm Vô hiệu hóa
+  valueProductMale: number = 0; // Thống kê tổng số sản phẩm Nam
+  valueProductFemale: number = 0; // Thống kê tổng số sản phẩm Nữ
+
   constructor(private producService: ProductService) { }
 
   ngOnInit(): void {
     this.getListProductType();
     this.getListBrand();
     this.getListProduct();
+    this.getStatistics();
   }
 
   // Lấy danh sách các product type
@@ -181,6 +176,43 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
       this.listProduct = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
       this.isLoading = false;
     })
+  }
+
+  // Lấy các thống kê về sản phẩm
+  getStatistics() {
+    // Khởi tạo state tạm để filter
+    let state: State = {filter: { logic: "and", filters: [] }};
+
+    // Đối với tổng số sản phẩm
+    this.filterStatistics(state, (total) => this.valueTotalProduct = total);
+
+    // Đối với số lượng sản phẩm hoạt động
+    state.filter.filters = [{ "field": "Status", "operator": "eq", "value": 0 }]
+    this.filterStatistics(state, (total) => this.valueProductStatusActive = total);
+
+    // Đối với số lượng sản phẩm vô hiệu hóa
+    state.filter.filters = [{ "field": "Status", "operator": "eq", "value": 1 }]
+    this.filterStatistics(state, (total) => this.valueProductStatusDisable = total);
+
+    // Đối với số lượng sản phẩm cho Nam
+    state.filter.filters = [{ "field": "Gender", "operator": "eq", "value": 1 }]
+    this.filterStatistics(state, (total) => this.valueProductMale = total);
+
+    // Đối với số lượng sản phẩm cho Nữ
+    state.filter.filters = [{ "field": "Gender", "operator": "eq", "value": 2 }]
+    this.filterStatistics(state, (total) => this.valueProductFemale = total);
+  }
+
+  /**
+   * Dùng để filter các statistics
+   * @param state State để filter
+   * @param filter FilterDescriptor
+   * @param callback Hàm callback để cập nhật giá trị sau khi có ObjectReturn.Total
+   */
+  filterStatistics(state: State, callback: (total: number) => void) {
+    this.producService.getListProduct(state).pipe(takeUntil(this.destroy)).subscribe((obj: DTOResponse) => {
+      callback(obj.ObjectReturn.Total);
+    });
   }
 
   // Kiểm tra giới tính
@@ -246,7 +278,6 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.pushToGridState(this.filterGender, null)
     this.pushToGridState(this.filterProductType, null)
     this.pushToGridState(this.filterStatus, null)
-    console.log(this.gridState);
     this.getListProduct();
   }
 
@@ -257,7 +288,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
         this.gridState.filter.filters.push(filter);
       }
     }
-    else if(comFilter){
+    else if (comFilter) {
       if (comFilter.filters.length > 0) {
         this.gridState.filter.filters.push(comFilter);
       }
@@ -265,13 +296,14 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // Reset tất cả các filter
-  resetFilter(){
+  resetFilter() {
     this.childRangePrice.resetValue();
     this.childProductType.resetValue();
     this.childBrand.resetValue();
     this.childGender.resetValue();
     this.childStatus.resetValue();
     this.gridState.filter.filters = [];
+    this.pageSize = 4;
     this.gridState.skip = 0;
     this.gridState.take = this.pageSize;
     this.getListProduct();

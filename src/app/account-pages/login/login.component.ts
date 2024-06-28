@@ -30,6 +30,7 @@ export class LoginComponent {
     this.accoutService.login(username, password).pipe(takeUntil(this.destroy)).subscribe(data => {
       try{
         console.log(data);
+        localStorage.setItem('token', data.ObjectReturn.ResultToken.Token)
         if(data.StatusCode != 0){
           return
         }
@@ -45,6 +46,7 @@ export class LoginComponent {
 
   APICheckLogin():void{
     this.accoutService.checkLogin().pipe(takeUntil(this.destroy)).subscribe(data =>{
+      
       console.log(data);
     })
   }
