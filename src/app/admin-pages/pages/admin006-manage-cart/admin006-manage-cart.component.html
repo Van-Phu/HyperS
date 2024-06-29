@@ -1,7 +1,11 @@
 <div class="header-filter">
     <div class="label-filter">Lọc trạng thái</div>
-    <component-checkboxlist (getListChecked)="setFilterStatus($event)" textField="Status"
-        [listCheckBox]="listStatus"></component-checkboxlist>
+    <!-- <component-checkboxlist (getListChecked)="setFilterStatus($event)" textField="Status"
+        [listCheckBox]="listStatus"></component-checkboxlist> -->
+        <kendo-multiselect
+        [data]="listStatus" textField="Status" valueField="Code"
+        [(ngModel)]="valueMulti"
+      ></kendo-multiselect>
 </div>
 <div class="headerSearch">
     <p class="titlePage">DANH SÁCH ĐƠN HÀNG</p>
@@ -69,12 +73,12 @@
             <kendo-grid-column class="column-button" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="block-Action">
-                        <div (click)="ClickButtonAction(dataItem.Code)" class="block-buttonAction">
+                        <div (click)="ClickButtonAction(dataItem.Code, $event)" class="block-buttonAction">
                             <component-button class="button-action" text="" classIconFontAwesome="fa-ellipsis"
                                 [width]="30" [height]="30">
                             </component-button>
                         </div>
-                        <div *ngIf="isClickButton[dataItem.Code]" class="dropDown-action">
+                        <div *ngIf="isClickButton[dataItem.Code]" class="dropDown-action" tabindex="0">
                             <component-dropdown-action [listItem]="listStatus"></component-dropdown-action>
                         </div>
                     </div>
