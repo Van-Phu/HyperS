@@ -6,10 +6,12 @@ import { DTOProductType } from 'src/app/ecom-pages/shared/dto/DTOProductType';
 import { ProductService } from 'src/app/ecom-pages/shared/service/product.service';
 import { DTOStatus, listStatusActive } from '../../shared/dto/DTOStatus.dto';
 import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/kendo-data-query';
-import { DTOColor, listColor } from '../../shared/dto/DTOColor.dto.';
+import { DTOColor } from '../../shared/dto/DTOColor.dto.';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/text-dropdown.component';
 import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
+import { CheckboxlistComponent } from '../../shared/component/checkboxlist/checkboxlist.component';
+import { SearchBarComponent } from 'src/app/shared/component/search-bar/search-bar.component';
 
 interface DropDownPrice {
   Code: number
@@ -20,6 +22,7 @@ interface DropDownPrice {
 interface Gender {
   Code: number
   Gender: string
+  IsChecked: boolean
 }
 
 @Component({
@@ -34,9 +37,9 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // variable
   isLoading: boolean = true;
   pageSize: number = 4;
+  valueSearch: string;
 
   // variable list
-  listColor: DTOColor[] = listColor;
   listPageSize: number[] = [1, 2, 3, 4];
   listRangePrice: DropDownPrice[] = [
     {
@@ -69,19 +72,36 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   listGender: Gender[] = [
     {
       Code: 0,
-      Gender: 'Unisex'
+      Gender: 'Unisex',
+      IsChecked: false
     },
     {
       Code: 1,
-      Gender: 'Nam'
+      Gender: 'Nam',
+      IsChecked: false
     },
     {
       Code: 2,
-      Gender: 'Nữ'
+      Gender: 'Nữ',
+      IsChecked: false
     }
   ];
   listStatus: DTOStatus[] = listStatusActive;
   listProduct: GridDataResult;
+  listStatusDefault: DTOStatus[] = [
+    {
+      Code: 0,
+      Status: "Hoạt động",
+      Icon: "",
+      IsChecked: true
+    },
+    {
+      Code: 1,
+      Status: "Vô hiệu hóa",
+      Icon: "",
+      IsChecked: false
+    }
+  ];
 
   // variable Object
   defaultPrice: DropDownPrice = {
@@ -98,10 +118,6 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     Code: -1,
     Name: '-- Thương hiệu --',
     ImageUrl: '',
-  };
-  defaultGender: Gender = {
-    Code: -1,
-    Gender: '-- Giới tính --'
   };
   defaultStatus: DTOStatus = {
     Code: -1,
@@ -127,22 +143,22 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // variable filter
-  filterSearch: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
   filterProductType: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
   filterBrand: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
-  filterGender: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
-  filterStatus: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
 
   // variable CompositeFilterDescriptor
-  filterColor: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+  filterSearch: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+  filterGender: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+  filterStatus: CompositeFilterDescriptor = { logic: 'or', filters: [] };
   filterPrice: CompositeFilterDescriptor = { logic: 'and', filters: [] };
 
   // variable ViewChild
   @ViewChild('rangeprice') childRangePrice!: TextDropdownComponent;
   @ViewChild('producttype') childProductType!: TextDropdownComponent;
   @ViewChild('brand') childBrand!: TextDropdownComponent;
-  @ViewChild('gender') childGender!: TextDropdownComponent;
-  @ViewChild('status') childStatus!: TextDropdownComponent;
+  @ViewChild('gender') childGender!: CheckboxlistComponent;
+  @ViewChild('status') childStatus!: CheckboxlistComponent;
+  @ViewChild('search') childSearch!: SearchBarComponent;
 
   // variable Statistics
   valueTotalProduct: number = 0; // Thống kê tổng số sản phẩm
@@ -182,7 +198,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // Lấy các thống kê về sản phẩm
   getStatistics() {
     // Khởi tạo state tạm để filter
-    let state: State = {filter: { logic: "and", filters: [] }};
+    let state: State = { filter: { logic: "and", filters: [] } };
 
     // Đối với tổng số sản phẩm
     this.filterStatistics(state, (total) => this.valueTotalProduct = total);
@@ -219,7 +235,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // Kiểm tra giới tính
   checkGender(idGender: number) {
     if (idGender === 0) return 'Unisex';
-    if (idGender === 1) return 'Name';
+    if (idGender === 1) return 'Nam';
     if (idGender === 2) return 'Nữ';
     return 'Lỗi giới tính';
   }
@@ -243,14 +259,33 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.setFilterData();
   }
 
-  // Set filter list checkbox color
-  setFilterColor(value: any) {
-    this.filterColor.filters = [];
-    value.forEach((item: DTOColor) => {
+  // Set filter list checkbox gender
+  setFilterGender(value: any) {
+    this.filterGender.filters = [];
+    value.forEach((item: Gender) => {
       if (item.IsChecked) {
-        this.filterColor.filters.push({ field: 'Color', operator: 'eq', value: item.Color })
+        this.filterGender.filters.push({ field: 'Gender', operator: 'eq', value: item.Code })
       }
     })
+    this.setFilterData();
+  }
+
+  // Set filter list checkbox status
+  setFilterStatus(value: any) {
+    this.filterStatus.filters = [];
+    value.forEach((item: Gender) => {
+      if (item.IsChecked) {
+        this.filterStatus.filters.push({ field: 'Status', operator: 'eq', value: item.Code })
+      }
+    })
+    this.setFilterData();
+  }
+
+  setFilterSearch(value: any) {
+    this.valueSearch = value;
+    this.filterSearch.filters = [];
+    this.filterSearch.filters.push({ field: 'IdProduct', operator: 'contains', value: this.valueSearch, ignoreCase: true });
+    this.filterSearch.filters.push({ field: 'Name', operator: 'contains', value: this.valueSearch, ignoreCase: true });
     this.setFilterData();
   }
 
@@ -273,12 +308,12 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // Set filter tất cả
   setFilterData() {
     this.gridState.filter.filters = [];
-    this.pushToGridState(null, this.filterColor)
-    this.pushToGridState(null, this.filterPrice)
-    this.pushToGridState(this.filterBrand, null)
-    this.pushToGridState(this.filterGender, null)
-    this.pushToGridState(this.filterProductType, null)
-    this.pushToGridState(this.filterStatus, null)
+    this.pushToGridState(null, this.filterPrice);
+    this.pushToGridState(this.filterBrand, null);
+    this.pushToGridState(null, this.filterGender);
+    this.pushToGridState(this.filterProductType, null);
+    this.pushToGridState(null, this.filterStatus);
+    this.pushToGridState(null, this.filterSearch);
     this.getListProduct();
   }
 
@@ -298,11 +333,89 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
 
   // Reset tất cả các filter
   resetFilter() {
+    // Reset range price
     this.childRangePrice.resetValue();
+    this.filterPrice.filters = [];
+
+    // Reset product type
     this.childProductType.resetValue();
+    this.filterProductType = { field: '', operator: '', value: null, ignoreCase: true };
+
+    // Reset brand
     this.childBrand.resetValue();
-    this.childGender.resetValue();
-    this.childStatus.resetValue();
+    this.filterBrand = { field: '', operator: '', value: null, ignoreCase: true };
+
+    // Reset status
+    this.childStatus.resetCheckList([
+      {
+        Code: 0,
+        Status: "Hoạt động",
+        Icon: "",
+        IsChecked: true
+      },
+      {
+        Code: 1,
+        Status: "Vô hiệu hóa",
+        Icon: "",
+        IsChecked: false
+      }
+    ]);
+    this.listStatus = [
+      {
+        Code: 0,
+        Status: "Hoạt động",
+        Icon: "",
+        IsChecked: true
+      },
+      {
+        Code: 1,
+        Status: "Vô hiệu hóa",
+        Icon: "",
+        IsChecked: false
+      }
+    ]
+
+    // Reset gender
+    this.childGender.resetCheckList([
+      {
+        Code: 0,
+        Gender: 'Unisex',
+        IsChecked: false
+      },
+      {
+        Code: 1,
+        Gender: 'Nam',
+        IsChecked: false
+      },
+      {
+        Code: 2,
+        Gender: 'Nữ',
+        IsChecked: false
+      }
+    ]);
+    this.listGender = [
+      {
+        Code: 0,
+        Gender: 'Unisex',
+        IsChecked: false
+      },
+      {
+        Code: 1,
+        Gender: 'Nam',
+        IsChecked: false
+      },
+      {
+        Code: 2,
+        Gender: 'Nữ',
+        IsChecked: false
+      }
+    ]
+
+    //Reset search
+    this.valueSearch = '';
+    this.childSearch.valueSearch = '';
+
+    // Reset state
     this.gridState.filter.filters = [];
     this.pageSize = 4;
     this.gridState.skip = 0;

@@ -17,20 +17,27 @@
         <component-statistics [valueField]="valueProductFemale" textField="Số lượng sản phẩm cho Nữ" color="#FF34D2"></component-statistics>
     </div>
     
+    <div class="header-filter-status-gender">
+        <!-- Filter theo status -->
+        <div class="header-filter-status">
+            <div class="label">Trạng thái</div>
+            <component-checkboxlist #status [listCheckBox]="listStatus" [listCheckBoxDefault]="listStatusDefault" (getListChecked)="setFilterStatus($event)" textField="Status"></component-checkboxlist>
+        </div>
 
-    <div class="header-filter-color">
-        <div class="label-filter-color">Lọc theo màu</div>
-        <component-checkboxlist (getListChecked)="setFilterColor($event)" textField="Color"
-            [listCheckBox]="listColor"></component-checkboxlist>
+        <!-- Filter theo gender -->
+        <div class="header-filter-gender">
+            <div class="label">Giới tính</div>
+            <component-checkboxlist #gender [listCheckBox]="listGender" (getListChecked)="setFilterGender($event)" textField="Gender"></component-checkboxlist>
+        </div>
     </div>
 
 
-    <div class="header-filter">
+    <div class="header-filter-search">
         <!-- Xóa bộ lọc -->
         <div class="label-delete-filter" (click)="resetFilter()">Xóa bộ lọc</div>
 
         <!-- Thanh tìm kiếm -->
-        <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
+        <component-search-bar #search (getValue)="setFilterSearch($event)" [width]="400" placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
 
         <!-- Dropdown lọc khoảng giá tiền -->
         <component-text-dropdown #rangeprice (getValue)="setFilterPrice($event)" [widthBlock]="160" [widthTextBox]="160"
@@ -46,16 +53,6 @@
         <component-text-dropdown #brand (getValue)="setFilterProperty(filterBrand, 'CodeBrand', 'eq', 'Code', $event)"
             [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code" [listItem]="listBrand"
             [defaultItem]="defaultBrand" />
-
-        <!-- Dropdown lọc loại theo giới tính -->
-        <component-text-dropdown #gender (getValue)="setFilterProperty(filterGender, 'Gender', 'eq', 'Code', $event)"
-            [widthBlock]="160" [widthTextBox]="160" textField="Gender" valueField="Code" [listItem]="listGender"
-            [defaultItem]="defaultGender" />
-
-        <!-- Dropdown lọc loại theo trạng thái -->
-        <component-text-dropdown #status (getValue)="setFilterProperty(filterStatus, 'Status', 'eq', 'Code', $event)"
-            [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code" [listItem]="listStatus"
-            [defaultItem]="defaultStatus" />
     </div>
 
 

@@ -43,7 +43,7 @@ export const listStatusActive: DTOStatus[] = [
         Code: 0,
         Status: "Hoạt động",
         Icon: "",
-        IsChecked: false
+        IsChecked: true
     },
     {
         Code: 1,

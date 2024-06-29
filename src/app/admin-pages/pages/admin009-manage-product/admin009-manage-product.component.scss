@@ -13,30 +13,30 @@
             .header-statistics{
                 display: flex;
                 gap: 20px;
-                padding: 10px 0;
+                padding: 6px 0;
             }
 
-            .header-filter-color {
-                padding: 10px 0;
-                width: 100%;
-                overflow-x: auto;
-                padding-bottom: 15px;
+            .header-filter-status-gender{
+                padding: 6px 0;
                 @include center-vertical;
+                gap: 70px;
 
-                .label-filter-color {
-                    font-size: 14px;
-                    text-transform: uppercase;
-                    font-weight: 600;
-                    text-wrap: nowrap;
+                .header-filter-status,
+                .header-filter-gender{
+                    @include center-vertical;
+
+                    .label{
+                        width: 71px;
+                    }
                 }
             }
 
-            .header-filter {
+            .header-filter-search {
                 gap: 20px;
                 @include center-vertical;
                 width: 100%;
                 overflow-x: auto;
-                padding-bottom: 10px;
+                padding: 6px 0;
 
                 .label-delete-filter{
                     text-decoration: underline;
