@@ -1,8 +1,8 @@
 export class DTOStatus {
     Code: number;
     Status: string;
-    Icon: string;
-    IsChecked: boolean
+    Icon?: string;
+    IsChecked?: boolean
 }
 
 export const listStatus: DTOStatus[] = [
@@ -41,13 +41,13 @@ export const listStatus: DTOStatus[] = [
 export const listStatusActive: DTOStatus[] = [
     {
         Code: 0,
-        Status: "Hoạt động",
+        Status: "Đang kinh doanh",
         Icon: "",
-        IsChecked: true
+        IsChecked: false
     },
     {
         Code: 1,
-        Status: "Vô hiệu hóa",
+        Status: "Ngừng kinh doanh",
         Icon: "",
         IsChecked: false
     }

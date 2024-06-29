@@ -103,6 +103,20 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
       IsChecked: false
     }
   ];
+  listSort: DTOStatus[] = [
+    {
+      Code: 1,
+      Status: "Sản phẩm tồn kho",
+    },
+    {
+      Code: 2,
+      Status: "Giá tăng dần",
+    },
+    {
+      Code: 3,
+      Status: "Giá giảm dần",
+    }
+  ];
 
   // variable Object
   defaultPrice: DropDownPrice = {
@@ -120,6 +134,10 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     Name: '-- Thương hiệu --',
     ImageUrl: '',
   };
+  defaultSort: DTOStatus = {
+    Code: 0,
+    Status: "Sản phẩm bán chạy"
+  }
 
   // variable State
   gridState: State = {
@@ -155,6 +173,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   @ViewChild('rangeprice') childRangePrice!: TextDropdownComponent;
   @ViewChild('producttype') childProductType!: TextDropdownComponent;
   @ViewChild('brand') childBrand!: TextDropdownComponent;
+  @ViewChild('sort') childSort!: TextDropdownComponent;
   @ViewChild('search') childSearch!: SearchBarComponent;
   @ViewChild('productActive') childProductActive: StatisticsComponent;
   @ViewChild('productDisable') childProductDisable: StatisticsComponent;
@@ -239,6 +258,38 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Sort danh sách theo số lượng bán chạy và đơn giá
+  setSort(value: any){
+    if(value){
+      this.gridState.sort = []
+      if(value.Code === 0){
+        this.gridState.sort.push({
+          "field": "Sold",
+          "dir": "desc"
+        })
+      }
+      else if(value.Code === 1){
+        this.gridState.sort.push({
+          "field": "Sold",
+          "dir": "asc"
+        })
+      }
+      else if(value.Code === 2){
+        this.gridState.sort.push({
+          "field": "Price",
+          "dir": "asc"
+        })
+      }
+      else if(value.Code === 3){
+        this.gridState.sort.push({
+          "field": "Price",
+          "dir": "desc"
+        })
+      }
+      this.getListProduct();
+    }
+  }
+
   // Kiểm tra giới tính
   checkGender(idGender: number) {
     if (idGender === 0) return 'Unisex';
@@ -249,8 +300,8 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
 
   // Kiểm tra giới tính
   checkStatusProduct(idStatus: number) {
-    if (idStatus === 0) return 'Hoạt động';
-    if (idStatus === 1) return 'Vô hiệu hóa';
+    if (idStatus === 0) return 'Đang kinh doanh';
+    if (idStatus === 1) return 'Ngừng kinh doanh';
     return 'Lỗi trạng thái';
   }
 
@@ -352,10 +403,19 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.childProductFemale.reset();
     this.childProductUnisex.reset();
 
+    // Reset dropdown sort
+    this.childSort.resetValue();
+
     // Reset state
     this.gridState.filter.filters = [];
     this.pageSize = 4;
     this.gridState.skip = 0;
+    this.gridState.sort = [
+      {
+        "field": "Code",
+        "dir": "asc"
+      }
+    ],
     this.gridState.take = this.pageSize;
     this.getListProduct();
   }

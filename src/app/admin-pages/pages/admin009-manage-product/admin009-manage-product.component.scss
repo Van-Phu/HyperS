@@ -59,20 +59,21 @@
                     th.k-table-th[aria-colindex="5"],
                     th.k-table-th[aria-colindex="6"],
                     th.k-table-th[aria-colindex="7"],
-                    th.k-table-th[aria-colindex="8"] {
+                    th.k-table-th[aria-colindex="8"],
+                    th.k-table-th[aria-colindex="9"] {
                         .k-column-title {
                             margin: auto;
                         }
                     }
 
-                    th.k-table-th[aria-colindex="9"] {
+                    th.k-table-th[aria-colindex="10"] {
                         .k-link {
                             display: flex;
                             justify-content: end;
                         }
                     }
 
-                    td.k-table-td[aria-colindex="10"] {
+                    td.k-table-td[aria-colindex="11"] {
                         background-color: #fff;
                         box-shadow: $box-shadow2;
                         height: 44px;
@@ -95,8 +96,11 @@
                     .column-5,
                     .column-6,
                     .column-7,
-                    .column-8 {
+                    .column-8,
+                    .column-9  {
                         text-align: center;
+                        text-wrap: nowrap;
+                        text-overflow: ellipsis;
 
                         img {
                             height: 38px;
@@ -106,8 +110,18 @@
                         }
                     }
 
-                    .column-9 {
+                    .column-3{
+                        .name{
+                            max-width: 280px;
+                            text-wrap: nowrap;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    .column-10 {
                         text-align: right;
+                        text-wrap: nowrap;
+                        text-overflow: ellipsis;
                     }
 
                     .tool-box-container{
