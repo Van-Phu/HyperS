@@ -11,23 +11,13 @@
             width: 100%;
 
             .header-statistics{
-                display: flex;
-                gap: 20px;
-                padding: 6px 0;
-            }
-
-            .header-filter-status-gender{
-                padding: 6px 0;
                 @include center-vertical;
-                gap: 70px;
+                gap: 20px;
+                padding: 6px 0 12px 0;
 
-                .header-filter-status,
-                .header-filter-gender{
-                    @include center-vertical;
-
-                    .label{
-                        width: 71px;
-                    }
+                .label-filter{
+                    font-weight: 600;
+                    font-size: 14px;
                 }
             }
 
@@ -36,14 +26,15 @@
                 @include center-vertical;
                 width: 100%;
                 overflow-x: auto;
-                padding: 6px 0;
+                padding: 20px 0;
 
-                .label-delete-filter{
+                .label-delete-filter{    
                     text-decoration: underline;
                     @include center-vertical;
                     cursor: pointer;
                     color: rgb(255, 97, 97);
                     text-wrap: nowrap;
+                    width: 91px;
 
                     &:hover{
                         color: $color-cancel;
@@ -52,7 +43,7 @@
             }
 
             .grid-custom-container {
-                height: calc(100vh - 155px - 57px - 61px - 10px);
+                height: calc(100vh - 105px - 57px - 61px - 10px);
 
                 kendo-grid {
                     height: 100%;
