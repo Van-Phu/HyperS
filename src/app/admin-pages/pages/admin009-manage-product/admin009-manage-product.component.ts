@@ -12,6 +12,7 @@ import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/te
 import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
 import { CheckboxlistComponent } from '../../shared/component/checkboxlist/checkboxlist.component';
 import { SearchBarComponent } from 'src/app/shared/component/search-bar/search-bar.component';
+import { StatisticsComponent } from '../../shared/component/statistics/statistics.component';
 
 interface DropDownPrice {
   Code: number
@@ -119,12 +120,6 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     Name: '-- Thương hiệu --',
     ImageUrl: '',
   };
-  defaultStatus: DTOStatus = {
-    Code: -1,
-    Status: '-- Trạng thái --',
-    Icon: '',
-    IsChecked: false
-  }
 
   // variable State
   gridState: State = {
@@ -145,25 +140,33 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // variable filter
   filterProductType: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
   filterBrand: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
+  filterGenderUnisex: FilterDescriptor = { field: 'Gender', operator: 'eq', value: 0, ignoreCase: true };
+  filterGenderMale: FilterDescriptor = { field: 'Gender', operator: 'eq', value: 1, ignoreCase: true };
+  filterGenderFeMale: FilterDescriptor = { field: 'Gender', operator: 'eq', value: 2, ignoreCase: true };
+  filterProductActive: FilterDescriptor = { field: 'Status', operator: 'eq', value: 0, ignoreCase: true };
+  filterProductDisable: FilterDescriptor = { field: 'Status', operator: 'eq', value: 1, ignoreCase: true };
 
   // variable CompositeFilterDescriptor
   filterSearch: CompositeFilterDescriptor = { logic: 'or', filters: [] };
-  filterGender: CompositeFilterDescriptor = { logic: 'or', filters: [] };
-  filterStatus: CompositeFilterDescriptor = { logic: 'or', filters: [] };
   filterPrice: CompositeFilterDescriptor = { logic: 'and', filters: [] };
+  filterAllStatistics: CompositeFilterDescriptor = { logic: 'or', filters: [this.filterProductActive, this.filterGenderUnisex] };
 
   // variable ViewChild
   @ViewChild('rangeprice') childRangePrice!: TextDropdownComponent;
   @ViewChild('producttype') childProductType!: TextDropdownComponent;
   @ViewChild('brand') childBrand!: TextDropdownComponent;
-  @ViewChild('gender') childGender!: CheckboxlistComponent;
-  @ViewChild('status') childStatus!: CheckboxlistComponent;
   @ViewChild('search') childSearch!: SearchBarComponent;
+  @ViewChild('productActive') childProductActive: StatisticsComponent;
+  @ViewChild('productDisable') childProductDisable: StatisticsComponent;
+  @ViewChild('productMale') childProductMale: StatisticsComponent;
+  @ViewChild('productFemale') childProductFemale: StatisticsComponent;
+  @ViewChild('productUnisex') childProductUnisex: StatisticsComponent;
 
   // variable Statistics
   valueTotalProduct: number = 0; // Thống kê tổng số sản phẩm
   valueProductStatusActive: number = 0; // Thống kê tổng số sản phẩm Hoạt động
   valueProductStatusDisable: number = 0; // Thống kê tổng số sản phẩm Vô hiệu hóa
+  valueProductUnisex: number = 0; // Thống kê tổng số sản phẩm Unisex
   valueProductMale: number = 0; // Thống kê tổng số sản phẩm Nam
   valueProductFemale: number = 0; // Thống kê tổng số sản phẩm Nữ
 
@@ -204,19 +207,23 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.filterStatistics(state, (total) => this.valueTotalProduct = total);
 
     // Đối với số lượng sản phẩm hoạt động
-    state.filter.filters = [{ "field": "Status", "operator": "eq", "value": 0 }]
+    state.filter.filters = [this.filterProductActive]
     this.filterStatistics(state, (total) => this.valueProductStatusActive = total);
 
     // Đối với số lượng sản phẩm vô hiệu hóa
-    state.filter.filters = [{ "field": "Status", "operator": "eq", "value": 1 }]
+    state.filter.filters = [this.filterProductDisable]
     this.filterStatistics(state, (total) => this.valueProductStatusDisable = total);
 
+    // Đối với số lượng sản phẩm Unisex
+    state.filter.filters = [this.filterGenderUnisex]
+    this.filterStatistics(state, (total) => this.valueProductUnisex = total);
+
     // Đối với số lượng sản phẩm cho Nam
-    state.filter.filters = [{ "field": "Gender", "operator": "eq", "value": 1 }]
+    state.filter.filters = [this.filterGenderMale]
     this.filterStatistics(state, (total) => this.valueProductMale = total);
 
     // Đối với số lượng sản phẩm cho Nữ
-    state.filter.filters = [{ "field": "Gender", "operator": "eq", "value": 2 }]
+    state.filter.filters = [this.filterGenderFeMale]
     this.filterStatistics(state, (total) => this.valueProductFemale = total);
   }
 
@@ -259,28 +266,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.setFilterData();
   }
 
-  // Set filter list checkbox gender
-  setFilterGender(value: any) {
-    this.filterGender.filters = [];
-    value.forEach((item: Gender) => {
-      if (item.IsChecked) {
-        this.filterGender.filters.push({ field: 'Gender', operator: 'eq', value: item.Code })
-      }
-    })
-    this.setFilterData();
-  }
-
-  // Set filter list checkbox status
-  setFilterStatus(value: any) {
-    this.filterStatus.filters = [];
-    value.forEach((item: Gender) => {
-      if (item.IsChecked) {
-        this.filterStatus.filters.push({ field: 'Status', operator: 'eq', value: item.Code })
-      }
-    })
-    this.setFilterData();
-  }
-
+  // Set filter search
   setFilterSearch(value: any) {
     this.valueSearch = value;
     this.filterSearch.filters = [];
@@ -310,11 +296,21 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.gridState.filter.filters = [];
     this.pushToGridState(null, this.filterPrice);
     this.pushToGridState(this.filterBrand, null);
-    this.pushToGridState(null, this.filterGender);
     this.pushToGridState(this.filterProductType, null);
-    this.pushToGridState(null, this.filterStatus);
     this.pushToGridState(null, this.filterSearch);
+    this.pushToGridState(null, this.filterAllStatistics);
     this.getListProduct();
+  }
+
+  // Push các filter statistics vào filterAllStatistics
+  pushStatisticsToAllStatistics(filter: any, value: any){
+    if(value.isSelected){
+      this.filterAllStatistics.filters.push(filter);
+    }
+    else{
+      this.filterAllStatistics.filters = this.filterAllStatistics.filters.filter(item => item !== filter);
+    }
+    this.setFilterData();
   }
 
   // Push filter vào gridState
@@ -345,75 +341,16 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.childBrand.resetValue();
     this.filterBrand = { field: '', operator: '', value: null, ignoreCase: true };
 
-    // Reset status
-    this.childStatus.resetCheckList([
-      {
-        Code: 0,
-        Status: "Hoạt động",
-        Icon: "",
-        IsChecked: true
-      },
-      {
-        Code: 1,
-        Status: "Vô hiệu hóa",
-        Icon: "",
-        IsChecked: false
-      }
-    ]);
-    this.listStatus = [
-      {
-        Code: 0,
-        Status: "Hoạt động",
-        Icon: "",
-        IsChecked: true
-      },
-      {
-        Code: 1,
-        Status: "Vô hiệu hóa",
-        Icon: "",
-        IsChecked: false
-      }
-    ]
-
-    // Reset gender
-    this.childGender.resetCheckList([
-      {
-        Code: 0,
-        Gender: 'Unisex',
-        IsChecked: false
-      },
-      {
-        Code: 1,
-        Gender: 'Nam',
-        IsChecked: false
-      },
-      {
-        Code: 2,
-        Gender: 'Nữ',
-        IsChecked: false
-      }
-    ]);
-    this.listGender = [
-      {
-        Code: 0,
-        Gender: 'Unisex',
-        IsChecked: false
-      },
-      {
-        Code: 1,
-        Gender: 'Nam',
-        IsChecked: false
-      },
-      {
-        Code: 2,
-        Gender: 'Nữ',
-        IsChecked: false
-      }
-    ]
-
     //Reset search
     this.valueSearch = '';
     this.childSearch.valueSearch = '';
+
+    // Reset statistics
+    this.childProductActive.reset();
+    this.childProductDisable.reset();
+    this.childProductMale.reset();
+    this.childProductFemale.reset();
+    this.childProductUnisex.reset();
 
     // Reset state
     this.gridState.filter.filters = [];

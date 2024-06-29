@@ -3,16 +3,17 @@
 ::ng-deep {
     component-statistics {
         .statistics-ctn {
-            padding: 10px;
+            padding: 8px;
             display: inline-block;
             background-color: #ffffff;
             border-radius: 6px;
-            border: 1px solid #ebebeb;
+            border: 2px solid #fdfdfd;
+            cursor: pointer;
 
             .block{
                 display: flex;
                 gap: 15px;
-                max-width: 190px;
+                max-width: 160px;
 
                 .value{
                     background-color: #2557A0;
@@ -37,6 +38,10 @@
                     margin: auto;
                 }
             }
+        }
+
+        .active{
+            border: 1px solid black;
         }
     }
 }
