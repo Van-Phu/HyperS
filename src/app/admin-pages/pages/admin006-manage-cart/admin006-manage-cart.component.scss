@@ -81,9 +81,9 @@
                         text-wrap: nowrap !important;
                     }
 
-                    span{
-                        cursor: auto !important;
-                    }
+                    // span{
+                    //     cursor: auto !important;
+                    // }
     
                     .column-Code,
                     .column-PhoneNumber,
@@ -118,10 +118,16 @@
                     // td.k-table-td[aria-colindex="11"]{
     
                     // }
+
                     td.k-table-td[aria-colindex="10"] {
                         border-left: 1px solid gray !important;
                         height: 44px;
                         overflow: visible;
+                        z-index: 1;
+                    }
+
+                    td.k-table-td[aria-colindex="10"].active {
+                        z-index: 2 !important;
                     }
     
                     .column-button{

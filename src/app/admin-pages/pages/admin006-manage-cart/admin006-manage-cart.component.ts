@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DTOStatus, listStatus } from '../../shared/dto/DTOStatus.dto';
 import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/kendo-data-query';
 import { GridDataResult, SelectionEvent } from '@progress/kendo-angular-grid';
@@ -171,16 +171,46 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  ClickButtonAction(id: number) {
-    const hasId = this.listStatus.some(status => status.Code === id);
-    if(this.tempID !== id){
-      this.isClickButton[this.tempID] = false;
-    }
+//   ClickButtonAction(id: number) {
+//     const hasId = this.listStatus.some(status => status.Code === id);
+//     if(this.tempID !== id){
+//       this.isClickButton[this.tempID] = false;
+//     }
     
-    if (hasId) {
+//     if (hasId) {
+//       this.isClickButton[id] = !this.isClickButton[id];
+//     }
+//     this.tempID = id;
+// }
+
+ClickButtonAction(id: number, event: Event) {
+  const hasId = this.listStatus.some(status => status.Code === id);
+  if (this.tempID !== id) {
+      this.isClickButton[this.tempID] = false;
+  }
+  
+  if (hasId) {
       this.isClickButton[id] = !this.isClickButton[id];
+  }
+  this.tempID = id;
+
+  // Remove 'active' class from all cells
+  const cells = document.querySelectorAll('td.k-table-td[aria-colindex="10"]');
+  cells.forEach(cell => cell.classList.remove('active'));
+
+  // Add 'active' class to the clicked cell
+  const cell = (event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]');
+  if (cell) {
+      cell.classList.add('active');
+  }
+}
+
+
+@HostListener('document:click', ['$event'])
+onClick(event: MouseEvent) {
+    if (this.tempID !== null && !(event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]')) {
+        this.isClickButton[this.tempID] = false;
     }
-    this.tempID = id;
 }
 
   // Thao tác paging
