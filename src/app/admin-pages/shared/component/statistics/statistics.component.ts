@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 
 /**
@@ -24,13 +24,16 @@ export class StatisticsComponent implements OnChanges, OnInit {
   @Input() textField: string = 'Nhập tiêu đề...';
   @Input() valueField: number;
   @Input() color: string = '#2557A0';
+  @Input() isSelectedDefault: boolean = false;
+  @Output() getSelected: EventEmitter<any> = new EventEmitter<any>();
   boxShadow: string;
-  isStart: boolean = false;
+  isSelected: boolean;
   
   currentCount: number = 0;
   
   ngOnInit(): void {
-    this.boxShadow = `${this.hexToRgba(this.color, 0.2)} 0px 5px 10px`;
+    this.boxShadow = `${this.hexToRgba(this.color, 0.3)} 0px 5px 10px`;
+    this.isSelected = this.isSelectedDefault;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -73,5 +76,14 @@ export class StatisticsComponent implements OnChanges, OnInit {
     }
 
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  onClickItem(){
+    this.isSelected = !this.isSelected;
+    this.getSelected.emit({text: this.textField, value: this.valueField, isSelected: this.isSelected});
+  }
+
+  reset(){
+    this.isSelected = this.isSelectedDefault;
   }
 }

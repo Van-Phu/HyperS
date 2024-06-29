@@ -6,10 +6,13 @@ import { DTOProductType } from 'src/app/ecom-pages/shared/dto/DTOProductType';
 import { ProductService } from 'src/app/ecom-pages/shared/service/product.service';
 import { DTOStatus, listStatusActive } from '../../shared/dto/DTOStatus.dto';
 import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/kendo-data-query';
-import { DTOColor, listColor } from '../../shared/dto/DTOColor.dto.';
+import { DTOColor } from '../../shared/dto/DTOColor.dto.';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/text-dropdown.component';
 import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
+import { CheckboxlistComponent } from '../../shared/component/checkboxlist/checkboxlist.component';
+import { SearchBarComponent } from 'src/app/shared/component/search-bar/search-bar.component';
+import { StatisticsComponent } from '../../shared/component/statistics/statistics.component';
 
 interface DropDownPrice {
   Code: number
@@ -20,6 +23,7 @@ interface DropDownPrice {
 interface Gender {
   Code: number
   Gender: string
+  IsChecked: boolean
 }
 
 @Component({
@@ -34,9 +38,9 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // variable
   isLoading: boolean = true;
   pageSize: number = 4;
+  valueSearch: string;
 
   // variable list
-  listColor: DTOColor[] = listColor;
   listPageSize: number[] = [1, 2, 3, 4];
   listRangePrice: DropDownPrice[] = [
     {
@@ -69,19 +73,50 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   listGender: Gender[] = [
     {
       Code: 0,
-      Gender: 'Unisex'
+      Gender: 'Unisex',
+      IsChecked: false
     },
     {
       Code: 1,
-      Gender: 'Nam'
+      Gender: 'Nam',
+      IsChecked: false
     },
     {
       Code: 2,
-      Gender: 'Nữ'
+      Gender: 'Nữ',
+      IsChecked: false
     }
   ];
   listStatus: DTOStatus[] = listStatusActive;
   listProduct: GridDataResult;
+  listStatusDefault: DTOStatus[] = [
+    {
+      Code: 0,
+      Status: "Hoạt động",
+      Icon: "",
+      IsChecked: true
+    },
+    {
+      Code: 1,
+      Status: "Vô hiệu hóa",
+      Icon: "",
+      IsChecked: false
+    }
+  ];
+  listSort: DTOStatus[] = [
+    {
+      Code: 1,
+      Status: "Sản phẩm tồn kho",
+    },
+    {
+      Code: 2,
+      Status: "Giá tăng dần",
+    },
+    {
+      Code: 3,
+      Status: "Giá giảm dần",
+    }
+  ];
 
   // variable Object
   defaultPrice: DropDownPrice = {
@@ -99,15 +134,9 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     Name: '-- Thương hiệu --',
     ImageUrl: '',
   };
-  defaultGender: Gender = {
-    Code: -1,
-    Gender: '-- Giới tính --'
-  };
-  defaultStatus: DTOStatus = {
-    Code: -1,
-    Status: '-- Trạng thái --',
-    Icon: '',
-    IsChecked: false
+  defaultSort: DTOStatus = {
+    Code: 0,
+    Status: "Sản phẩm bán chạy"
   }
 
   // variable State
@@ -127,27 +156,36 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // variable filter
-  filterSearch: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
   filterProductType: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
   filterBrand: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
-  filterGender: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
-  filterStatus: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
+  filterGenderUnisex: FilterDescriptor = { field: 'Gender', operator: 'eq', value: 0, ignoreCase: true };
+  filterGenderMale: FilterDescriptor = { field: 'Gender', operator: 'eq', value: 1, ignoreCase: true };
+  filterGenderFeMale: FilterDescriptor = { field: 'Gender', operator: 'eq', value: 2, ignoreCase: true };
+  filterProductActive: FilterDescriptor = { field: 'Status', operator: 'eq', value: 0, ignoreCase: true };
+  filterProductDisable: FilterDescriptor = { field: 'Status', operator: 'eq', value: 1, ignoreCase: true };
 
   // variable CompositeFilterDescriptor
-  filterColor: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+  filterSearch: CompositeFilterDescriptor = { logic: 'or', filters: [] };
   filterPrice: CompositeFilterDescriptor = { logic: 'and', filters: [] };
+  filterAllStatistics: CompositeFilterDescriptor = { logic: 'or', filters: [this.filterProductActive, this.filterGenderUnisex] };
 
   // variable ViewChild
   @ViewChild('rangeprice') childRangePrice!: TextDropdownComponent;
   @ViewChild('producttype') childProductType!: TextDropdownComponent;
   @ViewChild('brand') childBrand!: TextDropdownComponent;
-  @ViewChild('gender') childGender!: TextDropdownComponent;
-  @ViewChild('status') childStatus!: TextDropdownComponent;
+  @ViewChild('sort') childSort!: TextDropdownComponent;
+  @ViewChild('search') childSearch!: SearchBarComponent;
+  @ViewChild('productActive') childProductActive: StatisticsComponent;
+  @ViewChild('productDisable') childProductDisable: StatisticsComponent;
+  @ViewChild('productMale') childProductMale: StatisticsComponent;
+  @ViewChild('productFemale') childProductFemale: StatisticsComponent;
+  @ViewChild('productUnisex') childProductUnisex: StatisticsComponent;
 
   // variable Statistics
   valueTotalProduct: number = 0; // Thống kê tổng số sản phẩm
   valueProductStatusActive: number = 0; // Thống kê tổng số sản phẩm Hoạt động
   valueProductStatusDisable: number = 0; // Thống kê tổng số sản phẩm Vô hiệu hóa
+  valueProductUnisex: number = 0; // Thống kê tổng số sản phẩm Unisex
   valueProductMale: number = 0; // Thống kê tổng số sản phẩm Nam
   valueProductFemale: number = 0; // Thống kê tổng số sản phẩm Nữ
 
@@ -182,25 +220,29 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // Lấy các thống kê về sản phẩm
   getStatistics() {
     // Khởi tạo state tạm để filter
-    let state: State = {filter: { logic: "and", filters: [] }};
+    let state: State = { filter: { logic: "and", filters: [] } };
 
     // Đối với tổng số sản phẩm
     this.filterStatistics(state, (total) => this.valueTotalProduct = total);
 
     // Đối với số lượng sản phẩm hoạt động
-    state.filter.filters = [{ "field": "Status", "operator": "eq", "value": 0 }]
+    state.filter.filters = [this.filterProductActive]
     this.filterStatistics(state, (total) => this.valueProductStatusActive = total);
 
     // Đối với số lượng sản phẩm vô hiệu hóa
-    state.filter.filters = [{ "field": "Status", "operator": "eq", "value": 1 }]
+    state.filter.filters = [this.filterProductDisable]
     this.filterStatistics(state, (total) => this.valueProductStatusDisable = total);
 
+    // Đối với số lượng sản phẩm Unisex
+    state.filter.filters = [this.filterGenderUnisex]
+    this.filterStatistics(state, (total) => this.valueProductUnisex = total);
+
     // Đối với số lượng sản phẩm cho Nam
-    state.filter.filters = [{ "field": "Gender", "operator": "eq", "value": 1 }]
+    state.filter.filters = [this.filterGenderMale]
     this.filterStatistics(state, (total) => this.valueProductMale = total);
 
     // Đối với số lượng sản phẩm cho Nữ
-    state.filter.filters = [{ "field": "Gender", "operator": "eq", "value": 2 }]
+    state.filter.filters = [this.filterGenderFeMale]
     this.filterStatistics(state, (total) => this.valueProductFemale = total);
   }
 
@@ -216,18 +258,50 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Sort danh sách theo số lượng bán chạy và đơn giá
+  setSort(value: any){
+    if(value){
+      this.gridState.sort = []
+      if(value.Code === 0){
+        this.gridState.sort.push({
+          "field": "Sold",
+          "dir": "desc"
+        })
+      }
+      else if(value.Code === 1){
+        this.gridState.sort.push({
+          "field": "Sold",
+          "dir": "asc"
+        })
+      }
+      else if(value.Code === 2){
+        this.gridState.sort.push({
+          "field": "Price",
+          "dir": "asc"
+        })
+      }
+      else if(value.Code === 3){
+        this.gridState.sort.push({
+          "field": "Price",
+          "dir": "desc"
+        })
+      }
+      this.getListProduct();
+    }
+  }
+
   // Kiểm tra giới tính
   checkGender(idGender: number) {
     if (idGender === 0) return 'Unisex';
-    if (idGender === 1) return 'Name';
+    if (idGender === 1) return 'Nam';
     if (idGender === 2) return 'Nữ';
     return 'Lỗi giới tính';
   }
 
   // Kiểm tra giới tính
   checkStatusProduct(idStatus: number) {
-    if (idStatus === 0) return 'Hoạt động';
-    if (idStatus === 1) return 'Vô hiệu hóa';
+    if (idStatus === 0) return 'Đang kinh doanh';
+    if (idStatus === 1) return 'Ngừng kinh doanh';
     return 'Lỗi trạng thái';
   }
 
@@ -243,14 +317,12 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.setFilterData();
   }
 
-  // Set filter list checkbox color
-  setFilterColor(value: any) {
-    this.filterColor.filters = [];
-    value.forEach((item: DTOColor) => {
-      if (item.IsChecked) {
-        this.filterColor.filters.push({ field: 'Color', operator: 'eq', value: item.Color })
-      }
-    })
+  // Set filter search
+  setFilterSearch(value: any) {
+    this.valueSearch = value;
+    this.filterSearch.filters = [];
+    this.filterSearch.filters.push({ field: 'IdProduct', operator: 'contains', value: this.valueSearch, ignoreCase: true });
+    this.filterSearch.filters.push({ field: 'Name', operator: 'contains', value: this.valueSearch, ignoreCase: true });
     this.setFilterData();
   }
 
@@ -273,13 +345,23 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // Set filter tất cả
   setFilterData() {
     this.gridState.filter.filters = [];
-    this.pushToGridState(null, this.filterColor)
-    this.pushToGridState(null, this.filterPrice)
-    this.pushToGridState(this.filterBrand, null)
-    this.pushToGridState(this.filterGender, null)
-    this.pushToGridState(this.filterProductType, null)
-    this.pushToGridState(this.filterStatus, null)
+    this.pushToGridState(null, this.filterPrice);
+    this.pushToGridState(this.filterBrand, null);
+    this.pushToGridState(this.filterProductType, null);
+    this.pushToGridState(null, this.filterSearch);
+    this.pushToGridState(null, this.filterAllStatistics);
     this.getListProduct();
+  }
+
+  // Push các filter statistics vào filterAllStatistics
+  pushStatisticsToAllStatistics(filter: any, value: any){
+    if(value.isSelected){
+      this.filterAllStatistics.filters.push(filter);
+    }
+    else{
+      this.filterAllStatistics.filters = this.filterAllStatistics.filters.filter(item => item !== filter);
+    }
+    this.setFilterData();
   }
 
   // Push filter vào gridState
@@ -298,14 +380,42 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
 
   // Reset tất cả các filter
   resetFilter() {
+    // Reset range price
     this.childRangePrice.resetValue();
+    this.filterPrice.filters = [];
+
+    // Reset product type
     this.childProductType.resetValue();
+    this.filterProductType = { field: '', operator: '', value: null, ignoreCase: true };
+
+    // Reset brand
     this.childBrand.resetValue();
-    this.childGender.resetValue();
-    this.childStatus.resetValue();
+    this.filterBrand = { field: '', operator: '', value: null, ignoreCase: true };
+
+    //Reset search
+    this.valueSearch = '';
+    this.childSearch.valueSearch = '';
+
+    // Reset statistics
+    this.childProductActive.reset();
+    this.childProductDisable.reset();
+    this.childProductMale.reset();
+    this.childProductFemale.reset();
+    this.childProductUnisex.reset();
+
+    // Reset dropdown sort
+    this.childSort.resetValue();
+
+    // Reset state
     this.gridState.filter.filters = [];
     this.pageSize = 4;
     this.gridState.skip = 0;
+    this.gridState.sort = [
+      {
+        "field": "Code",
+        "dir": "asc"
+      }
+    ],
     this.gridState.take = this.pageSize;
     this.getListProduct();
   }

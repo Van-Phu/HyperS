@@ -11,39 +11,30 @@
             width: 100%;
 
             .header-statistics{
-                display: flex;
-                gap: 20px;
-                padding: 10px 0;
-            }
-
-            .header-filter-color {
-                padding: 10px 0;
-                width: 100%;
-                overflow-x: auto;
-                padding-bottom: 15px;
                 @include center-vertical;
+                gap: 20px;
+                padding: 6px 0 12px 0;
 
-                .label-filter-color {
-                    font-size: 14px;
-                    text-transform: uppercase;
+                .label-filter{
                     font-weight: 600;
-                    text-wrap: nowrap;
+                    font-size: 14px;
                 }
             }
 
-            .header-filter {
+            .header-filter-search {
                 gap: 20px;
                 @include center-vertical;
                 width: 100%;
                 overflow-x: auto;
-                padding-bottom: 10px;
+                padding: 20px 0;
 
-                .label-delete-filter{
+                .label-delete-filter{    
                     text-decoration: underline;
                     @include center-vertical;
                     cursor: pointer;
                     color: rgb(255, 97, 97);
                     text-wrap: nowrap;
+                    width: 91px;
 
                     &:hover{
                         color: $color-cancel;
@@ -52,7 +43,7 @@
             }
 
             .grid-custom-container {
-                height: calc(100vh - 155px - 57px - 61px - 10px);
+                height: calc(100vh - 105px - 57px - 61px - 10px);
 
                 kendo-grid {
                     height: 100%;
@@ -68,20 +59,21 @@
                     th.k-table-th[aria-colindex="5"],
                     th.k-table-th[aria-colindex="6"],
                     th.k-table-th[aria-colindex="7"],
-                    th.k-table-th[aria-colindex="8"] {
+                    th.k-table-th[aria-colindex="8"],
+                    th.k-table-th[aria-colindex="9"] {
                         .k-column-title {
                             margin: auto;
                         }
                     }
 
-                    th.k-table-th[aria-colindex="9"] {
+                    th.k-table-th[aria-colindex="10"] {
                         .k-link {
                             display: flex;
                             justify-content: end;
                         }
                     }
 
-                    td.k-table-td[aria-colindex="10"] {
+                    td.k-table-td[aria-colindex="11"] {
                         background-color: #fff;
                         box-shadow: $box-shadow2;
                         height: 44px;
@@ -104,8 +96,11 @@
                     .column-5,
                     .column-6,
                     .column-7,
-                    .column-8 {
+                    .column-8,
+                    .column-9  {
                         text-align: center;
+                        text-wrap: nowrap;
+                        text-overflow: ellipsis;
 
                         img {
                             height: 38px;
@@ -115,8 +110,18 @@
                         }
                     }
 
-                    .column-9 {
+                    .column-3{
+                        .name{
+                            max-width: 280px;
+                            text-wrap: nowrap;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    .column-10 {
                         text-align: right;
+                        text-wrap: nowrap;
+                        text-overflow: ellipsis;
                     }
 
                     .tool-box-container{

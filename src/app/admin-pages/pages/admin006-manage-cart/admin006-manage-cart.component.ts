@@ -29,7 +29,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   idButton: number;
   isClickButton: { [key: number]: boolean } = {};
   tempID: number;
-
+  valueMulti: any = [];
   // defaultItemStatusBill: DTOStatus = {
   //   Code: -1,
   //   Status: '-- Trạng thái --',

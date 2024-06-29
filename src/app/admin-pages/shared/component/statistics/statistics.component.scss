@@ -3,11 +3,12 @@
 ::ng-deep {
     component-statistics {
         .statistics-ctn {
-            padding: 10px;
+            padding: 8px;
             display: inline-block;
             background-color: #ffffff;
             border-radius: 6px;
-            border: 1px solid #ebebeb;
+            border: 2px solid #fdfdfd;
+            cursor: pointer;
 
             .block{
                 display: flex;
@@ -37,6 +38,10 @@
                     margin: auto;
                 }
             }
+        }
+
+        .active{
+            border: 1px solid black;
         }
     }
 }

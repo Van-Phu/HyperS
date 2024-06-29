@@ -14,10 +14,40 @@
                 display: flex;
                 text-wrap: nowrap;
                 align-items: center;
+                gap: 4px;
+                height: 40px;
+                
+                .k-input{
+                    min-width: 200px !important;
+                    width: 0;
+
+                }
+                kendo-multiselect{
+                    height: 100%;
+                    border-radius: 5px !important;
+                    box-shadow: $box-shadow3;
+                    // display: inline-block !important;
+
+                    
+                    .k-input-values{
+                        flex-wrap: nowrap !important;
+                        text-wrap: nowrap !important;
+
+                        .k-chip{
+                            overflow: auto !important;
+                        }
+
+                        .k-text-ellipsis{
+                            padding: 4px 0px;
+                        }
+                    }
+
+                }
 
                 .label-filter{
                     font-weight: 600;
                 }
+
             }
             .headerSearch{
                 display: flex;
@@ -30,9 +60,6 @@
                 .titlePage{
                     font-size: 16px;
                     font-weight: bold;
-                    // background-color: aqua;
-                    // min-width: 200px;
-                    
                 }
     
                 .line{
@@ -52,20 +79,10 @@
 
 
             .showList{
-                // .dropDown-action{
-                //     position: absolute;
-                //     top: 0px !important;
-                //     background-color: red;
-                //     // left: -155px;
-                //     right: 30px;
-                //     z-index: 10 !important;
-                //     .dropdown{
-                //         background-color: $color-tool-box !important; 
-                //     }
-                // }
+
 
                 .grid-custom-container{
-                    height: calc(100vh - 61px - 60px - 32px - 40px);
+                    height: calc(100vh - 61px - 60px - 32px - 40px - 10px);
 
                     th.k-table-th[aria-colindex="2"],
                     th.k-table-th[aria-colindex="4"],

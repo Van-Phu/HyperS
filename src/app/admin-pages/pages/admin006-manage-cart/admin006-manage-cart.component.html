@@ -1,7 +1,11 @@
 <div class="header-filter">
     <div class="label-filter">Lọc trạng thái</div>
-    <component-checkboxlist (getListChecked)="setFilterStatus($event)" textField="Status"
-        [listCheckBox]="listStatus"></component-checkboxlist>
+    <!-- <component-checkboxlist (getListChecked)="setFilterStatus($event)" textField="Status"
+        [listCheckBox]="listStatus"></component-checkboxlist> -->
+        <kendo-multiselect
+        [data]="listStatus" textField="Status" valueField="Code"
+        [(ngModel)]="valueMulti"
+      ></kendo-multiselect>
 </div>
 <div class="headerSearch">
     <p class="titlePage">DANH SÁCH ĐƠN HÀNG</p>
