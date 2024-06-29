@@ -1,5 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DTOStatus, listStatus } from '../../shared/dto/DTOStatus.dto';
+import { DTOStatus, listStatus, filteredStatusList } from '../../shared/dto/DTOStatus.dto';
 import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/kendo-data-query';
 import { GridDataResult, SelectionEvent } from '@progress/kendo-angular-grid';
 import { BillService } from 'src/app/admin-pages/shared/service/bill.service'
@@ -20,6 +20,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   startDate: Date = this.minDate;
   endDate: Date = this.maxDate;
   listStatus: DTOStatus[] = listStatus;
+  listFilterStatus: DTOStatus[] = filteredStatusList;
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1);
   listBillPage: GridDataResult;
   pageSize: number = 4;
@@ -29,7 +30,16 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   idButton: number;
   isClickButton: { [key: number]: boolean } = {};
   tempID: number;
-  valueMulti: any = [];
+  valueMulti: DTOStatus[] = [
+    {
+    Code: 2,
+    Status: "Chờ xác nhận",
+    Icon: "fa-share",
+    IsChecked: false,
+    }
+  ];
+
+
   // defaultItemStatusBill: DTOStatus = {
   //   Code: -1,
   //   Status: '-- Trạng thái --',
@@ -82,7 +92,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   constructor(private billService: BillService) { }
   ngOnInit(): void {
-    this.getListBill();
+    this.setFilterStatus(this.valueMulti);
+    // this.getListBill();
   }
 
   ngOnDestroy(): void {
@@ -141,21 +152,37 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   }
 
   formatStatus(value: any): string {
-    if (value == 1) {
-      return 'Chờ xác nhận';
-    } else if (value == 2) {
-      return 'Đang đóng gói';
-    } else if (value == 3) {
-      return 'Đang vận chuyển';
-    } else if (value == 4) {
-      return 'Giao hàng thành công';
-    } else if (value == 5) {
-      return 'Giao hàng thất bại';
-    } else {
-      return 'Unknow';
+    switch (value) {
+        case 2:
+            return 'Chờ xác nhận';
+        case 3:
+            return 'Đang đóng gói';
+        case 4:
+            return 'Đang vận chuyển';
+        case 5:
+            return 'Giao hàng thành công';
+        case 6:
+            return 'Đơn hàng bị hủy';
+        case 7:
+            return 'Giao hàng thất bại';
+        case 8:
+            return 'Đang trả về';
+        case 9:
+            return 'Đã nhận lại hàng';
+        case 10:
+            return 'Đã hoàn tiền';
+        case 11:
+            return 'Không hoàn tiền';
+        default:
+            return 'Unknow';
     }
-  }
+}
 
+
+  
+  valueChange(value: any): void {
+    console.log("valueChange", value);
+  }
 
   onSelectionChange(event: SelectionEvent): void {
     const selectedDataItems = event.selectedRows.map(row => row.dataItem);
@@ -166,6 +193,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     }
   }
 
+  
   // getFilterStatus(value: any) {
   //   if (value.Code !== -1) {
   //   }
@@ -264,12 +292,12 @@ onClick(event: MouseEvent) {
 
   // Set filter status
   setFilterStatus(value: any) {
+    // alert('a')
     this.filterStatus.filters = [];
+    console.log("valueChange", value);
     value.forEach((item: DTOStatus) => {
-      if (item.IsChecked) {
-        console.log({ field: 'Status', operator: 'eq', value: item.Status })
-        this.filterStatus.filters.push({ field: 'Status', operator: 'eq', value: item.Code })
-      }
+    console.log({ field: 'Status', operator: 'eq', value: item.Status })
+    this.filterStatus.filters.push({ field: 'Status', operator: 'eq', value: item.Code })
     })
     this.setFilterData();
   }

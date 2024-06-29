@@ -11,7 +11,7 @@ export const listStatus: DTOStatus[] = [
         Code: 1,
         Status: "Xem chi tiết",
         Icon: "fa-eye",
-        IsChecked: false,
+        IsChecked: false
     },
     {
         Code: 2,
@@ -21,9 +21,9 @@ export const listStatus: DTOStatus[] = [
         ListNextStatus:
         [
             {
-                Code: 2,
-                Status: "Chờ xác nhận",
-                Icon: "fa-share",
+                Code: 1,
+                Status: "Xem chi tiết",
+                Icon: "fa-eye",
                 IsChecked: false
                 
             },
@@ -50,6 +50,13 @@ export const listStatus: DTOStatus[] = [
         ListNextStatus:
         [
             {
+                Code: 1,
+                Status: "Xem chi tiết",
+                Icon: "fa-eye",
+                IsChecked: false
+                
+            },
+            {
                 Code: 4,
                 Status: "Đang vận chuyển",
                 Icon: "fa-cart-flatbed",
@@ -64,6 +71,13 @@ export const listStatus: DTOStatus[] = [
         IsChecked: false,
         ListNextStatus:
         [
+            {
+                Code: 1,
+                Status: "Xem chi tiết",
+                Icon: "fa-eye",
+                IsChecked: false
+                
+            },
             {
                 Code: 5,
                 Status: "Giao hàng thành công",
@@ -99,6 +113,13 @@ export const listStatus: DTOStatus[] = [
         ListNextStatus:
         [
             {
+                Code: 1,
+                Status: "Xem chi tiết",
+                Icon: "fa-eye",
+                IsChecked: false
+                
+            },
+            {
                 Code: 8,
                 Status: "Đang trả về",
                 Icon: "fa-cart-flatbed",
@@ -114,6 +135,13 @@ export const listStatus: DTOStatus[] = [
         ListNextStatus:
         [
             {
+                Code: 1,
+                Status: "Xem chi tiết",
+                Icon: "fa-eye",
+                IsChecked: false
+                
+            },
+            {
                 Code: 9,
                 Status: "Đã nhận lại hàng",
                 Icon: "fa-circle-check",
@@ -128,6 +156,13 @@ export const listStatus: DTOStatus[] = [
         IsChecked: false,
         ListNextStatus:
         [
+            {
+                Code: 1,
+                Status: "Xem chi tiết",
+                Icon: "fa-eye",
+                IsChecked: false
+                
+            },
             {
                 Code: 10,
                 Status: "Đã hoàn tiền",
@@ -155,6 +190,9 @@ export const listStatus: DTOStatus[] = [
         IsChecked: false,
     }
 ]
+
+export const filteredStatusList: DTOStatus[] = listStatus.filter(status => status.Code !== 1);
+
 
 export const listStatusActive: DTOStatus[] = [
     {

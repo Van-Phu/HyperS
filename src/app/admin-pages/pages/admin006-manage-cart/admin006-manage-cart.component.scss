@@ -17,11 +17,11 @@
                 display: flex;
                 text-wrap: nowrap;
                 align-items: center;
-                gap: 4px;
+                gap: 25px;
                 height: 40px;
                 
                 .k-input{
-                    min-width: 200px !important;
+                    min-width: 955px !important;
                     width: 0;
                 }
 
@@ -37,15 +37,24 @@
                     .k-input-values{
                         flex-wrap: nowrap !important;
                         
-                        // .k-chip{
-                        //     overflow: auto !important;
-                        // }
+                        .k-searchbar{
+                            width: 30px;
+                        }
 
                         .k-text-ellipsis{
                             padding: 4px 0px;
                         }
+    
                     }
-
+                    // .row-status {
+                    //     display: flex;
+                    //     align-items: center;
+                    // }
+                    
+                    // .row-status i {
+                    //     margin-right: 8px;
+                    // }
+                    
                 }
 
                 .label-filter{
