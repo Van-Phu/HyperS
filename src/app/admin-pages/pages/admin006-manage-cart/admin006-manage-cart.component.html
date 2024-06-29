@@ -3,9 +3,19 @@
     <!-- <component-checkboxlist (getListChecked)="setFilterStatus($event)" textField="Status"
         [listCheckBox]="listStatus"></component-checkboxlist> -->
         <kendo-multiselect
-        [data]="listStatus" textField="Status" valueField="Code"
-        [(ngModel)]="valueMulti"
-      ></kendo-multiselect>
+        [data]="listFilterStatus" textField="Status" valueField="Code"
+        [checkboxes]="{ checkOnClick: false }"
+        [autoClose]="false"
+        (valueChange)="setFilterStatus($event)"
+        [(ngModel)]="valueMulti">
+
+        <!-- <ng-template kendoMultiSelectItemTemplate let-dataItem>
+            <div class="row-status">
+                <i class="fa-solid {{dataItem.Icon}}"></i>
+                <span>{{ dataItem.Status}}</span>
+            </div>
+          </ng-template> -->
+        </kendo-multiselect>
 </div>
 <div class="headerSearch">
     <p class="titlePage">DANH SÁCH ĐƠN HÀNG</p>
