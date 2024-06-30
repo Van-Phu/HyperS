@@ -26,6 +26,7 @@ export class DatepickerComponent implements OnInit {
   constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
+
   }
 
   public onChange(value: Date): void {
