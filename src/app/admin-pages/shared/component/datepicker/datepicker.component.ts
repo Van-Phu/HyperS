@@ -14,18 +14,18 @@ import { DatePickerComponent } from '@progress/kendo-angular-dateinputs';
 export class DatepickerComponent implements OnInit {
   // public value: Date = new Date(yyyy, MM, dd);
   @Output() datePicked = new EventEmitter();
+  @Input() defaultDate: Date;
   @Input() minDate: Date = new Date();
   @Input() maxDate: Date = new Date();
   @Input() label: string;
   @Input() hasLabel: boolean = false;
   @Input() widthBlock: number;
   @ViewChild('datePicker', { static: false }) datePicker!: DatePickerComponent;
-  valueDate: Date = null;
-
+  // valueDate: Date;
+  valueDateDefualt: Date = new Date();
   constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    
   }
 
   public onChange(value: Date): void {
@@ -33,7 +33,7 @@ export class DatepickerComponent implements OnInit {
   }
 
   resetDate(){
-    this.valueDate = null
+    // this.valueDate = null
     this.datePicker.writeValue(null);
   }
 

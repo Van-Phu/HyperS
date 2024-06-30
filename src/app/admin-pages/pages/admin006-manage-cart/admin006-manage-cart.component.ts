@@ -17,8 +17,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   currentDate: Date = new Date();
   minDate: Date = new Date(1900, 1, 1);
   maxDate: Date = new Date(this.currentDate.getFullYear() + 50, 12, 30);
-  startDate: Date = this.minDate;
-  endDate: Date = this.maxDate;
+  startDate: Date = this.currentDate;
+  endDate: Date = this.currentDate;
   listStatus: DTOStatus[] = listStatus;
   listFilterStatus: DTOStatus[] = filteredStatusList;
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1);
@@ -30,12 +30,13 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   idButton: number;
   isClickButton: { [key: number]: boolean } = {};
   tempID: number;
+  valueSearch: string;
   valueMulti: DTOStatus[] = [
     {
-    Code: 2,
-    Status: "Chờ xác nhận",
-    Icon: "fa-share",
-    IsChecked: false,
+      Code: 2,
+      Status: "Chờ xác nhận",
+      Icon: "fa-share",
+      IsChecked: false,
     }
   ];
 
@@ -46,6 +47,14 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   //   Icon: "",
   //   IsChecked: false,
   // }
+  // variable CompositeFilterDescriptor
+  filterDate: CompositeFilterDescriptor = { logic: 'and', filters: [
+    { field: 'CreateAt', operator: 'gte', value: this.formatDateTime(this.startDate, 'start') },
+    { field: 'CreateAt', operator: 'lte', value: this.formatDateTime(this.endDate, 'end')}
+  ] };
+  filterStatus: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+  filterSearch: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+
   isLoading: boolean = true;
   gridState: State = {
     skip: 0,
@@ -59,32 +68,15 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     filter: {
       logic: "and",
       filters: [
-
+        { field: 'Status', operator: 'eq', value: 7 },
+        this.filterDate
       ]
     }
   }
-
-  resetGridState: State = {
-    skip: 0,
-    take: this.pageSize,
-    sort: [
-      {
-        "field": "Code",
-        "dir": "asc"
-      }
-    ],
-    filter: {
-      logic: "and",
-      filters: []
-    }
-  }
   // variable filter
-  filterSearch: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
   // filterStatus: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
 
-  // variable CompositeFilterDescriptor
-  filterDate: CompositeFilterDescriptor = { logic: 'and', filters: [] };
-  filterStatus: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+
 
   // variable ViewChild
   @ViewChild('rangeDate') childRangeDate!: TextDropdownComponent;
@@ -92,8 +84,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   constructor(private billService: BillService) { }
   ngOnInit(): void {
-    this.setFilterStatus(this.valueMulti);
-    // this.getListBill();
+    console.log(this.gridState);
+    this.getListBill();
   }
 
   ngOnDestroy(): void {
@@ -108,16 +100,19 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (type === 'end') {
       this.endDate = value;
     }
-    console.log(this.PlusStartDate);
-    console.log(this.PlusEndDate);
     this.setFilterDate();
   }
 
-  formatDateTime(date: Date) {
-    return date.toISOString().split('.')[0];
+  formatDateTime(date: Date, type: string) {
+    if(type === 'start'){
+      return date.toISOString().split('T')[0] + 'T00:00:00';
+    }
+    else{
+      return date.toISOString().split('T')[0] + 'T23:59:59';
+    }
   }
 
-  
+
 
 
   formattedCreateAt(createAt: any) {
@@ -153,33 +148,33 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   formatStatus(value: any): string {
     switch (value) {
-        case 2:
-            return 'Chờ xác nhận';
-        case 3:
-            return 'Đang đóng gói';
-        case 4:
-            return 'Đang vận chuyển';
-        case 5:
-            return 'Giao hàng thành công';
-        case 6:
-            return 'Đơn hàng bị hủy';
-        case 7:
-            return 'Giao hàng thất bại';
-        case 8:
-            return 'Đang trả về';
-        case 9:
-            return 'Đã nhận lại hàng';
-        case 10:
-            return 'Đã hoàn tiền';
-        case 11:
-            return 'Không hoàn tiền';
-        default:
-            return 'Unknow';
+      case 2:
+        return 'Chờ xác nhận';
+      case 3:
+        return 'Đang đóng gói';
+      case 4:
+        return 'Đang vận chuyển';
+      case 5:
+        return 'Giao hàng thành công';
+      case 6:
+        return 'Đơn hàng bị hủy';
+      case 7:
+        return 'Giao hàng thất bại';
+      case 8:
+        return 'Đang trả về';
+      case 9:
+        return 'Đã nhận lại hàng';
+      case 10:
+        return 'Đã hoàn tiền';
+      case 11:
+        return 'Không hoàn tiền';
+      default:
+        return 'Unknow';
     }
-}
+  }
 
 
-  
+
   valueChange(value: any): void {
     console.log("valueChange", value);
   }
@@ -193,53 +188,53 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+
   // getFilterStatus(value: any) {
   //   if (value.Code !== -1) {
   //   }
   // }
 
-//   ClickButtonAction(id: number) {
-//     const hasId = this.listStatus.some(status => status.Code === id);
-//     if(this.tempID !== id){
-//       this.isClickButton[this.tempID] = false;
-//     }
-    
-//     if (hasId) {
-//       this.isClickButton[id] = !this.isClickButton[id];
-//     }
-//     this.tempID = id;
-// }
+  //   ClickButtonAction(id: number) {
+  //     const hasId = this.listStatus.some(status => status.Code === id);
+  //     if(this.tempID !== id){
+  //       this.isClickButton[this.tempID] = false;
+  //     }
 
-ClickButtonAction(id: number, event: Event) {
-  const hasId = this.listStatus.some(status => status.Code === id);
-  if (this.tempID !== id) {
+  //     if (hasId) {
+  //       this.isClickButton[id] = !this.isClickButton[id];
+  //     }
+  //     this.tempID = id;
+  // }
+
+  ClickButtonAction(id: number, event: Event) {
+    const hasId = this.listStatus.some(status => status.Code === id);
+    if (this.tempID !== id) {
       this.isClickButton[this.tempID] = false;
-  }
-  
-  if (hasId) {
-      this.isClickButton[id] = !this.isClickButton[id];
-  }
-  this.tempID = id;
-
-  // Remove 'active' class from all cells
-  const cells = document.querySelectorAll('td.k-table-td[aria-colindex="10"]');
-  cells.forEach(cell => cell.classList.remove('active'));
-
-  // Add 'active' class to the clicked cell
-  const cell = (event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]');
-  if (cell) {
-      cell.classList.add('active');
-  }
-}
-
-
-@HostListener('document:click', ['$event'])
-onClick(event: MouseEvent) {
-    if (this.tempID !== null && !(event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]')) {
-        this.isClickButton[this.tempID] = false;
     }
-}
+
+    if (hasId) {
+      this.isClickButton[id] = !this.isClickButton[id];
+    }
+    this.tempID = id;
+
+    // Remove 'active' class from all cells
+    const cells = document.querySelectorAll('td.k-table-td[aria-colindex="10"]');
+    cells.forEach(cell => cell.classList.remove('active'));
+
+    // Add 'active' class to the clicked cell
+    const cell = (event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]');
+    if (cell) {
+      cell.classList.add('active');
+    }
+  }
+
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (this.tempID !== null && !(event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]')) {
+      this.isClickButton[this.tempID] = false;
+    }
+  }
 
   // Thao tác paging
   onPageChange(value: any) {
@@ -248,13 +243,18 @@ onClick(event: MouseEvent) {
     this.getListBill();
   }
 
-  // Lấy danh sách các product
+  // Lấy danh sách các bill
   getListBill() {
     this.isLoading = true;
     this.billService.getListBill(this.gridState).pipe(takeUntil(this.destroy)).subscribe(list => {
       this.listBillPage = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
       this.isLoading = false;
     })
+  }
+
+  //Lowcase string
+  normalizeString(str: string) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
   /**
@@ -266,7 +266,6 @@ onClick(event: MouseEvent) {
  * @param value là giá trị được get từ dropdown, là 1 object
  */
   setFilterProperty(filter: FilterDescriptor, field: string, operator: string, valueField: any, value: any) {
-    console.log(value);
     filter.field = field;
     filter.operator = operator;
     filter.value = value[valueField];
@@ -279,26 +278,31 @@ onClick(event: MouseEvent) {
     this.filterDate.filters = [];
     this.PlusStartDate = new Date(this.startDate);
     this.PlusEndDate = new Date(this.endDate);
-    this.PlusStartDate.setDate(this.PlusStartDate.getDate());
-    this.PlusEndDate.setDate(this.PlusEndDate.getDate()+1);
-    console.log('a '+this.PlusStartDate)
-    console.log('a '+this.PlusEndDate)
-    const filterFrom: FilterDescriptor = { field: 'CreateAt', operator: 'gte', value: this.formatDateTime(this.PlusStartDate) };
+    this.PlusStartDate.setDate(this.PlusStartDate.getDate() - 1);
+    this.PlusEndDate.setDate(this.PlusEndDate.getDate());
+
+    const filterFrom: FilterDescriptor = { field: 'CreateAt', operator: 'gte', value: this.PlusStartDate };
     this.filterDate.filters.push(filterFrom);
-    const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.formatDateTime(this.PlusEndDate) };
+    const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.PlusEndDate };
     this.filterDate.filters.push(filterTo);
     this.setFilterData();
   }
 
   // Set filter status
   setFilterStatus(value: any) {
-    // alert('a')
-    this.filterStatus.filters = [];
-    console.log("valueChange", value);
+     this.filterStatus.filters = [];
     value.forEach((item: DTOStatus) => {
-    console.log({ field: 'Status', operator: 'eq', value: item.Status })
-    this.filterStatus.filters.push({ field: 'Status', operator: 'eq', value: item.Code })
+      this.filterStatus.filters.push({ field: 'Status', operator: 'eq', value: item.Code })
     })
+    this.setFilterData();
+  }
+
+  // Set filter search
+  setFilterSearch(value: any) {
+    this.valueSearch = value;
+    this.filterSearch.filters = [];
+    this.filterSearch.filters.push({ field: 'CustomerName', operator: 'contains', value: this.valueSearch, ignoreCase: true });
+    this.filterSearch.filters.push({ field: 'PhoneNumber', operator: 'contains', value: this.valueSearch, ignoreCase: true });
     this.setFilterData();
   }
 
@@ -308,8 +312,9 @@ onClick(event: MouseEvent) {
     // this.pushToGridState(this.filterSearch, null)
     this.pushToGridState(null, this.filterDate);
     this.pushToGridState(null, this.filterStatus);
+    this.pushToGridState(null, this.filterSearch);
+
     // this.pushToGridState(this.filterStatus, null);
-    console.log(this.gridState);
     this.getListBill();
   }
 
