@@ -14,6 +14,8 @@ import { StatisticsComponent } from '../../shared/component/statistics/statistic
 import { DTOProduct } from 'src/app/ecom-pages/shared/dto/DTOProduct';
 import { DTOUpdateProductRequest } from 'src/app/shared/dto/DTOUpdateProductRequest.dto';
 import { Router } from '@angular/router';
+import { ProductAdminService } from '../../shared/service/productAdmin.service';
+import { LayoutService } from '../../shared/service/layout.service';
 
 interface DropDownPrice {
   Code: number
@@ -191,29 +193,37 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   valueProductMale: number = 0; // Thống kê tổng số sản phẩm Nam
   valueProductFemale: number = 0; // Thống kê tổng số sản phẩm Nữ
 
-  constructor(private producService: ProductService, private router: Router) { }
+  constructor(private producAdminService: ProductAdminService, private router: Router, private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+    this.setLayoutStorage('Quản lý sản phẩm', 'admin/manage-product');
     this.getListProductType();
     this.getListBrand();
     this.getListProduct();
     this.getStatistics();
   }
 
+  // Set cho breadcrumb, routerLink, moduleName
+  setLayoutStorage(breadcrumb: string, routerlink: string){
+    localStorage.setItem('breadcrumb', breadcrumb);
+    localStorage.setItem('routerLink', routerlink);
+    this.layoutService.setSelectedBreadCrumb(breadcrumb);
+  }
+
   // Lấy danh sách các product type
   getListProductType() {
-    this.producService.getListProductType().pipe(takeUntil(this.destroy)).subscribe(list => this.listProductType = list.ObjectReturn.Data);
+    this.producAdminService.getListProductType().pipe(takeUntil(this.destroy)).subscribe(list => this.listProductType = list.ObjectReturn.Data);
   }
 
   // Lấy danh sách các brand
   getListBrand() {
-    this.producService.getListBrand().pipe(takeUntil(this.destroy)).subscribe(list => this.listBrand = list.ObjectReturn.Data);
+    this.producAdminService.getListBrand().pipe(takeUntil(this.destroy)).subscribe(list => this.listBrand = list.ObjectReturn.Data);
   }
 
   // Lấy danh sách các product
   getListProduct() {
     this.isLoading = true;
-    this.producService.getListProduct(this.gridState).pipe(takeUntil(this.destroy)).subscribe(list => {
+    this.producAdminService.getListProduct(this.gridState).pipe(takeUntil(this.destroy)).subscribe(list => {
       this.listProduct = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
       this.isLoading = false;
     })
@@ -255,7 +265,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
    * @param callback Hàm callback để cập nhật giá trị sau khi có ObjectReturn.Total
    */
   filterStatistics(state: State, callback: (total: number) => void) {
-    this.producService.getListProduct(state).pipe(takeUntil(this.destroy)).subscribe((obj: DTOResponse) => {
+    this.producAdminService.getListProduct(state).pipe(takeUntil(this.destroy)).subscribe((obj: DTOResponse) => {
       callback(obj.ObjectReturn.Total);
     });
   }
@@ -482,8 +492,9 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
 
   // Cật nhật trạng thái sản phẩm
   updateStatusProduct(product: DTOProduct, obj: any) {
-    console.log(obj);
     if(obj.value === -1){
+      this.producAdminService.setSelectedProduct(product);
+      this.setLayoutStorage('Quản lý sản phẩm/Chi tiết sản phẩm', 'admin/detail-product')
       this.router.navigate(['admin/detail-product']);
     }
     if (obj.value >= 0) {
@@ -492,9 +503,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
         Product: product,
         Properties: ["Status"]
       }
-      console.log(request);
-      this.producService.updateProduct(request).subscribe(res => {
-        console.log(res);
+      this.producAdminService.updateProduct(request).subscribe(res => {
         this.getListProduct();
       }, error => {
         console.error('Error:', error);
