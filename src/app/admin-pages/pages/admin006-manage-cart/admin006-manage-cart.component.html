@@ -22,10 +22,10 @@
     <component-search-bar class="searchBar" (getValue)="setFilterSearch($event)" placeholder="Tìm kiếm theo tên hoặc số điện thoại"
         [width]="500"></component-search-bar>
     <div class="timeStartEnd">
-        <component-datepicker [minDate]="minDate" [maxDate]="endDate"
+        <component-datepicker [minDate]="minDate" [maxDate]="endDate" [defaultDate]="startDate"
             (datePicked)="getDateFromDatePicker($event, 'start')" ></component-datepicker>
         <div class="line"></div>
-        <component-datepicker [minDate]="startDate" [maxDate]="maxDate"
+        <component-datepicker [minDate]="startDate" [maxDate]="maxDate" [defaultDate]="endDate"
             (datePicked)="getDateFromDatePicker($event, 'end')"></component-datepicker>
     </div>
     <!-- <component-text-dropdown [listItem]="listStatus" textField="Status" valueField="Code"
