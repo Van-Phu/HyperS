@@ -197,14 +197,14 @@ export const filteredStatusList: DTOStatus[] = listStatus.filter(status => statu
 export const listStatusActive: DTOStatus[] = [
     {
         Code: 0,
-        Status: "Đang kinh doanh",
-        Icon: "",
+        Status: "Kích hoạt",
+        Icon: "fa-circle-check",
         IsChecked: false
     },
     {
         Code: 1,
         Status: "Ngừng kinh doanh",
-        Icon: "",
+        Icon: "fa-circle-minus",
         IsChecked: false
     }
 ]

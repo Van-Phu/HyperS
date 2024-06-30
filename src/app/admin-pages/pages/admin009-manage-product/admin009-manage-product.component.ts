@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DTOBrand } from 'src/app/ecom-pages/shared/dto/DTOBrand';
@@ -6,13 +6,13 @@ import { DTOProductType } from 'src/app/ecom-pages/shared/dto/DTOProductType';
 import { ProductService } from 'src/app/ecom-pages/shared/service/product.service';
 import { DTOStatus, listStatusActive } from '../../shared/dto/DTOStatus.dto';
 import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/kendo-data-query';
-import { DTOColor } from '../../shared/dto/DTOColor.dto.';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/text-dropdown.component';
 import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
-import { CheckboxlistComponent } from '../../shared/component/checkboxlist/checkboxlist.component';
 import { SearchBarComponent } from 'src/app/shared/component/search-bar/search-bar.component';
 import { StatisticsComponent } from '../../shared/component/statistics/statistics.component';
+import { DTOProduct } from 'src/app/ecom-pages/shared/dto/DTOProduct';
+import { DTOUpdateProductRequest } from 'src/app/shared/dto/DTOUpdateProductRequest.dto';
 
 interface DropDownPrice {
   Code: number
@@ -39,6 +39,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
   pageSize: number = 4;
   valueSearch: string;
+  codeProductSelected: number;
 
   // variable list
   listPageSize: number[] = [1, 2, 3, 4];
@@ -259,28 +260,28 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // Sort danh sách theo số lượng bán chạy và đơn giá
-  setSort(value: any){
-    if(value){
+  setSort(value: any) {
+    if (value) {
       this.gridState.sort = []
-      if(value.Code === 0){
+      if (value.Code === 0) {
         this.gridState.sort.push({
           "field": "Sold",
           "dir": "desc"
         })
       }
-      else if(value.Code === 1){
+      else if (value.Code === 1) {
         this.gridState.sort.push({
           "field": "Sold",
           "dir": "asc"
         })
       }
-      else if(value.Code === 2){
+      else if (value.Code === 2) {
         this.gridState.sort.push({
           "field": "Price",
           "dir": "asc"
         })
       }
-      else if(value.Code === 3){
+      else if (value.Code === 3) {
         this.gridState.sort.push({
           "field": "Price",
           "dir": "desc"
@@ -354,11 +355,11 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // Push các filter statistics vào filterAllStatistics
-  pushStatisticsToAllStatistics(filter: any, value: any){
-    if(value.isSelected){
+  pushStatisticsToAllStatistics(filter: any, value: any) {
+    if (value.isSelected) {
       this.filterAllStatistics.filters.push(filter);
     }
-    else{
+    else {
       this.filterAllStatistics.filters = this.filterAllStatistics.filters.filter(item => item !== filter);
     }
     this.setFilterData();
@@ -416,13 +417,92 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
         "dir": "asc"
       }
     ],
-    this.gridState.take = this.pageSize;
+      this.gridState.take = this.pageSize;
     this.getListProduct();
   }
 
   // Dùng để format tiền VN
   formatCurrency(value: number): string {
     return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  }
+
+  // Sự kiện click vào button ... tool box
+  onClickToolBox(obj: DTOProduct, event: Event) {
+    if (this.codeProductSelected === obj.Code) {
+      this.codeProductSelected = null;
+    }
+    else {
+      this.codeProductSelected = obj.Code;
+    }
+
+    // Remove 'active' class from all cells
+    const cells = document.querySelectorAll('td.k-table-td[aria-colindex="11"]');
+    cells.forEach(cell => cell.classList.remove('active'));
+
+    // Add 'active' class to the clicked cell
+    const cell = (event.target as HTMLElement).closest('td.k-table-td[aria-colindex="11"]');
+    if (cell) {
+      cell.classList.add('active');
+    }
+  }
+
+  // Tìm các action có thể thực hiện của 1 product
+  findItemActionList(status: number): DTOStatus[] {
+    if (status === 0) {
+      return [
+        {
+          Code: -1,
+          Status: "Chỉnh sửa",
+          Icon: "fa-pencil",
+        },
+        {
+          Code: 1,
+          Status: "Ngừng kinh doanh",
+          Icon: "fa-circle-minus"
+        }
+      ]
+    }
+    else if (status === 1) {
+      return [
+        {
+          Code: -1,
+          Status: "Chỉnh sửa",
+          Icon: "fa-pencil",
+        },
+        {
+          Code: 0,
+          Status: "Kích hoạt",
+          Icon: "fa-circle-check"
+        }
+      ]
+    }
+    return [];
+  }
+
+  // Cật nhật trạng thái sản phẩm
+  updateStatusProduct(product: DTOProduct, obj: any) {
+    console.log(obj);
+    if (obj.value >= 0) {
+      product.Status = obj.value;
+      const request: DTOUpdateProductRequest = {
+        Product: product,
+        Properties: ["Status"]
+      }
+      console.log(request);
+      this.producService.updateProduct(request).subscribe(res => {
+        console.log(res);
+        this.getListProduct();
+      }, error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (!(event.target as HTMLElement).closest('td.k-table-td[aria-colindex="11"]')) {
+      this.codeProductSelected = null;
+    }
   }
 
   // Thao tác paging

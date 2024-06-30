@@ -1,8 +1,9 @@
 <div class="dropdown" [ngStyle]="{
     'border-radius': rounded,
 }">
-    <div *ngFor="let item of listItem" (click)="onClickItemDropdown(item)">
+    <div *ngFor="let item of listItem">
       <component-button 
+      (sendValue)="onClickItemDropdown($event)"
       [classIconFontAwesome]="item.Icon" 
       [text]="item.Status" 
       [value]="item.Code" 
