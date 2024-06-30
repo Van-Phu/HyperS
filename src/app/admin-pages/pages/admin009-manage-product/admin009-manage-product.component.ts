@@ -203,7 +203,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.getStatistics();
   }
 
-  // Set cho breadcrumb, routerLink, moduleName
+  // Set cho breadcrumb, routerLink
   setLayoutStorage(breadcrumb: string, routerlink: string){
     localStorage.setItem('breadcrumb', breadcrumb);
     localStorage.setItem('routerLink', routerlink);
