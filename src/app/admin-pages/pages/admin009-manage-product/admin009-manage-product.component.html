@@ -142,13 +142,17 @@
             <!-- ToolBox -->
             <kendo-grid-column MakeColumnGridPopUpDirective [sticky]="true" [resizable]="true" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <div class="tool-box-container">
-                        <component-button [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
+                    <div class="tool-box-container" (click)="onClickToolBox(dataItem, $event)">
+                        <component-button class="button-tool-box" [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
                             classIconFontAwesome="fa-ellipsis" text=""></component-button>
+                        <div class="list-action" *ngIf="codeProductSelected === dataItem.Code">
+                            <component-dropdown-action (sendValue)="updateStatusProduct(dataItem, $event)" [listItem]="findItemActionList(dataItem.Status)"></component-dropdown-action>
+                        </div>
                     </div>
                 </ng-template>
             </kendo-grid-column>
 
+            <!-- Paging -->
             <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
                 <kendo-pager-page-sizes [pageSizes]="listPageSize"></kendo-pager-page-sizes>
                 <div class="pager-buttons">

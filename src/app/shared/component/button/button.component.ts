@@ -35,8 +35,8 @@ export class ButtonComponent {
   @Output() sendValue = new EventEmitter();
 
   onClickButton(){
-    if(this.value){
-      this.sendValue.emit(this.value);
+    if(this.value >= 0){
+      this.sendValue.emit({value: this.value, text: this.text});
     }
   }
 }
