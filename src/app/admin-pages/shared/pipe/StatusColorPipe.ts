@@ -25,6 +25,18 @@ export class StatusColorPipe implements PipeTransform {
         return '#FF1D1D';
       case 'Giao hàng thành công':
         return '#F1802E'
+      case 'Đơn hàng bị hủy':
+        return '#FF1D1D'
+      case 'Đang trả về':
+        return '#2480BD'
+      case 'Đã nhận lại hàng':
+        return '#23282c'
+      case 'Đã hoàn tiền':
+        return '#F1802E'
+      case 'Giao hàng thành công':
+        return '#F1802E'
+      case 'Không hoàn tiền':
+        return '#FF1D1D'
       case 'Hoạt động':
         return '#09880E'
       case 'Đang kinh doanh':

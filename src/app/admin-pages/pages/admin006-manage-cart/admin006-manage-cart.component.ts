@@ -6,6 +6,7 @@ import { BillService } from 'src/app/admin-pages/shared/service/bill.service'
 import { takeUntil } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/text-dropdown.component';
+import { formatDate } from '@progress/kendo-angular-intl';
 
 @Component({
   selector: 'app-admin006-manage-cart',
@@ -25,8 +26,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   listBillPage: GridDataResult;
   pageSize: number = 4;
   listPageSize: number[] = [1, 2, 3, 4];
-  PlusStartDate: Date;
-  PlusEndDate: Date;
   idButton: number;
   isClickButton: { [key: number]: boolean } = {};
   tempID: number;
@@ -39,7 +38,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
       IsChecked: false,
     }
   ];
-
+  listNextStatus:DTOStatus[]; 
+  isShowAlert: boolean = false;
 
   // defaultItemStatusBill: DTOStatus = {
   //   Code: -1,
@@ -49,8 +49,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   // }
   // variable CompositeFilterDescriptor
   filterDate: CompositeFilterDescriptor = { logic: 'and', filters: [
-    { field: 'CreateAt', operator: 'gte', value: this.formatDateTime(this.startDate, 'start') },
-    { field: 'CreateAt', operator: 'lte', value: this.formatDateTime(this.endDate, 'end')}
+    { field: 'CreateAt', operator: 'gte', value: this.toLocalString(this.startDate, 'start') },
+    { field: 'CreateAt', operator: 'lte', value: this.toLocalString(this.endDate, 'end')}
   ] };
   filterStatus: CompositeFilterDescriptor = { logic: 'or', filters: [] };
   filterSearch: CompositeFilterDescriptor = { logic: 'or', filters: [] };
@@ -104,14 +104,36 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   }
 
   formatDateTime(date: Date, type: string) {
+    console.log(date);
+    // console.log(date.toISOString());
+    console.log(date +' fix');
+    console.log(date.toISOString());
     if(type === 'start'){
       return date.toISOString().split('T')[0] + 'T00:00:00';
+      // return date.setTime(0);
     }
     else{
       return date.toISOString().split('T')[0] + 'T23:59:59';
     }
   }
 
+  toLocalString(date: Date, type: string) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');  
+
+    let hours, minutes, seconds;
+    if (type === 'start') {
+        hours = '00';
+        minutes = '00';
+        seconds = '00';
+    } else {
+        hours = '23';
+        minutes = '59';
+        seconds = '59';
+    }    
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
 
 
 
@@ -206,15 +228,19 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   //     this.tempID = id;
   // }
 
-  ClickButtonAction(id: number, event: Event) {
-    const hasId = this.listStatus.some(status => status.Code === id);
+  ClickButtonAction(id: number, event: Event, idStatus: number) {
+    console.log(idStatus);
+    const status = this.listStatus.find(status => status.Code === idStatus);
+    this.listNextStatus = status ? status.ListNextStatus : null;
+
     if (this.tempID !== id) {
       this.isClickButton[this.tempID] = false;
     }
+    console.log(this.listNextStatus);
 
-    if (hasId) {
-      this.isClickButton[id] = !this.isClickButton[id];
-    }
+
+    this.isClickButton[id] = !this.isClickButton[id];
+
     this.tempID = id;
 
     // Remove 'active' class from all cells
@@ -234,7 +260,11 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (this.tempID !== null && !(event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]')) {
       this.isClickButton[this.tempID] = false;
     }
+    if (this.isShowAlert == true && !(event.target as HTMLElement).closest('.popUp')) {
+      this.isShowAlert = false;
+    }
   }
+
 
   // Thao tác paging
   onPageChange(value: any) {
@@ -245,6 +275,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   // Lấy danh sách các bill
   getListBill() {
+    console.log(this.gridState);
+
     this.isLoading = true;
     this.billService.getListBill(this.gridState).pipe(takeUntil(this.destroy)).subscribe(list => {
       this.listBillPage = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
@@ -276,14 +308,9 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   // Set filter dropdown date
   setFilterDate() {
     this.filterDate.filters = [];
-    this.PlusStartDate = new Date(this.startDate);
-    this.PlusEndDate = new Date(this.endDate);
-    this.PlusStartDate.setDate(this.PlusStartDate.getDate() - 1);
-    this.PlusEndDate.setDate(this.PlusEndDate.getDate());
-
-    const filterFrom: FilterDescriptor = { field: 'CreateAt', operator: 'gte', value: this.PlusStartDate };
+    const filterFrom: FilterDescriptor = { field: 'CreateAt', operator: 'gte', value: this.toLocalString(this.startDate, 'start') };
     this.filterDate.filters.push(filterFrom);
-    const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.PlusEndDate };
+    const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.toLocalString(this.endDate, 'end') };
     this.filterDate.filters.push(filterTo);
     this.setFilterData();
   }
@@ -340,6 +367,12 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     this.gridState.skip = 0;
     this.gridState.take = this.pageSize;
     this.getListBill();
+  }
+
+  //Check show alert
+  showAlert(value: any){
+    console.log(value);
+    this.isShowAlert = !this.isShowAlert
   }
 
 
