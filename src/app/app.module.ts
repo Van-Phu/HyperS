@@ -66,6 +66,7 @@ import { LoginComponent } from './account-pages/login/login.component';
 import { SignupComponent } from './account-pages/signup/signup.component';
 import { StatisticsComponent } from './admin-pages/shared/component/statistics/statistics.component';
 import { JwtInterceptor } from './shared/services/JwtInterceptor.service';
+import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-detail-product/admin009-detail-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -114,6 +115,7 @@ import { JwtInterceptor } from './shared/services/JwtInterceptor.service';
     LoginComponent,
     SignupComponent,
     StatisticsComponent,
+    Admin009DetailProductComponent,
   ],
   imports: [
     BrowserModule,

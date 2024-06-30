@@ -35,8 +35,11 @@ export class ButtonComponent {
   @Output() sendValue = new EventEmitter();
 
   onClickButton(){
-    if(this.value >= 0){
+    if(this.value || this.value === 0){
       this.sendValue.emit({value: this.value, text: this.text});
+    }
+    else{
+      console.error('Button bị lỗi value');
     }
   }
 }

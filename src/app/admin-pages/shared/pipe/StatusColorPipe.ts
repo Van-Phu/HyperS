@@ -41,9 +41,13 @@ export class StatusColorPipe implements PipeTransform {
         return '#09880E'
       case 'Đang kinh doanh':
         return '#09880E'
+      case 'Sản phẩm đang kinh doanh':
+        return '#09880E'
       case 'Vô hiệu hóa':
         return '#FF1D1D'
       case 'Ngừng kinh doanh':
+        return '#FF1D1D'
+      case 'Sản phẩm ngưng kinh doanh':
         return '#FF1D1D'
       default:
         return 'black';

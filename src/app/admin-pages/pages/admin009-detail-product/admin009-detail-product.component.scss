@@ -1,0 +1,27 @@
+@import '../../../../styles.scss';
+
+::ng-deep{
+    app-admin009-detail-product{
+        .app-admin009-detail-product{
+            .header-button{
+                display: flex;
+                justify-content: space-between;
+                @include center-vertical;
+                padding: 6px 0;
+
+                .label-current-status{
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+            }
+
+            .detail-product-container{
+                padding: 10px 0;
+            }
+
+            .images-product-container{
+                padding: 10px 0;
+            }
+        }
+    }
+}

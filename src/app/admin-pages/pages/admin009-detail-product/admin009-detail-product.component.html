@@ -1,0 +1,26 @@
+<div class="app-admin009-detail-product">
+    <!-- Header -->
+    <div class="header-button">
+        <div class="label-current-status" [style.color]="checkCurrentStatus(productSelected.Status) | statusColor">{{checkCurrentStatus(productSelected.Status)}}</div>
+        <ng-container *ngIf="productSelected">
+            <ng-container *ngIf="productSelected.Status === 0">
+                <component-button [value]="1" (sendValue)="updateStatusProduct(productSelected, $event)"
+                    classIconFontAwesome="fa-circle-minus" bgColor="#FF1D1D" text="Ngừng hoạt động"></component-button>
+            </ng-container>
+            <ng-container *ngIf="productSelected.Status === 1">
+                <component-button [value]="0" (sendValue)="updateStatusProduct(productSelected, $event)"
+                    classIconFontAwesome="fa-circle-check" bgColor="#09880E" text="Kích hoạt"></component-button>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <!-- Chi tiết sản phẩm -->
+    <div class="detail-product-container">
+        <component-form text="Thông tin sản phẩm"></component-form>
+    </div>
+
+    <!-- Hình ảnh -->
+    <div class="images-product-container">
+        <component-form text="Hình ảnh"></component-form>
+    </div>
+</div>
