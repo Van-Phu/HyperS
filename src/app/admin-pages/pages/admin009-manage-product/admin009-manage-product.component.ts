@@ -13,6 +13,7 @@ import { SearchBarComponent } from 'src/app/shared/component/search-bar/search-b
 import { StatisticsComponent } from '../../shared/component/statistics/statistics.component';
 import { DTOProduct } from 'src/app/ecom-pages/shared/dto/DTOProduct';
 import { DTOUpdateProductRequest } from 'src/app/shared/dto/DTOUpdateProductRequest.dto';
+import { Router } from '@angular/router';
 
 interface DropDownPrice {
   Code: number
@@ -190,7 +191,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   valueProductMale: number = 0; // Thống kê tổng số sản phẩm Nam
   valueProductFemale: number = 0; // Thống kê tổng số sản phẩm Nữ
 
-  constructor(private producService: ProductService) { }
+  constructor(private producService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     this.getListProductType();
@@ -482,6 +483,9 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // Cật nhật trạng thái sản phẩm
   updateStatusProduct(product: DTOProduct, obj: any) {
     console.log(obj);
+    if(obj.value === -1){
+      this.router.navigate(['admin/detail-product']);
+    }
     if (obj.value >= 0) {
       product.Status = obj.value;
       const request: DTOUpdateProductRequest = {
