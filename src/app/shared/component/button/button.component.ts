@@ -38,5 +38,8 @@ export class ButtonComponent {
     if(this.value || this.value === 0){
       this.sendValue.emit({value: this.value, text: this.text});
     }
+    else{
+      console.error('Button bị lỗi value');
+    }
   }
 }

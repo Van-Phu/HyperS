@@ -16,6 +16,7 @@ import { DTOUpdateProductRequest } from 'src/app/shared/dto/DTOUpdateProductRequ
 import { Router } from '@angular/router';
 import { ProductAdminService } from '../../shared/service/productAdmin.service';
 import { LayoutService } from '../../shared/service/layout.service';
+import { NotiService } from 'src/app/ecom-pages/shared/service/noti.service';
 
 interface DropDownPrice {
   Code: number
@@ -193,10 +194,16 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   valueProductMale: number = 0; // Thống kê tổng số sản phẩm Nam
   valueProductFemale: number = 0; // Thống kê tổng số sản phẩm Nữ
 
-  constructor(private producAdminService: ProductAdminService, private router: Router, private layoutService: LayoutService) { }
+  constructor(
+    private productAdminService: ProductAdminService, 
+    private router: Router, 
+    private layoutService: LayoutService,
+    private notiService: NotiService
+  ) { }
 
   ngOnInit(): void {
     this.setLayoutStorage('Quản lý sản phẩm', 'admin/manage-product');
+    this.removeLocalStorage();
     this.getListProductType();
     this.getListBrand();
     this.getListProduct();
@@ -210,20 +217,25 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
     this.layoutService.setSelectedBreadCrumb(breadcrumb);
   }
 
+  // Xóa localStorage
+  removeLocalStorage(){
+    localStorage.removeItem('productSelected');
+  }
+
   // Lấy danh sách các product type
   getListProductType() {
-    this.producAdminService.getListProductType().pipe(takeUntil(this.destroy)).subscribe(list => this.listProductType = list.ObjectReturn.Data);
+    this.productAdminService.getListProductType().pipe(takeUntil(this.destroy)).subscribe(list => this.listProductType = list.ObjectReturn.Data);
   }
 
   // Lấy danh sách các brand
   getListBrand() {
-    this.producAdminService.getListBrand().pipe(takeUntil(this.destroy)).subscribe(list => this.listBrand = list.ObjectReturn.Data);
+    this.productAdminService.getListBrand().pipe(takeUntil(this.destroy)).subscribe(list => this.listBrand = list.ObjectReturn.Data);
   }
 
   // Lấy danh sách các product
   getListProduct() {
     this.isLoading = true;
-    this.producAdminService.getListProduct(this.gridState).pipe(takeUntil(this.destroy)).subscribe(list => {
+    this.productAdminService.getListProduct(this.gridState).pipe(takeUntil(this.destroy)).subscribe(list => {
       this.listProduct = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
       this.isLoading = false;
     })
@@ -265,7 +277,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
    * @param callback Hàm callback để cập nhật giá trị sau khi có ObjectReturn.Total
    */
   filterStatistics(state: State, callback: (total: number) => void) {
-    this.producAdminService.getListProduct(state).pipe(takeUntil(this.destroy)).subscribe((obj: DTOResponse) => {
+    this.productAdminService.getListProduct(state).pipe(takeUntil(this.destroy)).subscribe((obj: DTOResponse) => {
       callback(obj.ObjectReturn.Total);
     });
   }
@@ -493,7 +505,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   // Cật nhật trạng thái sản phẩm
   updateStatusProduct(product: DTOProduct, obj: any) {
     if(obj.value === -1){
-      this.producAdminService.setSelectedProduct(product);
+      localStorage.setItem('productSelected', product.Code + '');
       this.setLayoutStorage('Quản lý sản phẩm/Chi tiết sản phẩm', 'admin/detail-product')
       this.router.navigate(['admin/detail-product']);
     }
@@ -503,8 +515,11 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
         Product: product,
         Properties: ["Status"]
       }
-      this.producAdminService.updateProduct(request).subscribe(res => {
-        this.getListProduct();
+      this.productAdminService.updateProduct(request).subscribe((res: DTOResponse) => {
+        if(res.StatusCode === 0){
+          this.notiService.Show("Cập nhật trạng thái thành công", "success")
+          this.getListProduct();
+        }
       }, error => {
         console.error('Error:', error);
       });

@@ -18,7 +18,6 @@ export class ProductAdminService {
     private urlGetListProductType = this.direct + "/api/Product/GetListProductType";
     private urlGetListBrand = this.direct + "/api/Brand/GetAllBrands";
     private urlUpdateProduct = this.direct + "/api/Product/UpdateProduct";
-    private selectedProduct: DTOProduct;
 
     constructor(private httpClient: HttpClient) { }
 
@@ -70,13 +69,5 @@ export class ProductAdminService {
                     return throwError(error);
                 })
             );
-    }
-
-    setSelectedProduct(product: DTOProduct) {
-        this.selectedProduct = product;
-    }
-
-    getSelectedProduct() {
-        return this.selectedProduct;
     }
 }
