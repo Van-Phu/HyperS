@@ -30,6 +30,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   idButton: number;
   isClickButton: { [key: number]: boolean } = {};
   tempID: number;
+  valueSearch: string;
   valueMulti: DTOStatus[] = [
     {
     Code: 2,
@@ -79,12 +80,12 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     }
   }
   // variable filter
-  filterSearch: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
   // filterStatus: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
 
   // variable CompositeFilterDescriptor
   filterDate: CompositeFilterDescriptor = { logic: 'and', filters: [] };
   filterStatus: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+  filterSearch: CompositeFilterDescriptor = { logic: 'or', filters: [] };
 
   // variable ViewChild
   @ViewChild('rangeDate') childRangeDate!: TextDropdownComponent;
@@ -257,6 +258,11 @@ onClick(event: MouseEvent) {
     })
   }
 
+  //Lowcase string
+  normalizeString(str: string) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
   /**
  * 
  * @param filter 
@@ -281,8 +287,6 @@ onClick(event: MouseEvent) {
     this.PlusEndDate = new Date(this.endDate);
     this.PlusStartDate.setDate(this.PlusStartDate.getDate());
     this.PlusEndDate.setDate(this.PlusEndDate.getDate()+1);
-    console.log('a '+this.PlusStartDate)
-    console.log('a '+this.PlusEndDate)
     const filterFrom: FilterDescriptor = { field: 'CreateAt', operator: 'gte', value: this.formatDateTime(this.PlusStartDate) };
     this.filterDate.filters.push(filterFrom);
     const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.formatDateTime(this.PlusEndDate) };
@@ -302,12 +306,23 @@ onClick(event: MouseEvent) {
     this.setFilterData();
   }
 
+    // Set filter search
+    setFilterSearch(value: any) {
+      this.valueSearch = value;
+      this.filterSearch.filters = [];
+      this.filterSearch.filters.push({ field: 'CustomerName', operator: 'contains', value: this.valueSearch, ignoreCase: true });
+      this.filterSearch.filters.push({ field: 'PhoneNumber', operator: 'contains', value: this.valueSearch, ignoreCase: true });
+      this.setFilterData();
+    }
+
   // Set filter tất cả
   setFilterData() {
     this.gridState.filter.filters = [];
     // this.pushToGridState(this.filterSearch, null)
     this.pushToGridState(null, this.filterDate);
     this.pushToGridState(null, this.filterStatus);
+    this.pushToGridState(null, this.filterSearch);
+
     // this.pushToGridState(this.filterStatus, null);
     console.log(this.gridState);
     this.getListBill();
