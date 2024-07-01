@@ -30,15 +30,16 @@ export class LoginComponent {
   APILogin(username: string ,password: string):void{
     this.accoutService.login(username, password).pipe(takeUntil(this.destroy)).subscribe(data => {
       try{
-        console.log(data);
         if(data.StatusCode == 0 && data.ObjectReturn.ResultLogin.Succeeded == true){
           localStorage.setItem('token', data.ObjectReturn.ResultToken.Token)
-          console.log(data.ObjectReturn.Token);
+          if(data.ObjectReturn.ResultRedirect == "jkwt"){
+            this.handleNavigate('/ecom/home')
+          }
           this.notiService.Show("Login Successfully!", "success")
-          // this.handleNavigate('/ecom/home')
         }else{
+          console.log("error");
           this.notiService.Show("Tài khoản hoặc mật khẩu không hợp lê!", "error")
- 
+
         }
         
       }catch{
