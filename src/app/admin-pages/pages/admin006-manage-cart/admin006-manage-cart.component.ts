@@ -68,7 +68,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     filter: {
       logic: "and",
       filters: [
-        { field: 'Status', operator: 'eq', value: 7 },
+        { field: 'Status', operator: 'eq', value: 8 },
         this.filterDate
       ]
     }
@@ -131,7 +131,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
         hours = '23';
         minutes = '59';
         seconds = '59';
-    }    
+    } 
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
@@ -229,7 +229,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   // }
 
   ClickButtonAction(id: number, event: Event, idStatus: number) {
-    console.log(idStatus);
     const status = this.listStatus.find(status => status.Code === idStatus);
     this.listNextStatus = status ? status.ListNextStatus : null;
 
@@ -260,7 +259,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (this.tempID !== null && !(event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]')) {
       this.isClickButton[this.tempID] = false;
     }
-    if (this.isShowAlert == true && !(event.target as HTMLElement).closest('.popUp')) {
+    if (this.isShowAlert == true && (!(event.target as HTMLElement).closest('component-dropdown-action') && !(event.target as HTMLElement).closest('.PopUp'))) {
       this.isShowAlert = false;
     }
   }
