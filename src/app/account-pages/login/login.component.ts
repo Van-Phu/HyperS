@@ -32,17 +32,28 @@ export class LoginComponent {
       try{
         console.log(data);
         if(data.StatusCode == 0 && data.ObjectReturn.ResultLogin.Succeeded == true){
-          this.handleNavigate('/ecom/home')
+          localStorage.setItem('token', data.ObjectReturn.ResultToken.Token)
+          console.log(data.ObjectReturn.Token);
+          this.notiService.Show("Login Successfully!", "success")
+          // this.handleNavigate('/ecom/home')
         }else{
           this.notiService.Show("Tài khoản hoặc mật khẩu không hợp lê!", "error")
-          return
+ 
         }
+        
       }catch{
 
       }
       finally{
 
       }
+    })
+  }
+
+  APICheckLogin():void{
+    this.accoutService.checkLogin().pipe(takeUntil(this.destroy)).subscribe(data =>{
+      
+      console.log(data);
     })
   }
 

@@ -3,22 +3,76 @@
 
 ::ng-deep{
     app-admin006-manage-cart{
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
         height: 100%;
         position: relative;
-            .headerFilter{
+        padding-top: 10px;
+        
+            .k-chip{
+                overflow: visible !important;
+            }
+            .header-filter{
+                display: flex;
+                text-wrap: nowrap;
+                align-items: center;
+                gap: 25px;
+                height: 40px;
+                
+                .k-input{
+                    min-width: 955px !important;
+                    width: 0;
+                }
+
+                
+                kendo-multiselect{
+                    height: 100%;
+                    border-radius: 5px !important;
+                    box-shadow: $box-shadow3;
+                    display: flex !important;
+                    width: auto !important;
+                    align-items: center;
+                    
+                    .k-input-values{
+                        flex-wrap: nowrap !important;
+                        
+                        .k-searchbar{
+                            width: 30px;
+                        }
+
+                        .k-text-ellipsis{
+                            padding: 4px 0px;
+                        }
+    
+                    }
+                    // .row-status {
+                    //     display: flex;
+                    //     align-items: center;
+                    // }
+                    
+                    // .row-status i {
+                    //     margin-right: 8px;
+                    // }
+                    
+                }
+
+                .label-filter{
+                    font-weight: 600;
+                }
+
+            }
+            .headerSearch{
                 display: flex;
                 overflow-x: auto;
-                padding-bottom: 10px;
+                padding-bottom: 15px;
                 gap: 30px;
+                text-wrap: nowrap;
                 @include center-vertical;
     
                 .titlePage{
                     font-size: 16px;
                     font-weight: bold;
-                    // background-color: aqua;
-                    // min-width: 200px;
-                    text-wrap: nowrap;
                 }
     
                 .line{
@@ -38,20 +92,10 @@
 
 
             .showList{
-                // .dropDown-action{
-                //     position: absolute;
-                //     top: 0px !important;
-                //     background-color: red;
-                //     // left: -155px;
-                //     right: 30px;
-                //     z-index: 10 !important;
-                //     .dropdown{
-                //         background-color: $color-tool-box !important; 
-                //     }
-                // }
+
 
                 .grid-custom-container{
-                    height: calc(100vh - 61px - 60px);
+                    height: calc(100vh - 61px - 60px - 32px - 40px - 10px);
 
                     th.k-table-th[aria-colindex="2"],
                     th.k-table-th[aria-colindex="4"],
@@ -67,9 +111,9 @@
                         text-wrap: nowrap !important;
                     }
 
-                    span{
-                        cursor: auto !important;
-                    }
+                    // span{
+                    //     cursor: auto !important;
+                    // }
     
                     .column-Code,
                     .column-PhoneNumber,
@@ -104,9 +148,16 @@
                     // td.k-table-td[aria-colindex="11"]{
     
                     // }
+
                     td.k-table-td[aria-colindex="10"] {
                         border-left: 1px solid gray !important;
                         height: 44px;
+                        overflow: visible;
+                        z-index: 1;
+                    }
+
+                    td.k-table-td[aria-colindex="10"].active {
+                        z-index: 2 !important;
                     }
     
                     .column-button{
@@ -139,7 +190,7 @@
                         .dropDown-action{
                             position: absolute;
                             top: 15px !important;
-                            left: -145px;
+                            left: -180px;
                             // right: 50px;
                             z-index: 10 !important;
 

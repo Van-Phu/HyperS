@@ -1,17 +1,41 @@
 <div class="admin009">
 
-    <div class="header-filter-color">
-        <div class="label-filter-color">Lọc theo màu</div>
-        <component-checkboxlist (getListChecked)="setFilterColor($event)" textField="Color"
-            [listCheckBox]="listColor"></component-checkboxlist>
+    <div class="header-statistics">
+        <div class="label-filter">LỌC DỮ LIỆU</div>
+
+        <!-- Số lượng sản phẩm đang kinh doanh -->
+        <component-statistics #productActive [isSelectedDefault]="true"
+            (getSelected)="pushStatisticsToAllStatistics(filterProductActive, $event)"
+            [valueField]="valueProductStatusActive" textField="Sản phẩm đang kinh doanh"
+            color="#09880E"></component-statistics>
+
+        <!-- Số lượng sản phẩm ngưng kinh doanh -->
+        <component-statistics #productDisable
+            (getSelected)="pushStatisticsToAllStatistics(filterProductDisable, $event)"
+            [valueField]="valueProductStatusDisable" textField=" Sản phẩm ngưng kinh doanh"
+            color="#FF1D1D"></component-statistics>
+
+        <!-- Số lượng sản phẩm Unisex -->
+        <component-statistics #productUnisex [isSelectedDefault]="true"
+            (getSelected)="pushStatisticsToAllStatistics(filterGenderUnisex, $event)" [valueField]="valueProductUnisex"
+            textField="Sản phẩm Unisex"></component-statistics>
+
+        <!-- Số lượng sản phẩm cho Nam -->
+        <component-statistics #productMale (getSelected)="pushStatisticsToAllStatistics(filterGenderMale, $event)"
+            [valueField]="valueProductMale" textField="Sản phẩm cho Nam" color="#EB8D00"></component-statistics>
+
+        <!-- Số lượng sản phẩm cho Nữ -->
+        <component-statistics #productFemale (getSelected)="pushStatisticsToAllStatistics(filterGenderFeMale, $event)"
+            [valueField]="valueProductFemale" textField="Sản phẩm cho Nữ" color="#FF34D2"></component-statistics>
     </div>
 
-    <div class="header-filter">
+    <div class="header-filter-search">
         <!-- Xóa bộ lọc -->
         <div class="label-delete-filter" (click)="resetFilter()">Xóa bộ lọc</div>
 
         <!-- Thanh tìm kiếm -->
-        <component-search-bar placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
+        <component-search-bar #search (getValue)="setFilterSearch($event)" [width]="510"
+            placeholder="Tìm kiếm theo mã, tên sản phẩm..."></component-search-bar>
 
         <!-- Dropdown lọc khoảng giá tiền -->
         <component-text-dropdown #rangeprice (getValue)="setFilterPrice($event)" [widthBlock]="160" [widthTextBox]="160"
@@ -28,16 +52,12 @@
             [widthBlock]="160" [widthTextBox]="160" textField="Name" valueField="Code" [listItem]="listBrand"
             [defaultItem]="defaultBrand" />
 
-        <!-- Dropdown lọc loại theo giới tính -->
-        <component-text-dropdown #gender (getValue)="setFilterProperty(filterGender, 'Gender', 'eq', 'Code', $event)"
-            [widthBlock]="160" [widthTextBox]="160" textField="Gender" valueField="Code" [listItem]="listGender"
-            [defaultItem]="defaultGender" />
-
-        <!-- Dropdown lọc loại theo trạng thái -->
-        <component-text-dropdown #status (getValue)="setFilterProperty(filterStatus, 'Status', 'eq', 'Code', $event)"
-            [widthBlock]="160" [widthTextBox]="160" textField="Status" valueField="Code" [listItem]="listStatus"
-            [defaultItem]="defaultStatus" />
+        <!-- Dropdown sắp xếp -->
+        <component-text-dropdown #sort (getValue)="setSort($event)"
+            [widthBlock]="170" [widthTextBox]="170" textField="Status" valueField="Code" [listItem]="listSort"
+            [defaultItem]="defaultSort" />
     </div>
+
 
     <div class="grid-custom-container">
         <kendo-grid [skip]="gridState.skip" [loading]="isLoading" (pageChange)="onPageChange($event)"
@@ -63,7 +83,7 @@
                 <ng-template kendoGridCellTemplate let-item>
                     <div class="column-3">
                         <div class="idproduct">{{item.IdProduct}}</div>
-                        <div class="name">{{item.Name}}</div>
+                        <div class="name" [title]="item.Name">{{item.Name}}</div>
                     </div>
                 </ng-template>
             </kendo-grid-column>
@@ -82,45 +102,57 @@
                 </ng-template>
             </kendo-grid-column>
 
-            <!-- Màu sắc -->
-            <kendo-grid-column title="Màu sắc" [width]="80">
+            <!-- Số lượng còn lại -->
+            <kendo-grid-column title="Số lượng còn lại" [width]="150">
                 <ng-template kendoGridCellTemplate let-item>
-                    <div class="column-6">{{item.Color}}</div>
+                    <div class="column-6">{{item.Stock}}</div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <!-- Đã bán -->
+            <kendo-grid-column title="Đã bán" [width]="100">
+                <ng-template kendoGridCellTemplate let-item>
+                    <div class="column-7">{{item.Sold}}</div>
                 </ng-template>
             </kendo-grid-column>
 
             <!-- Giới tính -->
             <kendo-grid-column title="Giới tính" [width]="100">
                 <ng-template kendoGridCellTemplate let-item>
-                    <div class="column-7">{{checkGender(item.Gender)}}</div>
+                    <div class="column-8">{{checkGender(item.Gender)}}</div>
                 </ng-template>
             </kendo-grid-column>
 
             <!-- Đơn giá -->
-            <kendo-grid-column title="Đơn giá" [width]="200">
+            <kendo-grid-column title="Đơn giá" [width]="100">
                 <ng-template kendoGridCellTemplate let-item>
-                    <div class="column-8">{{formatCurrency(item.Price)}}</div>
+                    <div class="column-9">{{formatCurrency(item.Price)}}</div>
                 </ng-template>
             </kendo-grid-column>
 
             <!-- Trạng thái -->
             <kendo-grid-column title="Trạng thái" [width]="150">
                 <ng-template kendoGridCellTemplate let-item>
-                    <div class="column-9" [style.color]="item.Status | statusColor">{{checkStatusProduct(item.Status)}}
+                    <div class="column-10" [style.color]="checkStatusProduct(item.Status) | statusColor">
+                        {{checkStatusProduct(item.Status)}}
                     </div>
                 </ng-template>
             </kendo-grid-column>
 
             <!-- ToolBox -->
-            <kendo-grid-column [sticky]="true" [resizable]="true" [width]="50">
+            <kendo-grid-column MakeColumnGridPopUpDirective [sticky]="true" [resizable]="true" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <div class="tool-box-container">
-                        <component-button [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
-                        classIconFontAwesome="fa-ellipsis" text=""></component-button>
+                    <div class="tool-box-container" (click)="onClickToolBox(dataItem, $event)">
+                        <component-button class="button-tool-box" [width]="30" [height]="30" [size]="15" color="#000" bgColor="#fff"
+                            classIconFontAwesome="fa-ellipsis" text=""></component-button>
+                        <div class="list-action" *ngIf="codeProductSelected === dataItem.Code">
+                            <component-dropdown-action (sendValue)="updateStatusProduct(dataItem, $event)" [listItem]="findItemActionList(dataItem.Status)"></component-dropdown-action>
+                        </div>
                     </div>
                 </ng-template>
             </kendo-grid-column>
 
+            <!-- Paging -->
             <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
                 <kendo-pager-page-sizes [pageSizes]="listPageSize"></kendo-pager-page-sizes>
                 <div class="pager-buttons">

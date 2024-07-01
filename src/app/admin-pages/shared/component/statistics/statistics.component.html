@@ -1,6 +1,22 @@
-<div class="statistics-ctn" [style.boxShadow]="boxShadow" [@countUp] >
+<div 
+    class="statistics-ctn" 
+    [ngStyle]="{'border': isSelected ? '2px solid ' + color : '', 'boxShadow': boxShadow}" 
+    [ngClass]="{'active': isSelected}" 
+    (click)="onClickItem()">
     <div class="block">
-        <div class="value" [ngStyle]="{'background-color': color}">{{ currentCount }}</div>
-        <div class="text" [ngStyle]="{'color': color}">{{ textField }}</div>
+        <div 
+            class="value" 
+            [title]="valueField" 
+            [ngStyle]="{'background-color': isSelected ? color : '#fff', 
+                        'color': isSelected ? '#fff' : color, 
+                        'border': !isSelected ? '1px solid ' + color : '1px solid #fff'}">
+            {{ currentCount }}
+        </div>
+        <div 
+            class="text" 
+            [title]="textField" 
+            [ngStyle]="{'color': color}">
+            {{ textField }}
+        </div>
     </div>
 </div>

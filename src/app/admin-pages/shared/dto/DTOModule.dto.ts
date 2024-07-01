@@ -62,7 +62,7 @@ export const listModule: DTOModule[] = [
         ModuleName: 'Dashboard',
         ClassIconFontAwesome: 'fa-chart-column',
         IsChild: false,
-        IsSelected: true,
+        IsSelected: false,
         IsExpanded: false,
         BreadCrumb: 'Dashboard'
     },
@@ -89,7 +89,7 @@ export const listModule: DTOModule[] = [
         ModuleName: 'Đơn hàng',
         ClassIconFontAwesome: 'fa-cart-shopping',
         IsChild: false,
-        IsSelected: false,
+        IsSelected: true,
         IsExpanded: false,
         BreadCrumb: 'Đơn hàng'
     },

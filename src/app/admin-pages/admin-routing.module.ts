@@ -11,6 +11,7 @@ import { Admin006ManageCartComponent } from './pages/admin006-manage-cart/admin0
 import { Admin007ManageScheduleComponent } from './pages/admin007-manage-schedule/admin007-manage-schedule.component';
 import { Admin008CalculateSalaryComponent } from './pages/admin008-calculate-salary/admin008-calculate-salary.component';
 import { Admin009ManageProductComponent } from './pages/admin009-manage-product/admin009-manage-product.component';
+import { Admin009DetailProductComponent } from './pages/admin009-detail-product/admin009-detail-product.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,8 @@ const routes: Routes = [
       { path: 'manage-schedule', component: Admin007ManageScheduleComponent },
       { path: 'calculate-salary', component: Admin008CalculateSalaryComponent },
       { path: 'manage-product', component: Admin009ManageProductComponent },
-      { path: '', redirectTo: 'manage-dashboard', pathMatch: 'full' }
+      { path: 'detail-product', component: Admin009DetailProductComponent },
+      { path: '', redirectTo: 'manage-cart', pathMatch: 'full' }
       // Add a redirect here if needed, or adjust the main redirect
     ]
   }

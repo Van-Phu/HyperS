@@ -5,6 +5,7 @@ import { DTOProduct } from '../dto/DTOProduct';
 import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
 import { State } from '@progress/kendo-data-query';
 import { catchError, map } from 'rxjs/operators';
+import { DTOUpdateProductRequest } from 'src/app/shared/dto/DTOUpdateProductRequest.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ProductService {
   urlGetProductByID = "https://hypersapi.onrender.com/api/Product/GetProduct"
   urlGetListProductType = "https://hypersapi.onrender.com/api/Product/GetListProductType"
   urlGetListBrand = "https://hypersapi.onrender.com/api/Brand/GetAllBrands"
+  urlUpdateProduct = "https://hypersapi.onrender.com/api/Product/UpdateProduct"
 
 
   getHttpOptions() {
@@ -59,4 +61,14 @@ export class ProductService {
     return this.httpClient.post<DTOResponse>(this.urlGetListBrand, httpOptions)
   }
 
+  updateProduct(req: DTOUpdateProductRequest): Observable<any> {
+    const httpOptions = this.getHttpOptions();
+    return this.httpClient.post(this.urlUpdateProduct, req, httpOptions)
+      .pipe(
+        catchError(error => {
+          console.error('Error updating product:', error);
+          return throwError(error);
+        })
+      );
+  }
 }
