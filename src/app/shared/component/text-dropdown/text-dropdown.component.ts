@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 @Component({
   selector: 'component-text-dropdown',
   templateUrl: './text-dropdown.component.html',
   styleUrls: ['./text-dropdown.component.scss']
 })
-export class TextDropdownComponent {
+export class TextDropdownComponent implements OnInit {
   @Input() label: string = '';
   @Input() listItem: any[] = [];
   @Input() widthTextBox: number = 250;
@@ -15,18 +15,24 @@ export class TextDropdownComponent {
   @Input() rounded: number = 6;
   @Input() paddingLeft: number;
   @Input() paddingRight: number;
-  @Input() boxShadow: string = 'rgba(0, 0, 0, 0.2) 0px 4px 5px';
+  @Input() boxShadow: string = 'rgba(0, 0, 0, 0.15) 0px 5px 15px';
   @Input() borderWidth: number = 1;
   @Input() borderColor: string = '#EFEFEF';
   @Input() defaultItem: any;
   @Input() textField: string;
   @Input() valueField: string;
   @Input() size: number = 13;
+  @Input() value: any;
   @Output() getValue = new EventEmitter();
-  value: any;
 
   onClickItem(value: any){
     this.getValue.emit(value);
+  }
+
+  ngOnInit(): void {
+    if(!this.value){
+      this.value = this.defaultItem;
+    }
   }
 
   resetValue(){

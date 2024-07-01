@@ -4,13 +4,18 @@
         <div class="label-current-status" [style.color]="checkCurrentStatus(productSelected.Status) | statusColor">
             {{checkCurrentStatus(productSelected.Status)}}</div>
         <ng-container>
+            <!-- Button ngừng hoạt động -->
             <ng-container *ngIf="productSelected.Status === 0">
-                <component-button [value]="1" (sendValue)="updateStatusProduct(productSelected, $event)"
-                    classIconFontAwesome="fa-circle-minus" bgColor="#FF1D1D" text="Ngừng hoạt động"></component-button>
+                <component-button class="button-disable" [borderWidth]="2" color="#FF1D1D" borderColor="#FF1D1D"
+                    borderStyle="solid" [value]="1" (sendValue)="updateStatusProduct(productSelected, $event)"
+                    classIconFontAwesome="fa-circle-minus" bgColor="#fff" text="Ngừng hoạt động"></component-button>
             </ng-container>
+
+            <!-- Button kích hoạt -->
             <ng-container *ngIf="productSelected.Status === 1">
-                <component-button [value]="0" (sendValue)="updateStatusProduct(productSelected, $event)"
-                    classIconFontAwesome="fa-circle-check" bgColor="#09880E" text="Kích hoạt"></component-button>
+                <component-button class="button-active" [borderWidth]="2" color="#09880E" borderColor="#09880E"
+                    borderStyle="solid" [value]="0" (sendValue)="updateStatusProduct(productSelected, $event)"
+                    classIconFontAwesome="fa-circle-check" bgColor="#fff" text="Kích hoạt"></component-button>
             </ng-container>
         </ng-container>
     </div>
@@ -19,50 +24,67 @@
     <div class="detail-product-container">
         <component-form text="Thông tin sản phẩm">
             <div class="content-form content-form-detail-product">
-                <div class="block-1">
-                    <!-- Mã sản phẩm -->
-                    <component-text-input #id [widthTextBox]="260" [widthBlock]="370"
-                        label="Mã sản phẩm"></component-text-input>
+                <div style="display: flex; gap: 90px;">
+                    <div class="block-1">
+                        <!-- Mã sản phẩm -->
+                        <component-text-input placeholder="Nhập mã sản phẩm..." [value]="productSelected.IdProduct" #id
+                            [widthTextBox]="260" [widthBlock]="370" label="Mã sản phẩm"></component-text-input>
 
-                    <!-- Tên sản phẩm -->
-                    <component-text-input #name [widthTextBox]="260" [widthBlock]="370"
-                        label="Tên sản phẩm"></component-text-input>
+                        <!-- Tên sản phẩm -->
+                        <component-text-input placeholder="Nhập tên sản phẩm..." [value]="productSelected.Name" #name
+                            [widthTextBox]="260" [widthBlock]="370" label="Tên sản phẩm"></component-text-input>
 
-                    <!-- Màu sắc -->
-                    <component-text-dropdown #color [widthTextBox]="260" [widthBlock]="370" label="Màu sắc"
-                        [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30" [listItem]="listColor"
-                        textField="Color" valueField="Code"></component-text-dropdown>
+                        <!-- Màu sắc -->
+                        <component-text-dropdown #color [widthTextBox]="260" [defaultItem]="defaultColor"
+                            [value]="{Color: productSelected.Color}" [widthBlock]="370" label="Màu sắc"
+                            [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30"
+                            [listItem]="listColor" textField="Color" valueField="Color"></component-text-dropdown>
+                    </div>
+
+                    <div class="block-2">
+                        <!-- Loại sản phẩm -->
+                        <component-text-dropdown #type [widthTextBox]="230" [widthBlock]="342" label="Loại sản phẩm"
+                            [defaultItem]="defaultProductType"
+                            [value]="{Code: productSelected.CodeProductType, Name: productSelected.ProductType}"
+                            [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30"
+                            [listItem]="listProductType" textField="Name" valueField="Code"></component-text-dropdown>
+
+                        <!-- Thương hiệu -->
+                        <component-text-dropdown #brand [widthTextBox]="230" [widthBlock]="342" label="Thương hiệu"
+                            [defaultItem]="defaultBrand"
+                            [value]="{Code: productSelected.CodeBrand, Name: productSelected.BrandName}"
+                            [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30"
+                            [listItem]="listBrand" textField="Name" valueField="Code"></component-text-dropdown>
+
+                        <!-- Giới tính -->
+                        <component-text-dropdown #gender [widthTextBox]="230" [widthBlock]="342" label="Giới tính"
+                            [defaultItem]="defaultGender"
+                            [value]="{Code: productSelected.Gender, Gender: checkGender(productSelected.Gender)}"
+                            [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30"
+                            [listItem]="listGender" textField="Gender" valueField="Code"></component-text-dropdown>
+                    </div>
+
+                    <div class="block-3">
+                        <!-- Giá sản phẩm -->
+                        <component-text-input typeValue="number" [value]="productSelected.Price" #price
+                            [widthTextBox]="230" [widthBlock]="354" label="Giá sản phẩm"></component-text-input>
+
+                        <!-- Tồn kho -->
+                        <component-text-input [value]="productSelected.Stock" #stock [widthTextBox]="230"
+                            [widthBlock]="354" label="Tồn kho" [readOnly]="true"></component-text-input>
+
+                        <!-- Số lượng đã bán -->
+                        <component-text-input [value]="productSelected.Sold" #sold [widthTextBox]="230"
+                            [widthBlock]="354" label="Số lượng đã bán" [readOnly]="true"></component-text-input>
+                    </div>
                 </div>
-
-                <div class="block-2">
-                    <!-- Loại sản phẩm -->
-                    <component-text-dropdown #type [widthTextBox]="230" [widthBlock]="342" label="Loại sản phẩm"
-                        [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30"
-                        [listItem]="listProductType" textField="Name" valueField="Code"></component-text-dropdown>
-
-                    <!-- Thương hiệu -->
-                    <component-text-dropdown #brand [widthTextBox]="230" [widthBlock]="342" label="Thương hiệu"
-                        [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30" [listItem]="listBrand"
-                        textField="Name" valueField="Code"></component-text-dropdown>
-
-                    <!-- Giới tính -->
-                    <component-text-dropdown #gender [widthTextBox]="230" [widthBlock]="342" label="Giới tính"
-                        [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30" [listItem]="listGender"
-                        textField="Gender" valueField="Code"></component-text-dropdown>
-                </div>
-
-                <div class="block-3">
-                    <!-- Giá sản phẩm -->
-                    <component-text-input #price [widthTextBox]="230" [widthBlock]="354"
-                        label="Giá sản phẩm"></component-text-input>
-
-                    <!-- Tồn kho -->
-                    <component-text-input #stock [widthTextBox]="230" [widthBlock]="354" label="Tồn kho"
-                        [readOnly]="true"></component-text-input>
-
-                    <!-- Số lượng đã bán -->
-                    <component-text-input #sold [widthTextBox]="230" [widthBlock]="354" label="Số lượng đã bán"
-                        [readOnly]="true"></component-text-input>
+                <div style="display: flex; gap: 90px;">
+                    <component-text-area #desciption [value]="productSelected.Description" [maxlength]="200" [widthBox]="802" [width]="918" [fontsize]="13"></component-text-area>
+                    <div class="size-container">
+                        <div class="size" *ngFor="let size of listSize">
+                            <component-text-input [typeValue]="'number'" [widthBlock]="70" [widthTextBox]="50" [label]="size.Size.toString()"></component-text-input>
+                        </div>
+                    </div>
                 </div>
             </div>
         </component-form>
@@ -70,6 +92,34 @@
 
     <!-- Hình ảnh -->
     <div class="images-product-container">
-        <component-form text="Hình ảnh"></component-form>
+        <component-form text="Hình ảnh">
+            <div class="content-form content-form-image">
+                <component-import-multi-image (getListImageSelected)="getListImage($event)" #listimage
+                    [listImage]="productSelected.ListOfImage"></component-import-multi-image>
+            </div>
+        </component-form>
+    </div>
+
+    <!-- Các Button tương tác -->
+    <div class="button-action-container">
+        <!-- Button thêm mới -->
+        <component-button class="button-add" [borderWidth]="2" color="#09880E" borderColor="#09880E" borderStyle="solid"
+            [value]="1" (sendValue)="clearDetailProduct($event)" classIconFontAwesome="fa-plus" bgColor="#fff"
+            text="Thêm mới"></component-button>
+
+        <!-- Button cập nhật -->
+        <component-button class="button-update" [borderWidth]="2" color="#2557A0" borderColor="#2557A0"
+            borderStyle="solid" [value]="1" (sendValue)="clearDetailProduct($event)"
+            classIconFontAwesome="fa-floppy-disk" bgColor="#fff" text="Cập nhật"></component-button>
+
+        <!-- Button xóa toàn nội dung -->
+        <component-button class="button-clear" [borderWidth]="2" color="#FF1D1D" borderColor="#FF1D1D"
+            borderStyle="solid" [value]="1" (sendValue)="clearDetailProduct($event)" classIconFontAwesome="fa-xmark"
+            bgColor="#fff" text="Xóa toàn bộ nội dung"></component-button>
+
+        <!-- Button khôi phục -->
+        <component-button class="button-restore" [borderWidth]="2" color="#585858" borderColor="#585858"
+            borderStyle="solid" [value]="1" (sendValue)="restoreProduct($event)" classIconFontAwesome="fa-rotate-left"
+            bgColor="#fff" text="Khôi phục"></component-button>
     </div>
 </div>

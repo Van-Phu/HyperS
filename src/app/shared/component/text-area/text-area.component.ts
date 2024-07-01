@@ -6,7 +6,6 @@ import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } fro
   styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent {
-  value: string ='';
   @Input() maxlength = 100;
   @Input() bgColor: string = "#fff";
   @Input() color: string ="#000";
@@ -22,11 +21,16 @@ export class TextAreaComponent {
   @Input() label: string = 'Tiêu đề';
   @Input() fontsize: number = 15;
   @Input() widthBox: number = 300;
+  @Input() value: any = '';
   @Output() valueTextArea = new EventEmitter();
 
   // blur ra rồi emit
   blur(){
     this.valueTextArea.emit(this.value);
+  }
+
+  resetValue(){
+    this.value = '';
   }
   
 }

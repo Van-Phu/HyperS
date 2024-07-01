@@ -62,11 +62,14 @@ import { ImportMultiImageComponent } from './admin-pages/shared/component/import
 import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-manage-product/admin009-manage-product.component';
 import { CheckboxlistComponent } from './admin-pages/shared/component/checkboxlist/checkboxlist.component';
 import { AccountPagesComponent } from './account-pages/account-pages.component';
-import { LoginComponent } from './account-pages/login/login.component';
-import { SignupComponent } from './account-pages/signup/signup.component';
+import { LoginComponent } from './account-pages/pages/login/login.component';
+import { SignupComponent } from './account-pages/pages/signup/signup.component';
 import { StatisticsComponent } from './admin-pages/shared/component/statistics/statistics.component';
 import { JwtInterceptor } from './shared/services/JwtInterceptor.service';
 import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-detail-product/admin009-detail-product.component';
+import { PopupModule } from '@progress/kendo-angular-popup';
+import { EcomProfileComponent } from './ecom-pages/pages/ecom-profile/ecom-profile.component';
+import { ImportMultiImageDirective } from './admin-pages/shared/directive/importmultiimage.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,6 +119,8 @@ import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-det
     SignupComponent,
     StatisticsComponent,
     Admin009DetailProductComponent,
+    EcomProfileComponent,
+    ImportMultiImageDirective
   ],
   imports: [
     BrowserModule,
@@ -137,7 +142,8 @@ import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-det
     UploadsModule,
     NotificationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PopupModule
   ],
   providers: [LayoutService,StatusColorPipe, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
