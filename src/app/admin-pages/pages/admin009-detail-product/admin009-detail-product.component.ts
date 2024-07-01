@@ -200,7 +200,17 @@ export class Admin009DetailProductComponent implements OnInit {
     this.childDescription.value = this.productSelected.Description;
   }
 
+  // Lấy danh sách hình ảnh sản phẩm
   getListImage(res: any) {
     console.log(res);
+  }
+
+  // Lấy số lượng sản phẩm dựa trên size của sản phẩm
+  getQuantityOfSize(size: number){
+    const product = this.productSelected.ListOfSize.find(item => item.Size === size);
+    if(product){
+      return product.Stock;
+    }
+    return 0;
   }
 }

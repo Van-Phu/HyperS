@@ -519,6 +519,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
       this.productAdminService.updateProduct(request).subscribe((res: DTOResponse) => {
         if (res.StatusCode === 0) {
           this.notiService.Show("Cập nhật trạng thái thành công", "success")
+          this.getStatistics();
           this.getListProduct();
         }
       }, error => {

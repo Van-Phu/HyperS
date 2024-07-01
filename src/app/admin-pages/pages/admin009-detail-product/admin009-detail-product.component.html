@@ -82,7 +82,7 @@
                     <component-text-area #desciption [value]="productSelected.Description" [maxlength]="200" [widthBox]="802" [width]="918" [fontsize]="13"></component-text-area>
                     <div class="size-container">
                         <div class="size" *ngFor="let size of listSize">
-                            <component-text-input [typeValue]="'number'" [widthBlock]="70" [widthTextBox]="50" [label]="size.Size.toString()"></component-text-input>
+                            <component-text-input [value]="getQuantityOfSize(size.Size)" [typeValue]="'number'" [widthBlock]="70" [widthTextBox]="50" [label]="size.Size.toString()"></component-text-input>
                         </div>
                     </div>
                 </div>
