@@ -51,7 +51,9 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   iconPopUp: string;
   objItemStatus: any;
   itemBill: DTOBill;
-
+  listBillNew: DTOBill[];
+  statusCounts: { [key: number]: number } = {};
+  listBillPageAllStatus: GridDataResult;
 
 
   // defaultItemStatusBill: DTOStatus = {
@@ -99,6 +101,22 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     }
   }
 
+  gridStateAllStatus: State = {
+    skip: 0,
+    sort: [
+      {
+        field: "Code",
+        dir: "asc"
+      }
+    ],
+    filter: {
+      logic: "and",
+      filters: [
+        this.filterDate
+      ]
+    }
+  }
+
 
 
 
@@ -108,6 +126,9 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   ) { }
   ngOnInit(): void {
     this.getListBill();
+    this.setFilterExpStatus();
+
+
   }
 
   ngOnDestroy(): void {
@@ -291,6 +312,16 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     console.log(this.gridState)
   }
 
+  countStatuses() {
+    this.statusCounts = this.listBillPageAllStatus.data.reduce((acc, bill) => {
+      const status = bill.Status;
+      acc[status] = (acc[status] || 0) + 1;
+      return acc;
+    }, {});
+  
+    console.log(this.statusCounts);
+  }
+
   //Lowcase string
   normalizeString(str: string) {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -320,6 +351,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     const filterTo: FilterDescriptor = { field: 'CreateAt', operator: 'lte', value: this.toLocalString(this.endDate, 'end') };
     this.filterDate.filters.push(filterTo);
     this.setFilterData();
+    this.setFilterExpStatus();
+
   }
 
   // Set filter status
@@ -338,18 +371,27 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     this.filterSearch.filters.push({ field: 'CustomerName', operator: 'contains', value: this.valueSearch, ignoreCase: true });
     this.filterSearch.filters.push({ field: 'PhoneNumber', operator: 'contains', value: this.valueSearch, ignoreCase: true });
     this.setFilterData();
+    this.setFilterExpStatus();
   }
 
   // Set filter tất cả
   setFilterData() {
     this.gridState.filter.filters = [];
-    // this.pushToGridState(this.filterSearch, null)
     this.pushToGridState(null, this.filterDate);
     this.pushToGridState(null, this.filterStatus);
     this.pushToGridState(null, this.filterSearch);
-
-    // this.pushToGridState(this.filterStatus, null);
     this.getListBill();
+  }
+
+  setFilterExpStatus() {
+    this.gridState.filter.filters = [];
+    this.pushTogridStateAllStatus(null, this.filterDate);
+    this.pushTogridStateAllStatus(null, this.filterSearch);
+    this.billService.getListBill(this.gridStateAllStatus).pipe(takeUntil(this.destroy)).subscribe(list => {
+      this.listBillPageAllStatus = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
+      this.countStatuses();
+    })
+    console.log(this.gridStateAllStatus);
   }
 
   // Push filter vào gridState
@@ -365,6 +407,20 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+    // Push filter vào gridState
+    pushTogridStateAllStatus(filter: FilterDescriptor, comFilter: CompositeFilterDescriptor) {
+      if (filter) {
+        if (filter.value && filter.value !== -1) {
+          this.gridStateAllStatus.filter.filters.push(filter);
+        }
+      }
+      else if (comFilter) {
+        if (comFilter.filters.length > 0) {
+          this.gridStateAllStatus.filter.filters.push(comFilter);
+        }
+      }
+    }
 
   // Reset tất cả các filter
   resetFilter() {
@@ -395,6 +451,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     ]
     this.pushToGridState(null, this.filterDate);
     this.pushToGridState(null, this.filterStatus);
+    // this.setFilterExpStatus();
     this.getListBill();
 
   }
