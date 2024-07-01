@@ -2,7 +2,7 @@
     <div class="PopUp" [ngStyle]="{'width.px': widthPopUp, 'height.px': heightPopUp}">
         <div class="headerPopUp" [style.height.px]="heightHeader">
             <div class="contentHeader" [style.gap.px]="gap">
-                <i *ngIf="classIconFontAwesome" class="fa-solid {{classIconFontAwesome}}" [ngStyle]="{
+                <i class="fa-solid fa-triangle-exclamation" [ngStyle]="{
                     'font-size.px':sizeIcon,
                     'color': color,
                 }"></i>
@@ -32,10 +32,10 @@
             </div>
             <ng-container *ngIf="footerPopUpCheck.innerHTML.trim().length === 0">
                 <div class="footerDefault">
-                    <component-button [text]="'Không đổi'" [classIconFontAwesome]="''" [width]="184"  [height]="58" [rounded]="0" 
+                    <component-button [text]="'Không đổi'" [classIconFontAwesome]="''" [width]="144"  [height]="58" [rounded]="0" 
                     [bgColor]="'#FFFFFF'" [color]="'#959DB3'" [size]="16"></component-button>
-                    <component-button [text]="'Đóng gói'" [classIconFontAwesome]="'fa-share'" [width]="184" [height]="58" [rounded]="0" 
-                    [bgColor]="'#09880E'" [color]="'#FFFFFF'" [size]="16"></component-button>
+                    <component-button [text]="text" [classIconFontAwesome]="classIconFontAwesome" [width]="224" [height]="58" [rounded]="0" 
+                    [bgColor]="bgColor" [color]="'#FFFFFF'" [size]="16"></component-button>
                 </div>
             </ng-container>
         </div>

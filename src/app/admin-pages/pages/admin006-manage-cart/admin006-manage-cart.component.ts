@@ -40,6 +40,8 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   ];
   listNextStatus:DTOStatus[]; 
   isShowAlert: boolean = false;
+  iconPopUp: string;
+  objItemStatus: any;
 
   // defaultItemStatusBill: DTOStatus = {
   //   Code: -1,
@@ -68,7 +70,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     filter: {
       logic: "and",
       filters: [
-        { field: 'Status', operator: 'eq', value: 7 },
+        { field: 'Status', operator: 'eq', value: 2 },
         this.filterDate
       ]
     }
@@ -104,10 +106,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   }
 
   formatDateTime(date: Date, type: string) {
-    console.log(date);
-    // console.log(date.toISOString());
-    console.log(date +' fix');
-    console.log(date.toISOString());
     if(type === 'start'){
       return date.toISOString().split('T')[0] + 'T00:00:00';
       // return date.setTime(0);
@@ -131,7 +129,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
         hours = '23';
         minutes = '59';
         seconds = '59';
-    }    
+    } 
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
@@ -153,7 +151,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (typeof value === 'number' && !isNaN(value)) {
       return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     } else {
-      console.error('Value is not a valid number:', value);
       return 'Invalid value';
     }
   }
@@ -195,12 +192,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
-  valueChange(value: any): void {
-    console.log("valueChange", value);
-  }
-
   onSelectionChange(event: SelectionEvent): void {
     const selectedDataItems = event.selectedRows.map(row => row.dataItem);
 
@@ -229,15 +220,12 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   // }
 
   ClickButtonAction(id: number, event: Event, idStatus: number) {
-    console.log(idStatus);
     const status = this.listStatus.find(status => status.Code === idStatus);
     this.listNextStatus = status ? status.ListNextStatus : null;
 
     if (this.tempID !== id) {
       this.isClickButton[this.tempID] = false;
     }
-    console.log(this.listNextStatus);
-
 
     this.isClickButton[id] = !this.isClickButton[id];
 
@@ -260,7 +248,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (this.tempID !== null && !(event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]')) {
       this.isClickButton[this.tempID] = false;
     }
-    if (this.isShowAlert == true && !(event.target as HTMLElement).closest('.popUp')) {
+    if (this.isShowAlert == true && (!(event.target as HTMLElement).closest('component-dropdown-action') && !(event.target as HTMLElement).closest('.PopUp'))) {
       this.isShowAlert = false;
     }
   }
@@ -371,8 +359,10 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   //Check show alert
   showAlert(value: any){
-    console.log(value);
-    this.isShowAlert = !this.isShowAlert
+    this.objItemStatus = value
+    if(this.objItemStatus.text !== "Xem chi tiết"){
+      this.isShowAlert = !this.isShowAlert
+    }
   }
 
 

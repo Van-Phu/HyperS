@@ -30,7 +30,7 @@ export class StatusColorPipe implements PipeTransform {
       case 'Đang trả về':
         return '#2480BD'
       case 'Đã nhận lại hàng':
-        return '#23282c'
+        return '#F1802E'
       case 'Đã hoàn tiền':
         return '#F1802E'
       case 'Giao hàng thành công':
