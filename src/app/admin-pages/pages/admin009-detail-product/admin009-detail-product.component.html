@@ -1,8 +1,9 @@
-<div class="app-admin009-detail-product">
+<div class="app-admin009-detail-product" *ngIf="productSelected">
     <!-- Header -->
     <div class="header-button">
-        <div class="label-current-status" [style.color]="checkCurrentStatus(productSelected.Status) | statusColor">{{checkCurrentStatus(productSelected.Status)}}</div>
-        <ng-container *ngIf="productSelected">
+        <div class="label-current-status" [style.color]="checkCurrentStatus(productSelected.Status) | statusColor">
+            {{checkCurrentStatus(productSelected.Status)}}</div>
+        <ng-container>
             <ng-container *ngIf="productSelected.Status === 0">
                 <component-button [value]="1" (sendValue)="updateStatusProduct(productSelected, $event)"
                     classIconFontAwesome="fa-circle-minus" bgColor="#FF1D1D" text="Ngừng hoạt động"></component-button>
@@ -16,7 +17,55 @@
 
     <!-- Chi tiết sản phẩm -->
     <div class="detail-product-container">
-        <component-form text="Thông tin sản phẩm"></component-form>
+        <component-form text="Thông tin sản phẩm">
+            <div class="content-form content-form-detail-product">
+                <div class="block-1">
+                    <!-- Mã sản phẩm -->
+                    <component-text-input #id [widthTextBox]="260" [widthBlock]="370"
+                        label="Mã sản phẩm"></component-text-input>
+
+                    <!-- Tên sản phẩm -->
+                    <component-text-input #name [widthTextBox]="260" [widthBlock]="370"
+                        label="Tên sản phẩm"></component-text-input>
+
+                    <!-- Màu sắc -->
+                    <component-text-dropdown #color [widthTextBox]="260" [widthBlock]="370" label="Màu sắc"
+                        [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30" [listItem]="listColor"
+                        textField="Color" valueField="Code"></component-text-dropdown>
+                </div>
+
+                <div class="block-2">
+                    <!-- Loại sản phẩm -->
+                    <component-text-dropdown #type [widthTextBox]="230" [widthBlock]="342" label="Loại sản phẩm"
+                        [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30"
+                        [listItem]="listProductType" textField="Name" valueField="Code"></component-text-dropdown>
+
+                    <!-- Thương hiệu -->
+                    <component-text-dropdown #brand [widthTextBox]="230" [widthBlock]="342" label="Thương hiệu"
+                        [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30" [listItem]="listBrand"
+                        textField="Name" valueField="Code"></component-text-dropdown>
+
+                    <!-- Giới tính -->
+                    <component-text-dropdown #gender [widthTextBox]="230" [widthBlock]="342" label="Giới tính"
+                        [borderWidth]="1" borderColor="rgb(182, 182, 182)" [heightTextBox]="30" [listItem]="listGender"
+                        textField="Gender" valueField="Code"></component-text-dropdown>
+                </div>
+
+                <div class="block-3">
+                    <!-- Giá sản phẩm -->
+                    <component-text-input #price [widthTextBox]="230" [widthBlock]="354"
+                        label="Giá sản phẩm"></component-text-input>
+
+                    <!-- Tồn kho -->
+                    <component-text-input #stock [widthTextBox]="230" [widthBlock]="354" label="Tồn kho"
+                        [readOnly]="true"></component-text-input>
+
+                    <!-- Số lượng đã bán -->
+                    <component-text-input #sold [widthTextBox]="230" [widthBlock]="354" label="Số lượng đã bán"
+                        [readOnly]="true"></component-text-input>
+                </div>
+            </div>
+        </component-form>
     </div>
 
     <!-- Hình ảnh -->

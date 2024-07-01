@@ -36,10 +36,10 @@ export class ButtonComponent {
 
   onClickButton(){
     if(this.value || this.value === 0){
-      this.sendValue.emit({value: this.value, text: this.text});
+      this.sendValue.emit({value: this.value, text: this.text, icon: this.classIconFontAwesome});
     }
     else{
-      console.error('Button bị lỗi value');
+      // console.error('Button bị lỗi value');
     }
   }
 }
