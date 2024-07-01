@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { AccountService } from '../shared/account.service';
 import { takeUntil } from 'rxjs/operators';
+import { NotiService } from 'src/app/ecom-pages/shared/service/noti.service';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,10 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class LoginComponent {
   showPassword: string = 'password'
-  username: string = "0123231311";
-  password: string = "123456aA`"
+  username: string = "";
+  password: string = ""
 
-  constructor(private router: Router, private accoutService: AccountService){}
+  constructor(private router: Router, private accoutService: AccountService, private notiService: NotiService){}
 
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
 
@@ -30,22 +31,18 @@ export class LoginComponent {
     this.accoutService.login(username, password).pipe(takeUntil(this.destroy)).subscribe(data => {
       try{
         console.log(data);
-        if(data.StatusCode != 0){
+        if(data.StatusCode == 0 && data.ObjectReturn.ResultLogin.Succeeded == true){
+          this.handleNavigate('/ecom/home')
+        }else{
+          this.notiService.Show("Tài khoản hoặc mật khẩu không hợp lê!", "error")
           return
         }
-        this.APICheckLogin()
       }catch{
 
       }
       finally{
 
       }
-    })
-  }
-
-  APICheckLogin():void{
-    this.accoutService.checkLogin().pipe(takeUntil(this.destroy)).subscribe(data =>{
-      console.log(data);
     })
   }
 

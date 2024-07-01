@@ -1,7 +1,4 @@
-<app-loading [isLoading]="isLoading"></app-loading>
-<!-- <div (click)="log()">
-    click me
-</div> -->
+<app-loading class="loading" [isLoading]="isLoading"></app-loading>
 <div class="main">
     <div class="content">
         <div class="sidebar">
@@ -85,14 +82,38 @@
                     
                 </div>
             </div>
-            
-        <div class="grid-show">
-            <div class="product-list">
-                <div class="item" *ngFor="let product of ListProduct">
-                    <app-ecom-product-card [product]="product"></app-ecom-product-card>
+        
+
+        <div class="right-content">
+            <div class="sort">
+                <div class="check">
+                    <kendo-combobox
+                        [data]="listSortItem"
+                        textField="text"
+                        valueField="dir"
+                        [(ngModel)]="selectedSort"
+                        (selectionChange)="handleFilterItem()"
+                    >
+
+                    </kendo-combobox>
+                </div>
+                <div class="search">
+                    <div class="input">
+                        <input [(ngModel)]="keySearch" placeholder="Search name you want..."/>
+                        <i (click)="handleApplyFilter()" class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="grid-show">
+                <div class="product-list">
+                    <div class="item" *ngFor="let product of ListProduct">
+                        <app-ecom-product-card [product]="product"></app-ecom-product-card>
+                    </div>
                 </div>
             </div>
         </div>
+        
     </div>
     
 </div>
