@@ -30,14 +30,6 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  // getListProduct():Observable<DTOResponse>{
-  //   const httpOption = this.getHttpOptions()
-  //   const body = {}
-  //   return this.httpClient.post<DTOResponse>(this.urlGetListProduct, body, httpOption)
-  //   .pipe(
-  //   );
-  // }
-
   getListProduct(filter: State): Observable<DTOResponse> {
     const httpOptions = this.getHttpOptions();
     return this.httpClient.post<DTOResponse>(this.urlGetListProduct, filter, httpOptions)

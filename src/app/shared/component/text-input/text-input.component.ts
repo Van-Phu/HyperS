@@ -32,6 +32,7 @@ export class TextInputComponent {
   @Input() borderColor: string = '#B6B6B6';
   @Input() typeValue: 'text' | 'number' = 'text';
   @Input() size: number = 13;
+  @Input() readOnly: boolean = false;
   @Output() getValue = new EventEmitter();
   valueTextBox: string = '';
 
@@ -48,7 +49,10 @@ export class TextInputComponent {
       }
     }
   }
-  
+
+  resetValue(){
+    this.valueTextBox = ''
+  }  
 
   isNumber(str: string) {
     return /^\d+$/.test(str);

@@ -35,6 +35,8 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
 
   isLoading: boolean = false
+  keySearch: string = ""
+  selectedSort: any
 
   listGender:any[] = [
     {id: 0, text:"For all", checked: false},
@@ -48,7 +50,7 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
       sort: [
       {
         field: "Code",
-        dir: "asc"
+        dir: "desc"
       }
     ],
     filter: {
@@ -59,8 +61,10 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
     }
   }   
 
-
-
+  listSortItem: Array<any> = [
+    {text: "Low to high", dir: "asc", field: "PriceAfterDiscount"},
+    {text: "High to low", dir: "desc", field: "PriceAfterDiscount"},
+  ]
 
   constructor(
     private headerService: HeaderService,
@@ -160,16 +164,15 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
         try {
           this.listBrand = data.ObjectReturn.Data;
           console.log(this.listBrand);
-          resolve(); // Đánh dấu rằng đã lấy dữ liệu thành công
+          resolve(); 
         } catch (error) {
-          reject(error); // Xử lý lỗi nếu có
+          reject(error); 
         } finally {
           this.isLoading = false;
         }
       });
     });
   }
-  
 
   handleSeletedType(idType: number):void{
     this.typeSelected = idType
@@ -197,8 +200,6 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
       this.listBrandSelected.push(itemGet)
     }
   }
-
-
 
   handleFilterItem():void{
     this.productFilter.filter.filters = []
@@ -231,7 +232,14 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
     filterPrice.filters.push({field: "PriceAfterDiscount", operator: 'gte', value: this.minPrice})
     filterPrice.filters.push({field: "PriceAfterDiscount", operator: 'lte', value: this.maxPrice})
 
-        
+    const filterSearch: CompositeFilterDescriptor = {logic: 'or', filters: []}
+    filterSearch.filters = []
+    filterSearch.filters.push({field: "Name", operator: 'contains', value: this.keySearch})
+
+    // this.productFilter.sort[0].dir = this.selectedSort.dir
+
+  
+
     if(filterGender.filters.length > 0){
       filter.filters.push(filterGender)
     }
@@ -243,6 +251,9 @@ export class EcomShoesComponent implements OnInit, OnDestroy {
     }
     if(filterBrand.filters.length > 0){
       filter.filters.push(filterBrand)
+    }
+    if(filterSearch.filters.length > 0){
+      filter.filters.push(filterSearch)
     }
 
     this.productFilter.filter.filters.push(filter)

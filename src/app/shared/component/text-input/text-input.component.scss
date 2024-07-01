@@ -16,6 +16,12 @@
                     padding-bottom: 10px;
                 }
             }
+
+            .readonly{
+                background-color: $color-readonly !important;
+                pointer-events: none;
+                cursor: pointer;
+            }
         }
     }
 }

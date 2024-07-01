@@ -3,6 +3,7 @@
     'width.px': widthBlock}" [text]="label">
 
         <kendo-textbox 
+            [ngClass]="{'readonly': readOnly}"
             [ngStyle]="{
             'width.px': widthTextBox,
             'height.px': heightTextBox,

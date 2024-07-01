@@ -11,6 +11,8 @@ import { qrCodeIcon } from '@progress/kendo-svg-icons';
 import { DTOPaymentMethod } from '../../shared/dto/DTOPaymentMethod';
 import { DTOProductInCart } from '../../shared/dto/DTOProductInCart';
 import { Router } from '@angular/router';
+import { DTOProcessToPayment } from '../../shared/dto/DTOProcessToPayment';
+import { DTOGuessCartProduct } from '../../shared/dto/DTOGuessCartProduct';
 
 @Component({
   selector: 'app-payment',
@@ -23,6 +25,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
   listDistrict: DTODistrict[]
   listWard: DTOWard[]
   listProductPayment: DTOProductInCart[]
+  processToPayment: DTOProcessToPayment ={
+    CustomerName: "",
+    PhoneNumber: "",
+    ListProduct: [],
+    ShippingAddress: "",
+    PaymentMethod: -1,
+    TotalBill: 0
+  }
 
   provinceSelected: DTOProvince
   districtSelected: DTODistrict
@@ -41,7 +51,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   isDisableSpecific: boolean = true
 
   name:string = ""
-  mail: string = ""
   numberPhone: string = ""
   specific: string = ""
 
@@ -67,7 +76,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.GETCaheItemSelected()
-
   }
 
   GETCaheItemSelected():void{
@@ -80,10 +88,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
     }finally{
       this.handleCalTotalPrice()
-
     }
-    
   }
+
+
 
   APIGetProvince():void{
     this.isLoadingProvince = true
@@ -140,6 +148,29 @@ export class PaymentComponent implements OnInit, OnDestroy {
     })
   }
 
+  APIPayment(info: DTOProcessToPayment):void{
+    console.log(this.processToPayment.ListProduct);
+    this.paymentService.payment(info).pipe(takeUntil(this.destroy)).subscribe(data => {
+      try{
+        if(data.StatusCode == 0 && data.ErrorString == ""){
+          if(data.ObjectReturn.ErrorList){
+            data.ObjectReturn.ErrorList.forEach((element: any) => {
+              this.notiService.Show(element, "error")
+            }); 
+          return
+          }
+          this.notiService.Show("Payment Successfully", "success")
+        }else{
+          this.notiService.Show("Error when payment", "error")
+        }
+      }catch{
+
+      }finally{
+
+      }
+    })
+  }
+  
   handleCalTotalPrice():void{
     this.priceCoupon = 0
     this.priceDelivery = 0
@@ -156,7 +187,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.districtSelected = null
       this.wardSelected = null
       this.isDisableWard = true
-      this.isDisableDistrict = false
+      if(this.provinceSelected.province_id != ""){
+        this.isDisableDistrict = false
+      }else{
+        this.isDisableDistrict = true
+      }
+
       this.APIGetDistrict(this.provinceSelected.province_id)
       return
     }
@@ -165,6 +201,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
   handleChangeDistrict():void{
     if(this.districtSelected){  
       this.wardSelected = null
+      if(this.provinceSelected.province_id != ""){
+        this.isDisableWard = false
+      }else{
+        this.isDisableWard = true
+      }
       this.isDisableWard = false
       this.APIGetWard(this.districtSelected.district_id)
       return
@@ -173,7 +214,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   handleChangeWard():void{
     if(this.wardSelected){
-      this.isDisableSpecific = false
+      if(this.provinceSelected.province_id != ""){
+        this.isDisableSpecific = false
+      }else{
+        this.isDisableSpecific = true
+      }
+
     }
   }
 
@@ -204,23 +250,27 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   handlePayment():void{
-    console.log(this.name);
-    console.log(this.mail);
-    console.log(this.specific);
-    console.log(this.provinceSelected);
-    console.log(this.districtSelected);
-    console.log(this.wardSelected);
-    console.log(this.paymenMethodSelected);
-    if(!this.name || !this.mail || !this.provinceSelected || !this.districtSelected || !this.wardSelected || !this.specific || !this.paymenMethodSelected){
+    if(!this.name || !this.numberPhone || !this.provinceSelected || !this.districtSelected || !this.wardSelected || !this.specific || !this.paymenMethodSelected){
       this.notiService.Show("Payment error", "error")
       return
     }
-    this.notiService.Show("Payment Successfully", "success")
+    this.processToPayment.CustomerName = this.name
+    this.processToPayment.PhoneNumber = this.numberPhone
+    this.processToPayment.ShippingAddress = this.provinceSelected.province_name + ", " + this.districtSelected.district_name + ", " +  this.wardSelected.ward_name + ", " +  this.specific
+    this.processToPayment.ListProduct = this.listProductPayment
+    this.processToPayment.PaymentMethod = this.paymenMethodSelected.id
+    this.processToPayment.TotalBill = this.totalPrice
+
+    this.APIPayment(this.processToPayment)
   }
 
   ngOnDestroy(): void {
     this.destroy.next()
     this.destroy.complete()
+  }
+
+  log(){
+    console.log(this.listProductPayment);
   }
 
  
