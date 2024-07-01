@@ -1,30 +1,48 @@
 @import '../../../../styles.scss';
 
-::ng-deep{
-    app-admin009-detail-product{
-        .app-admin009-detail-product{
-            .header-button{
+::ng-deep {
+    app-admin009-detail-product {
+        .app-admin009-detail-product {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .header-button {
                 display: flex;
                 justify-content: space-between;
                 @include center-vertical;
                 padding: 6px 0;
 
-                .label-current-status{
+                .label-current-status {
                     font-size: 14px;
                     font-weight: 600;
                 }
+
+                .button-disable {
+                    .component-button:hover {
+                        color: #fff !important;
+                        background-color: #FF1D1D !important;
+                    }
+                }
+
+                .button-active {
+                    .component-button:hover {
+                        color: #fff !important;
+                        background-color: #09880E !important;
+                    }
+                }
+
             }
 
-            .detail-product-container{
+            .detail-product-container {
                 padding: 10px 0;
 
-                .content-form-detail-product{
+                .content-form-detail-product {
                     display: flex;
                     gap: 90px;
-                   
+
                     .block-1,
                     .block-2,
-                    .block-3{
+                    .block-3 {
                         display: flex;
                         flex-direction: column;
                         gap: 16px;
@@ -32,8 +50,34 @@
                 }
             }
 
-            .images-product-container{
+            .images-product-container {
                 padding: 10px 0;
+            }
+
+            .button-action-container{
+                display: flex;
+                gap: 10px;
+                justify-content: end;
+                .button-clear {
+                    .component-button:hover {
+                        color: #ffffff !important;
+                        background-color: #FF1D1D !important;
+                    }
+                }
+
+                .button-update {
+                    .component-button:hover {
+                        color: #ffffff !important;
+                        background-color: #2557A0 !important;
+                    }
+                }
+
+                .button-add {
+                    .component-button:hover {
+                        color: #ffffff !important;
+                        background-color: #09880E !important;
+                    }
+                }
             }
         }
     }

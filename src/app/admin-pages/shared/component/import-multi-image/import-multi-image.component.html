@@ -1,8 +1,15 @@
-<div style="text-align:center">
-    <h1>
-        Upload Image to ImgBB
-    </h1>
-    <input type="file" (change)="onFileSelected($event)" />
-    <button (click)="onUpload()">Upload</button>
+<div class="component-import-multi-image">
+    <ng-container *ngIf="listImageHandler.length > 0">
+        <div class="image-container">
+            <div class="image" *ngFor="let image of listImageHandler">
+                <i (click)="deleteImageFromList(image)" class="fa-solid fa-circle-xmark icon-delete"></i>
+                <img [src]="image.ImgUrl" alt="">
+            </div>
+        </div>
+    </ng-container>
+    
+    <ng-container *ngIf="listImageHandler.length < 10">
+        <kendo-fileselect class="file-select" [restrictions]="fileRestrictions" ImportMultiImageDirective (select)="onFileSelected($event)" FileSelected>
+        </kendo-fileselect>
+    </ng-container>
 </div>
-

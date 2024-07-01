@@ -27,7 +27,7 @@ interface DropDownPrice {
 interface Gender {
   Code: number
   Gender: string
-  IsChecked: boolean
+  IsChecked?: boolean
 }
 
 @Component({

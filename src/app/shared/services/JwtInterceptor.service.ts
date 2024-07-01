@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 export class JwtInterceptor implements HttpInterceptor{
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = localStorage.getItem('token');
-        if(token){
+        if(token && req.url !== 'https://api.imgbb.com/1/upload'){
             req = req.clone({
                 setHeaders: {
                     Authorizaiton: `Bearer ${token}`

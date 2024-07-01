@@ -67,6 +67,7 @@ import { SignupComponent } from './account-pages/signup/signup.component';
 import { StatisticsComponent } from './admin-pages/shared/component/statistics/statistics.component';
 import { JwtInterceptor } from './shared/services/JwtInterceptor.service';
 import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-detail-product/admin009-detail-product.component';
+import { ImportMultiImageDirective } from './admin-pages/shared/directive/importmultiimage.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,6 +117,7 @@ import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-det
     SignupComponent,
     StatisticsComponent,
     Admin009DetailProductComponent,
+    ImportMultiImageDirective
   ],
   imports: [
     BrowserModule,

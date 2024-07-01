@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 /**
  * Component cung cấp 1 label và 1 textbox
@@ -16,7 +16,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./text-input.component.scss']
 })
 
-export class TextInputComponent {
+export class TextInputComponent implements OnInit {
   @Input() label: string = 'Textbox';
   @Input() placeholder: string = '';
   @Input() widthBlock: number = 450;
@@ -33,8 +33,15 @@ export class TextInputComponent {
   @Input() typeValue: 'text' | 'number' = 'text';
   @Input() size: number = 13;
   @Input() readOnly: boolean = false;
+  @Input() value: any;
   @Output() getValue = new EventEmitter();
   valueTextBox: string = '';
+
+  ngOnInit(): void {
+    if(this.value || this.value === 0){
+      this.valueTextBox = this.value;
+    }
+  }
 
   // Đẩy dữ liệu nhập vào cho component cha
   sendValueTextBox() {
