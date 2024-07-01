@@ -15,7 +15,7 @@ export class EcomProductCardComponent {
     this.navigateToDetail()
   }
   navigateToDetail() {
-    console.log(1);
+  
     this.router.navigate(['ecom/product-detail'])
   }
 }
