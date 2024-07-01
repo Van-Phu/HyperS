@@ -13,6 +13,8 @@ import { TextInputComponent } from 'src/app/shared/component/text-input/text-inp
 import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/text-dropdown.component';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { ImportMultiImageComponent } from '../../shared/component/import-multi-image/import-multi-image.component';
+import { TextAreaComponent } from 'src/app/shared/component/text-area/text-area.component';
+import { DTOSize, listSize } from 'src/app/ecom-pages/shared/dto/DTOSize';
 
 interface Gender {
   Code: number
@@ -69,6 +71,7 @@ export class Admin009DetailProductComponent implements OnInit {
       IsChecked: false
     }
   ];
+  listSize: DTOSize[] = listSize;
 
   // variable ViewChilds
   @ViewChild('id') childId!: TextInputComponent;
@@ -81,6 +84,7 @@ export class Admin009DetailProductComponent implements OnInit {
   @ViewChild('sold') childSold!: TextInputComponent;
   @ViewChild('stock') childStock!: TextInputComponent;
   @ViewChild('listimage') childListImage!: ImportMultiImageComponent;
+  @ViewChild('desciption') childDescription!: TextAreaComponent;
 
   constructor(private productAdminService: ProductAdminService, private notiService: NotiService) { }
 
@@ -163,6 +167,9 @@ export class Admin009DetailProductComponent implements OnInit {
     // reset số lượng đã bán
     this.childSold.resetValue();
 
+    // reset mô tả
+    this.childDescription.resetValue();
+
     // reset hình ảnh
     this.childListImage.clearListImage();
   }
@@ -178,6 +185,7 @@ export class Admin009DetailProductComponent implements OnInit {
     return '';
   }
 
+  // Khôi phục lại thông tin sản phẩm
   restoreProduct(res: any) {
     this.childId.valueTextBox = this.productSelected.IdProduct;
     this.childName.valueTextBox = this.productSelected.Name;
@@ -189,6 +197,7 @@ export class Admin009DetailProductComponent implements OnInit {
     this.childStock.valueTextBox = (this.productSelected.Stock).toString();
     this.childSold.valueTextBox = (this.productSelected.Sold).toString();
     this.childListImage.listImageHandler = this.productSelected.ListOfImage;
+    this.childDescription.value = this.productSelected.Description;
   }
 
   getListImage(res: any) {
