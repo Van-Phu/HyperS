@@ -1,0 +1,98 @@
+<div class="main">
+    <div class="content">
+        <div class="form">
+            <div class="image">
+                <img src="https://hypebeastnz.com/cdn/shop/files/image_f3ceadf0-be68-42e4-8a97-aacb2ab6e779_2048x.jpg?v=1690882984" alt="">
+            </div>
+            <div class="info">
+                <div>
+                    <div class="title">
+                        Become member
+                    </div>
+                    <div class="sub-title">
+                        We will provide the best shose for you
+                    </div>
+                    <div [formGroup]="formInfoSignUp" (ngSubmit)="submit()">
+                        <div class="input-area">
+                            <div class="row">
+                                <div class="input">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input [(ngModel)]="infoSingup.Name" id="name" formControlName="name" placeholder="Your name"/>
+                                </div>
+                                <div class="err-mess" *ngIf="formInfoSignUp.controls['name'].invalid && formInfoSignUp.controls['name'].touched">
+                                    <small *ngIf="formInfoSignUp.controls['name'].errors?.['required']">Name is required.</small>
+                                </div>
+                            </div>
+                           
+                            <div class="row">
+                                <div class="input">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <input [(ngModel)]="infoSingup.PhoneNumber" id="phone" formControlName="phone" placeholder="Phone number"/>
+                                </div>
+                                <div class="err-mess" *ngIf="formInfoSignUp.controls['phone'].invalid && formInfoSignUp.controls['phone'].touched">
+                                    <small *ngIf="formInfoSignUp.controls['phone'].errors?.['required']">Phone is required.</small>
+                                    <small *ngIf="formInfoSignUp.controls['phone'].errors?.['pattern']">Phone must be valid.</small>
+                                </div>
+                            </div>
+                           
+                            <div class="row">
+                                <div class="input">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <input [(ngModel)]="infoSingup.Email" id="email" formControlName="email" placeholder="Email"/>
+                                   
+                                </div>
+                                <div class="err-mess" *ngIf="formInfoSignUp.controls['email'].invalid && formInfoSignUp.controls['email'].touched">
+                                    <small *ngIf="formInfoSignUp.controls['email'].errors?.['required']">Email is required.</small>
+                                    <small *ngIf="formInfoSignUp.controls['email'].errors?.['pattern']">Email must be valid.</small>
+                                </div>
+                            </div>
+
+                            <div formGroupName="passwords">
+                                <div class="row">
+                                    <div class="input">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <input [(ngModel)]="infoSingup.Password" id="password" formControlName="password" type="{{showPassword}}" placeholder="Password"/>
+                                        <i (click)="handleChangeShowPassword()" class="fa-regular fa-eye"></i>
+                                    </div>
+                                    <div class="err-mess" *ngIf="formInfoSignUp.get('passwords.password').invalid && formInfoSignUp.get('passwords.password').touched">
+                                        <small *ngIf="formInfoSignUp.get('passwords.password').errors?.['required']">Password is required.</small>
+                                        <small *ngIf="formInfoSignUp.get('passwords.password').errors?.['lowercase']">Password must contain at least one lowercase letter.</small>
+                                        <small *ngIf="formInfoSignUp.get('passwords.password').errors?.['uppercase']">Password must contain at least one uppercase letter.</small>
+                                        <small *ngIf="formInfoSignUp.get('passwords.password').errors?.['number']">Password must contain at least one number.</small>
+                                        <small *ngIf="formInfoSignUp.get('passwords.password').errors?.['specialChar']">Password must contain at least one special character.</small>
+                                        <small *ngIf="formInfoSignUp.get('passwords.password').errors?.['minLength']">Password must be at least 8 characters long.</small>
+                                    </div>
+                                </div>
+                               
+                                <div class="row">
+                                    <div class="input">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <input  id="confirmPassword" formControlName="confirmPassword" type="{{showRePassword}}" placeholder="Repeat Password"/>
+                                        <i (click)="handleChangeShowrRePassword()" class="fa-regular fa-eye"></i>
+                                    </div>
+                                    <div class="err-mess" *ngIf="formInfoSignUp.get('passwords.confirmPassword').invalid && formInfoSignUp.get('passwords.confirmPassword').touched">
+                                        <small *ngIf="formInfoSignUp.get('passwords.confirmPassword').errors?.['required']">Confirm Password is required.</small>
+                                        <small *ngIf="formInfoSignUp.get('passwords.confirmPassword').errors?.['passwordMismatch']">Passwords do not match.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div (click)="handleNavigate('account/login')" class="back">
+                                Back to login
+                            </div>
+                           
+                        </div>
+                        <div (click)="submit()" class="btnlogin">
+                            {{'Signup' | uppercase}}
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</div>

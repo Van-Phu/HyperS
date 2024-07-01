@@ -1,6 +1,31 @@
 @import '../../../../styles.scss';
 .body{
     margin-top: 2px;
+
+    .pop-up{
+      height: 100%;
+      width: 100%;
+      background-color: rgba(88, 88, 88, 0.637);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .content-popup{
+        width: 400px;
+        height: 500px;
+
+
+        .title{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 !important;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+    
     .video{
         pointer-events: none;
         height: calc(100% - 50px);
@@ -319,65 +344,13 @@
 
             .card{
               display: flex;
-              gap: 30px;
               overflow-x: auto;
               overflow-y: hidden;
-              .item{
-                width: 500px;
-                border-radius: 10px;
-                .image{
-                  height: 500px;
-                  width: 100%;
-                  img{
-                    height: 100%;
-                    width: 100%;
-                  }
-                }
-              }
-
-              .info-item{
-                padding: 10px;
-                font-weight: bold;
-                font-size: 20px;
-                .name{
-                  font-weight: bold;
-                  font-size: 20px;
-                  padding-bottom: 10px;
-       
-                }
-
-                .type{
-                  padding-bottom: 10px;
-                  color: #999999;
-                }
-
-                .stock{
-                  color: #999999;
-                  padding-bottom: 10px;
-                  display: flex;
-                }
-
-                .price-area{
-                  display: flex;
-                  gap: 10px;
-                  font-size: 18px;
-                  font-weight: bold;
-                  .price-sale{
-                    padding-bottom: 10px;
-                  }
-  
-                  .price{
-                    padding-bottom: 10px;
-                  }
-
-                  .price-discount{
-                    color: red;
-                    text-decoration-line: line-through;
-                  }
-                }
-
+              gap: 10px;
+              height: 450px;
+              
                
-              }
+              
             }
         }
     }

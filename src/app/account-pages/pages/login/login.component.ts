@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
-import { AccountService } from '../shared/account.service';
+import { AuthService } from '../../shared/services/account.service';
 import { takeUntil } from 'rxjs/operators';
 import { NotiService } from 'src/app/ecom-pages/shared/service/noti.service';
 
@@ -15,7 +15,7 @@ export class LoginComponent {
   username: string = "";
   password: string = ""
 
-  constructor(private router: Router, private accoutService: AccountService, private notiService: NotiService){}
+  constructor(private router: Router, private accoutService: AuthService, private notiService: NotiService){}
 
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
 
@@ -30,16 +30,16 @@ export class LoginComponent {
   APILogin(username: string ,password: string):void{
     this.accoutService.login(username, password).pipe(takeUntil(this.destroy)).subscribe(data => {
       try{
-        console.log(data);
-        if(data.StatusCode == 0 && data.ObjectReturn.ResultLogin.Succeeded == true){
+        if(data.StatusCode == 0 && data.ObjectReturn.ResultLogin.Succeeded == true && data.ErrorString == ""){
           localStorage.setItem('token', data.ObjectReturn.ResultToken.Token)
-          console.log(data.ObjectReturn.Token);
+          if(data.ObjectReturn.ResultRedirect == "jkwt"){
+            this.handleNavigate('/ecom/home')
+          }
           this.notiService.Show("Login Successfully!", "success")
-          // this.handleNavigate('/ecom/home')
-        }else{
-          this.notiService.Show("Tài khoản hoặc mật khẩu không hợp lê!", "error")
- 
+          return
         }
+        this.notiService.Show("Login Fail!", "error")
+
         
       }catch{
 
