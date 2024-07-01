@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { StatusColorPipe } from 'src/app/admin-pages/shared/pipe/StatusColorPipe';
 
 /**
@@ -12,7 +12,7 @@ import { StatusColorPipe } from 'src/app/admin-pages/shared/pipe/StatusColorPipe
 export class PopupConfirmComponent implements OnInit{
 
   @Input() widthPopUp: number = 370;
-  @Input() heightPopUp: number = 238;
+  @Input() heightPopUp: number;
   @Input() color: string = "#09880E";
   @Input() fontWeightHeader: number = 600;
   @Input() fontSizeHeader: number = 18;
@@ -24,12 +24,28 @@ export class PopupConfirmComponent implements OnInit{
   @Input() gap: number = 10;
   @Input() text: string = 'Đóng gói';
   @Input() bgColor: string = '#09880E';
+  @Input() value: number;
+  @Output() sendValue = new EventEmitter();
+  @Output() noChange = new EventEmitter();
+
+
 
   constructor(private statusColorPipe: StatusColorPipe) {}
 
   ngOnInit(): void {
     this.bgColor = this.statusColorPipe.transform(this.text);
     this.color = this.statusColorPipe.transform(this.text);
-  }  
+  }
 
+  onClickButtonUp(obj: any){
+    if(obj){
+      this.sendValue.emit(obj);
+    }
+  }
+
+  onClickButtonNo(obj: any){
+    if(obj){
+      this.noChange.emit(0);
+    }
+  }
 }

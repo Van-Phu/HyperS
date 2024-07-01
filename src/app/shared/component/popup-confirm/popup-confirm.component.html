@@ -22,6 +22,10 @@
                 <div class="contentDefault">
                     <div class="contentQuestion">Xác nhận thay đổi trạng thái đơn hàng?</div>
                     <div class="contentWarning">Đơn hàng sẽ không thể quay về trạng thái cũ</div>
+                    <ng-container *ngIf="value == 6 || value == 7">
+                        <component-text-area [height]="70" [label]="'Lý do:'"></component-text-area>
+                    </ng-container>
+
                 </div>
             </ng-container>
         </div>
@@ -33,9 +37,9 @@
             <ng-container *ngIf="footerPopUpCheck.innerHTML.trim().length === 0">
                 <div class="footerDefault">
                     <component-button [text]="'Không đổi'" [classIconFontAwesome]="''" [width]="144"  [height]="58" [rounded]="0" 
-                    [bgColor]="'#FFFFFF'" [color]="'#959DB3'" [size]="16"></component-button>
+                    [bgColor]="'#FFFFFF'" [color]="'#959DB3'" [size]="16" (sendValue)="onClickButtonNo($event)" [value]="value"></component-button>
                     <component-button [text]="text" [classIconFontAwesome]="classIconFontAwesome" [width]="224" [height]="58" [rounded]="0" 
-                    [bgColor]="bgColor" [color]="'#FFFFFF'" [size]="16"></component-button>
+                    [bgColor]="bgColor" [color]="'#FFFFFF'" [size]="16" (sendValue)="onClickButtonUp($event)" [value]="value"></component-button>
                 </div>
             </ng-container>
         </div>
