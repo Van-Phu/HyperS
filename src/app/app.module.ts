@@ -139,7 +139,7 @@ import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-det
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [LayoutService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
+  providers: [LayoutService,StatusColorPipe, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

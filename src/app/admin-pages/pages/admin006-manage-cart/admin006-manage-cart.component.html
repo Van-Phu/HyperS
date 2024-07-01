@@ -112,7 +112,7 @@
     </div>
 </div>
 <div *ngIf="isShowAlert" class="popUp">
-    <component-popup-confirm [textHeader]="'Thông báo'" [classIconFontAwesome]=""></component-popup-confirm>
+    <component-popup-confirm [textHeader]="'Thông báo'" [classIconFontAwesome]="objItemStatus.icon" [text]="objItemStatus.text"></component-popup-confirm>
 </div>
 
 <!-- <component-text-area [label]="'Lí do hủy đơn:'"
