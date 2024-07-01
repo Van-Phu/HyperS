@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
-import { AccountService } from '../shared/account.service';
+import { AuthService } from '../../shared/services/account.service';
 import { takeUntil } from 'rxjs/operators';
 import { NotiService } from 'src/app/ecom-pages/shared/service/noti.service';
 
@@ -15,7 +15,7 @@ export class LoginComponent {
   username: string = "";
   password: string = ""
 
-  constructor(private router: Router, private accoutService: AccountService, private notiService: NotiService){}
+  constructor(private router: Router, private accoutService: AuthService, private notiService: NotiService){}
 
   destroy: ReplaySubject<any> = new ReplaySubject<any>(1)
 

@@ -62,8 +62,8 @@ import { ImportMultiImageComponent } from './admin-pages/shared/component/import
 import { Admin009ManageProductComponent } from './admin-pages/pages/admin009-manage-product/admin009-manage-product.component';
 import { CheckboxlistComponent } from './admin-pages/shared/component/checkboxlist/checkboxlist.component';
 import { AccountPagesComponent } from './account-pages/account-pages.component';
-import { LoginComponent } from './account-pages/login/login.component';
-import { SignupComponent } from './account-pages/signup/signup.component';
+import { LoginComponent } from './account-pages/pages/login/login.component';
+import { SignupComponent } from './account-pages/pages/signup/signup.component';
 import { StatisticsComponent } from './admin-pages/shared/component/statistics/statistics.component';
 import { JwtInterceptor } from './shared/services/JwtInterceptor.service';
 import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-detail-product/admin009-detail-product.component';
