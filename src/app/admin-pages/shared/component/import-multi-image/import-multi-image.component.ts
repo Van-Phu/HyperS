@@ -32,7 +32,6 @@ export class ImportMultiImageComponent implements OnInit {
       this.selectedFile = event.files[0].rawFile;
     }
     this.onUpload();
-    console.log(this.listImageHandler);
   }
 
   // Upload hình ảnh lên imgBB
@@ -40,14 +39,12 @@ export class ImportMultiImageComponent implements OnInit {
     if (this.selectedFile) {
       this.uploadImageService.uploadImage(this.selectedFile).subscribe(
         (response) => {
-          console.log('Response from ImgBB:', response);
           this.listImageHandler.push({
             "Code": 0,
             "IdImage": null,
             "ImgUrl": response.data.url,
             IsThumbnail: false
           })
-          console.log(this.listImageHandler);
         },
         (error) => {
           console.error('Error uploading image:', error);
@@ -58,7 +55,10 @@ export class ImportMultiImageComponent implements OnInit {
 
   // Xóa ảnh trong list
   deleteImageFromList(image: DTOImageProduct) {
-    this.listImageHandler = this.listImageHandler.filter(img => img.ImgUrl !== image.ImgUrl);
+    this.listImageHandler = this.listImageHandler.filter(img => img !== image);
+    if(image.IsThumbnail){
+      this.listImageHandler[0].IsThumbnail = true;
+    }
   }
 
   clearListImage() {
@@ -68,5 +68,16 @@ export class ImportMultiImageComponent implements OnInit {
   // Truyền danh sách hình ảnh được chọn cho output
   getListImageOutput() {
     this.getListImageSelected.emit(this.listImageHandler);
+  }
+
+  makeThumbnail(image: DTOImageProduct) {
+    this.listImageHandler.forEach((img: DTOImageProduct) => {
+      if (img === image) {
+        img.IsThumbnail = true;
+      }
+      else {
+        img.IsThumbnail = false;
+      }
+    })
   }
 }
