@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class UploadImageService {
 
   private apiUrl = 'https://api.imgbb.com/1/upload';
-  private apiKey = '96507c30d85920ab6b051a6936d3eb5d';
+  private apiKey = '05f50413130746b635d482d98f9892b9';
 
   constructor(private http: HttpClient) { }
 

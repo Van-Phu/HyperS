@@ -69,6 +69,7 @@ import { JwtInterceptor } from './shared/services/JwtInterceptor.service';
 import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-detail-product/admin009-detail-product.component';
 import { PopupModule } from '@progress/kendo-angular-popup';
 import { EcomProfileComponent } from './ecom-pages/pages/ecom-profile/ecom-profile.component';
+import { ImportMultiImageDirective } from './admin-pages/shared/directive/importmultiimage.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -119,6 +120,7 @@ import { EcomProfileComponent } from './ecom-pages/pages/ecom-profile/ecom-profi
     StatisticsComponent,
     Admin009DetailProductComponent,
     EcomProfileComponent,
+    ImportMultiImageDirective
   ],
   imports: [
     BrowserModule,
@@ -143,7 +145,7 @@ import { EcomProfileComponent } from './ecom-pages/pages/ecom-profile/ecom-profi
     ReactiveFormsModule,
     PopupModule
   ],
-  providers: [LayoutService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
+  providers: [LayoutService,StatusColorPipe, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

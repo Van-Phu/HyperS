@@ -4,6 +4,7 @@ import { State } from '@progress/kendo-data-query';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
+import { DTOUpdateBillRequest } from '../dto/DTOUpdateBillRequest.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,8 @@ import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
 export class BillService {
     private direct = 'https://hypersapi.onrender.com';
     private urlGetListBill = this.direct + "/api/bill/GetListBill";
+    private urlUpdateBill = "https://hypersapi.onrender.com/api/bill/UpdateBill"
+
 
     constructor(private httpClient: HttpClient) { }
 
@@ -32,5 +35,16 @@ export class BillService {
             })
           );
     }
+
+    updateBill(req: DTOUpdateBillRequest): Observable<any> {
+        const httpOptions = this.getHttpOptions();
+        return this.httpClient.post(this.urlUpdateBill, req, httpOptions)
+          .pipe(
+            catchError(error => {
+              console.error('Error updating product:', error);
+              return throwError(error);
+            })
+          );
+      }
 
 }

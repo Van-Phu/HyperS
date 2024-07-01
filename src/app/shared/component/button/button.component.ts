@@ -26,20 +26,17 @@ export class ButtonComponent {
   @Input() paddingVertical: number = 8;
   @Input() paddingHorizontal: number = 12;
   @Input() padding: number;
-  @Input() gap: number = 10;
+  @Input() gap: number = 4;
   @Input() boxShadow: string;
   @Input() textStyle: string;
   @Input() fontWeight: number = 600;
-  @Input() value: any;
+  @Input() value: any = '';
   @Input() justify: string = "center";
   @Output() sendValue = new EventEmitter();
 
   onClickButton(){
     if(this.value || this.value === 0){
       this.sendValue.emit({value: this.value, text: this.text, icon: this.classIconFontAwesome});
-    }
-    else{
-      // console.error('Button bị lỗi value');
     }
   }
 }

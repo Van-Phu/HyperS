@@ -17,7 +17,7 @@ export class TextAreaComponent {
   @Input() borderColor: string ="#B6B6B6";
   @Input() borderStyle: string = "solid";
   @Input() placeholder: string = "Vui lòng nhập...";
-  @Input() labelWidth: number = 80;
+  @Input() labelWidth: number;
   @Input() rounded: number = 5;
   @Input() label: string = 'Tiêu đề';
   @Input() fontsize: number = 15;
@@ -26,7 +26,6 @@ export class TextAreaComponent {
 
   // blur ra rồi emit
   blur(){
-    console.log(this.value);
     this.valueTextArea.emit(this.value);
   }
   

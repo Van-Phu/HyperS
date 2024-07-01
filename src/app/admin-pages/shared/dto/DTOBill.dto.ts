@@ -7,11 +7,12 @@ export class DTOBill {
     ShippingAddress: string;
     CreateAt: Date;
     PaymentMethod: string;
-    Status: string;
+    Status: number;
     ListBillInfo:DTOBillInfo[];
     // Voucher: string = "Không có";
     TotalDiscount: number;
     TotalBill: number;
+    Note: string;
 }
 
 
@@ -24,7 +25,7 @@ export const listBill: DTOBill[] = [
         ShippingAddress: '69/68 Đ. Đặng Thuỳ Trâm, Phường 13, Bình Thạnh, Hồ Chí Minh',
         CreateAt: new Date('2024-06-20'),
         PaymentMethod: 'Momo',
-        Status: 'Chờ xác nhận',
+        Status: 2,
         ListBillInfo: [
             {
                 Code: 1,
@@ -60,6 +61,7 @@ export const listBill: DTOBill[] = [
         ],
         TotalDiscount: 0,
         TotalBill: 0,
+        Note: ""
     },
     {
         Code: 2,
@@ -68,7 +70,7 @@ export const listBill: DTOBill[] = [
         ShippingAddress: '69/68 Đ. Đặng Thuỳ Trâm, Phường 13, Bình Thạnh, Hồ Chí Minh',
         CreateAt: new Date('2024-06-20'),
         PaymentMethod: 'Momo',
-        Status: 'Đang đóng gói',
+        Status: 3,
         ListBillInfo: [
             {
                 Code: 1,
@@ -104,6 +106,7 @@ export const listBill: DTOBill[] = [
         ],
         TotalDiscount: 0,
         TotalBill: 0,
+        Note: ""
     },
     {
         Code: 3,
@@ -112,7 +115,7 @@ export const listBill: DTOBill[] = [
         ShippingAddress: '69/68 Đ. Đặng Thuỳ Trâm, Phường 13, Bình Thạnh, Hồ Chí Minh',
         CreateAt: new Date('2024-06-20'),
         PaymentMethod: 'Momo',
-        Status: 'Đang vận chuyển',
+        Status: 4,
         ListBillInfo: [
             {
                 Code: 1,
@@ -148,6 +151,7 @@ export const listBill: DTOBill[] = [
         ],
         TotalDiscount: 0,
         TotalBill: 0,
+        Note: ""
     },
     {
         Code: 4,
@@ -156,7 +160,7 @@ export const listBill: DTOBill[] = [
         ShippingAddress: '69/68 Đ. Đặng Thuỳ Trâm, Phường 13, Bình Thạnh, Hồ Chí Minh',
         CreateAt: new Date('2024-06-20'),
         PaymentMethod: 'Momo',
-        Status: 'Thành công',
+        Status: 5,
         ListBillInfo: [
             {
                 Code: 1,
@@ -192,6 +196,7 @@ export const listBill: DTOBill[] = [
         ],
         TotalDiscount: 100,
         TotalBill: 2252000,
+        Note: ""
     },
 ]
 
