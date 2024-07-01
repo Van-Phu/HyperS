@@ -59,6 +59,7 @@
 
                 .label-filter{
                     font-weight: 600;
+                    font-size: 14px;
                 }
 
             }
@@ -69,6 +70,17 @@
                 gap: 30px;
                 text-wrap: nowrap;
                 @include center-vertical;
+
+                
+                .resetFilter{
+                    color: red;
+                    text-decoration: underline;
+                    cursor: pointer;
+
+                    &:hover{
+                        color: rgb(216, 3, 3);
+                    }
+                }
     
                 .titlePage{
                     font-size: 16px;
@@ -116,11 +128,15 @@
                     // }
     
                     .column-Code,
-                    .column-PhoneNumber,
-                    .column-TotalBill{
+                    .column-PhoneNumber{
                         text-align: center;
                     }  
     
+                    .column-TotalBill{
+                        text-align: center;
+                        font-weight: 600;
+                    }
+
                     th.k-table-th[aria-colindex="9"]{
                         justify-content: flex-end;
                     }

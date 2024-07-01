@@ -22,7 +22,6 @@ export class DatepickerComponent implements OnInit {
   @Input() widthBlock: number;
   @ViewChild('datePicker', { static: false }) datePicker!: DatePickerComponent;
   // valueDate: Date;
-  valueDateDefualt: Date = new Date();
   constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
@@ -35,15 +34,7 @@ export class DatepickerComponent implements OnInit {
 
   resetDate(){
     // this.valueDate = null
-    this.datePicker.writeValue(null);
+    // this.datePicker.writeValue(null);
+    this.datePicker.writeValue(new Date());
   }
-
-  onOpenDatePicker(){
-    const body = this.renderer.selectRootElement('body', true) as HTMLElement;
-    const rootElement = body.querySelector('app-root') as HTMLElement;
-    const popupElement = rootElement.querySelector('kendo-popup');
-    // console.log(body);
-    // console.log(popupElement);
-  }
-
 }
