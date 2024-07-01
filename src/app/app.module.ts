@@ -67,6 +67,8 @@ import { SignupComponent } from './account-pages/signup/signup.component';
 import { StatisticsComponent } from './admin-pages/shared/component/statistics/statistics.component';
 import { JwtInterceptor } from './shared/services/JwtInterceptor.service';
 import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-detail-product/admin009-detail-product.component';
+import { PopupModule } from '@progress/kendo-angular-popup';
+import { EcomProfileComponent } from './ecom-pages/pages/ecom-profile/ecom-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,6 +118,7 @@ import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-det
     SignupComponent,
     StatisticsComponent,
     Admin009DetailProductComponent,
+    EcomProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -137,7 +140,8 @@ import { Admin009DetailProductComponent } from './admin-pages/pages/admin009-det
     UploadsModule,
     NotificationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PopupModule
   ],
   providers: [LayoutService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

@@ -47,8 +47,24 @@
 
                         .input-area{
                             margin: 20px 0;
+
+                            .row{
+                                display: block;
+                                margin-bottom: 30px;
+                                height: 40px;
+                                
+                                .err-mess{
+                                    height: 20px;
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: end;
+                                    color: red;
+                                }
+                            }
+
                             .input{
-                                margin-bottom: 20px;
+                      
                                 border: 1px solid rgb(233, 233, 233);
                                 display: flex;
                                 align-items: center;
@@ -72,6 +88,7 @@
                                     cursor: pointer;
                                 }
                             }
+                            
 
                             
                         }

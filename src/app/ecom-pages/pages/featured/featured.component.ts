@@ -40,7 +40,6 @@ export class FeaturedComponent implements OnDestroy {
         return
       }
       this.ListProductDesc = data.ObjectReturn.Data
-      console.log(this.ListProductDesc);
     })
   }
 

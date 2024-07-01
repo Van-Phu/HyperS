@@ -1,6 +1,7 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor{
@@ -13,7 +14,14 @@ export class JwtInterceptor implements HttpInterceptor{
                 }
             })
         }
-        return next.handle(req);
+        return next.handle(req).pipe(
+            catchError((error: HttpErrorResponse) => {
+                if(error.status == 401){
+                    localStorage.removeItem('token')
+                }
+                return throwError(error);
+            })
+        )
     }
 
 }
