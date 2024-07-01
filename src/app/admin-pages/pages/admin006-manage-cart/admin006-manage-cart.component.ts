@@ -15,6 +15,8 @@ import { NotiService } from 'src/app/ecom-pages/shared/service/noti.service';
 import { SearchBarComponent } from 'src/app/shared/component/search-bar/search-bar.component';
 import { DatepickerComponent } from '../../shared/component/datepicker/datepicker.component';
 import { MultiSelectComponent } from '@progress/kendo-angular-dropdowns';
+import { LayoutService } from '../../shared/service/layout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin006-manage-cart',
@@ -122,19 +124,30 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
 
   constructor(private billService: BillService,
-    private notiService: NotiService
+    private notiService: NotiService,
+    private layoutService: LayoutService,
+    private router: Router,
   ) { }
   ngOnInit(): void {
     this.getListBill();
     this.setFilterExpStatus();
-
-
   }
 
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
   }
+
+    // Set cho breadcrumb, routerLink
+    setLayoutStorage(breadcrumb: string, routerlink: string) {
+      localStorage.setItem('breadcrumb', breadcrumb);
+      localStorage.setItem('routerLink', routerlink);
+      this.layoutService.setSelectedBreadCrumb(breadcrumb);
+    }
+      // Xóa localStorage
+      removeLocalStorage() {
+        localStorage.removeItem('productSelected');
+      }
 
   getDateFromDatePicker(value: any, type: string) {
     if (type === 'start') {
@@ -243,23 +256,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   }
 
 
-  // getFilterStatus(value: any) {
-  //   if (value.Code !== -1) {
-  //   }
-  // }
-
-  //   ClickButtonAction(id: number) {
-  //     const hasId = this.listStatus.some(status => status.Code === id);
-  //     if(this.tempID !== id){
-  //       this.isClickButton[this.tempID] = false;
-  //     }
-
-  //     if (hasId) {
-  //       this.isClickButton[id] = !this.isClickButton[id];
-  //     }
-  //     this.tempID = id;
-  // }
-
   ClickButtonAction(id: number, event: Event, idStatus: number) {
     const status = this.listStatus.find(status => status.Code === idStatus);
     this.listNextStatus = status ? status.ListNextStatus : null;
@@ -309,7 +305,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
       this.listBillPage = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
       this.isLoading = false;
     })
-    console.log(this.gridState)
+    // console.log(this.gridState)
   }
 
   countStatuses() {
@@ -319,7 +315,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
       return acc;
     }, {});
   
-    console.log(this.statusCounts);
+    // console.log(this.statusCounts);
   }
 
   //Lowcase string
@@ -380,18 +376,19 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     this.pushToGridState(null, this.filterDate);
     this.pushToGridState(null, this.filterStatus);
     this.pushToGridState(null, this.filterSearch);
+    this.pushTogridStateAllStatus(null, this.filterDate);
+    this.pushTogridStateAllStatus(null, this.filterSearch);
     this.getListBill();
   }
 
   setFilterExpStatus() {
-    this.gridState.filter.filters = [];
-    this.pushTogridStateAllStatus(null, this.filterDate);
-    this.pushTogridStateAllStatus(null, this.filterSearch);
+    this.isLoading = true;
     this.billService.getListBill(this.gridStateAllStatus).pipe(takeUntil(this.destroy)).subscribe(list => {
       this.listBillPageAllStatus = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
       this.countStatuses();
+      this.isLoading = false;
     })
-    console.log(this.gridStateAllStatus);
+    // console.log(this.gridStateAllStatus);
   }
 
   // Push filter vào gridState
@@ -408,7 +405,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     }
   }
 
-    // Push filter vào gridState
+    // Push filter vào gridStateAllStatus
     pushTogridStateAllStatus(filter: FilterDescriptor, comFilter: CompositeFilterDescriptor) {
       if (filter) {
         if (filter.value && filter.value !== -1) {
@@ -433,9 +430,12 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
     this.valueSearch = '';
     this.childSearch.valueSearch = '';
+    this.filterSearch.filters = [];
 
     // Reset state
     this.gridState.filter.filters = [];
+    this.gridStateAllStatus.filter.filters = [];
+
     this.pageSize = 4;
     this.gridState.skip = 0;
     this.gridState.sort = [
@@ -451,27 +451,28 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     ]
     this.pushToGridState(null, this.filterDate);
     this.pushToGridState(null, this.filterStatus);
-    // this.setFilterExpStatus();
+    this.pushToGridState(null, this.filterSearch);
+    this.pushTogridStateAllStatus(null, this.filterDate);
     this.getListBill();
-
+    this.setFilterExpStatus();
   }
 
   //Check show alert
   clickDropDownAction(item: DTOBill, value: any) {
     this.itemBill = item;
     this.objItemStatus = value
-    if (this.objItemStatus.text !== "Xem chi tiết") {
+    if (this.objItemStatus.value == 1) {
+        alert('a')
+        localStorage.setItem('billSelected', item.Code + '');
+        this.setLayoutStorage('Đơn hàng/Chi tiết đơn hàng', 'admin/detail-cart')
+        this.router.navigate(['admin/detail-cart']);
+    } else{
       this.isShowAlert = !this.isShowAlert
     }
   }
 
   // Update status bill
   updateStatusBill(bill: DTOBill, obj: any) {
-    if (obj.value === 1) {
-      // localStorage.setItem('productSelected', product.Code + '');
-      // this.setLayoutStorage('Quản lý sản phẩm/Chi tiết sản phẩm', 'admin/detail-product')
-      // this.router.navigate(['admin/detail-product']);
-    }
     if (obj.value >= 2) {
       bill.Status = obj.value;
       const request: DTOUpdateBillRequest = {
