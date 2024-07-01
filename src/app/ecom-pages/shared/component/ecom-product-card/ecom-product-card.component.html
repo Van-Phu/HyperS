@@ -1,24 +1,27 @@
 <div class="item" routerLink="ecom/product-detail" (click)="handleProductClick(product)">
-    <div *ngFor="let img of product.ListOfImage">
-        <div  class="image" *ngIf="img.IsThumbnail == true">
-            <img src="{{img.ImgUrl}}" alt="">
-        </div>
-    </div>
-    <div class="info-item">
-        <div class="name">
-            {{product.Name}}
-        </div>
-        <div class="type">
-            {{product.BrandName}}
-        </div>
-
-        <div class="price-area">
-            <div *ngIf="product.PriceAfterDiscount < product.Price" class="price-sale">
-                {{product.PriceAfterDiscount | number: '1.0-0'}}đ
+    <div>
+        <div *ngFor="let img of product.ListOfImage">
+            <div  class="image" *ngIf="img.IsThumbnail == true">
+                <img src="{{img.ImgUrl}}" alt="">
             </div>
-            <span [ngClass]="{'price-discount': product.PriceAfterDiscount < product.Price, 'price': product.PriceAfterDiscount >= product.Price}" class="price">
-                {{ product.Price | number: '1.0-0'}}đ
-            </span>
+        </div>
+        <div class="info-item">
+            <div class="name">
+                {{product.Name}}
+            </div>
+            <div class="type">
+                {{product.BrandName}}
+            </div>
+    
+            <div class="price-area">
+                <div *ngIf="product.PriceAfterDiscount < product.Price" class="price-sale">
+                    {{product.PriceAfterDiscount | number: '1.0-0'}}đ
+                </div>
+                <span [ngClass]="{'price-discount': product.PriceAfterDiscount < product.Price, 'price': product.PriceAfterDiscount >= product.Price}" class="price">
+                    {{ product.Price | number: '1.0-0'}}đ
+                </span>
+            </div>
         </div>
     </div>
+    
 </div>

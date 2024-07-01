@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   totalItemCart: number = 0
   cartUpdateSubscription: Subscription;
 
-  constructor(private headerService: HeaderService, private cartService: CartService){}
+  constructor(private headerService: HeaderService, private cartService: CartService, private router: Router){}
 
   handleSelectActionCenter(action: number){
     this.dataModuleHeader.forEach(element => {
@@ -46,6 +46,19 @@ export class HeaderComponent implements OnInit {
     if (productCart) {
       const listData = JSON.parse(productCart) as DTOGuessCartProduct[];
       this.totalItemCart = listData.length;
+    }
+  }
+
+  navigate(route: string){
+    this.router.navigate([route])
+  }
+
+  navigateProfile(){
+    const token = localStorage.getItem('token')
+    if(token){
+
+    }else{
+      this.navigate('/account/login')
     }
   }
 
