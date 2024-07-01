@@ -83,13 +83,13 @@
             <kendo-grid-column class="column-button" [width]="50">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <div class="block-Action">
-                        <div (click)="ClickButtonAction(dataItem.Code, $event)" class="block-buttonAction">
+                        <div (click)="ClickButtonAction(dataItem.Code, $event, dataItem.Status)" class="block-buttonAction">
                             <component-button class="button-action" text="" classIconFontAwesome="fa-ellipsis"
                                 [width]="30" [height]="30">
                             </component-button>
                         </div>
                         <div *ngIf="isClickButton[dataItem.Code]" class="dropDown-action" tabindex="0">
-                            <component-dropdown-action [listItem]="listStatus"></component-dropdown-action>
+                            <component-dropdown-action (sendValue)="showAlert($event)" [listItem]="listNextStatus"></component-dropdown-action>
                         </div>
                     </div>
                 </ng-template>
@@ -110,6 +110,9 @@
 
 
     </div>
+</div>
+<div *ngIf="isShowAlert" class="popUp">
+    <component-popup-confirm></component-popup-confirm>
 </div>
 
 <!-- <component-text-area [label]="'Lí do hủy đơn:'"

@@ -1,7 +1,7 @@
 <div class="main">
     <div class="content">
         <div class="info-area">
-            <div class="title">
+            <div (click)="log()" class="title">
                 Payment
             </div>
             <div class="form-area">
@@ -10,8 +10,8 @@
                     <kendo-textbox [(ngModel)]="name" class="input" placeholder="Your name"></kendo-textbox>
                 </div> 
                 <div class="textbox">
-                    <div class="title">Mail</div>
-                    <kendo-textbox [(ngModel)]="mail" class="input" placeholder="Your mail"></kendo-textbox>
+                    <div class="title">Phone number</div>
+                    <kendo-textbox [(ngModel)]="numberPhone" class="input" placeholder="Your phone"></kendo-textbox>
                 </div> 
                 <div class="textbox">
                     <div class="title">Province</div>
