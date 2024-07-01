@@ -23,7 +23,6 @@ export class ImportMultiImageComponent implements OnInit {
 
   ngOnInit(): void {
     this.listImageHandler = this.listImage;
-    console.log(this.listImageHandler);
   }
 
   // Chọn file ảnh
@@ -32,6 +31,7 @@ export class ImportMultiImageComponent implements OnInit {
       this.selectedFile = event.files[0].rawFile;
     }
     this.onUpload();
+    this.getListImageOutput();
   }
 
   // Upload hình ảnh lên imgBB

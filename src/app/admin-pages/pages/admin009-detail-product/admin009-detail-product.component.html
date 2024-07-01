@@ -65,7 +65,7 @@
 
                 <div class="block-3">
                     <!-- Giá sản phẩm -->
-                    <component-text-input [value]="productSelected.Price" #price [widthTextBox]="230" [widthBlock]="354"
+                    <component-text-input  typeValue="number" [value]="productSelected.Price" #price [widthTextBox]="230" [widthBlock]="354"
                         label="Giá sản phẩm"></component-text-input>
 
                     <!-- Tồn kho -->
@@ -84,7 +84,7 @@
     <div class="images-product-container">
         <component-form text="Hình ảnh">
             <div class="content-form content-form-image">
-                <component-import-multi-image #listimage
+                <component-import-multi-image (getListImageSelected)="getListImage($event)" #listimage
                     [listImage]="productSelected.ListOfImage"></component-import-multi-image>
             </div>
         </component-form>
@@ -104,7 +104,12 @@
 
         <!-- Button xóa toàn nội dung -->
         <component-button class="button-clear" [borderWidth]="2" color="#FF1D1D" borderColor="#FF1D1D"
-            borderStyle="solid" [value]="1" (sendValue)="clearDetailProduct($event)"
-            classIconFontAwesome="fa-xmark" bgColor="#fff" text="Xóa toàn bộ nội dung"></component-button>
+            borderStyle="solid" [value]="1" (sendValue)="clearDetailProduct($event)" classIconFontAwesome="fa-xmark"
+            bgColor="#fff" text="Xóa toàn bộ nội dung"></component-button>
+
+        <!-- Button khôi phục -->
+        <component-button class="button-restore" [borderWidth]="2" color="#585858" borderColor="#585858"
+            borderStyle="solid" [value]="1" (sendValue)="restoreProduct($event)" classIconFontAwesome="fa-rotate-left"
+            bgColor="#fff" text="Khôi phục"></component-button>
     </div>
 </div>

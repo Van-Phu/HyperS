@@ -78,6 +78,13 @@
                         background-color: #09880E !important;
                     }
                 }
+
+                .button-restore {
+                    .component-button:hover {
+                        color: #ffffff !important;
+                        background-color: #585858 !important;
+                    }
+                }
             }
         }
     }

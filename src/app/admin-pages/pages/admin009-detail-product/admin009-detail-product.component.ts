@@ -177,4 +177,21 @@ export class Admin009DetailProductComponent implements OnInit {
     }
     return '';
   }
+
+  restoreProduct(res: any) {
+    this.childId.valueTextBox = this.productSelected.IdProduct;
+    this.childName.valueTextBox = this.productSelected.Name;
+    this.childColor.value = { Color: this.productSelected.Color };
+    this.childType.value = { Code: this.productSelected.CodeProductType, Name: this.productSelected.ProductType };
+    this.childBrand.value = { Code: this.productSelected.CodeBrand, Name: this.productSelected.BrandName };
+    this.childGender.value = { Code: this.productSelected.Gender, Gender: this.checkGender(this.productSelected.Gender) };
+    this.childPrice.valueTextBox = (this.productSelected.Price).toString();
+    this.childStock.valueTextBox = (this.productSelected.Stock).toString();
+    this.childSold.valueTextBox = (this.productSelected.Sold).toString();
+    this.childListImage.listImageHandler = this.productSelected.ListOfImage;
+  }
+
+  getListImage(res: any) {
+    console.log(res);
+  }
 }
