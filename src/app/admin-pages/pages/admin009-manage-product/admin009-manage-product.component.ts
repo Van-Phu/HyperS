@@ -195,8 +195,8 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   valueProductFemale: number = 0; // Thống kê tổng số sản phẩm Nữ
 
   constructor(
-    private productAdminService: ProductAdminService, 
-    private router: Router, 
+    private productAdminService: ProductAdminService,
+    private router: Router,
     private layoutService: LayoutService,
     private notiService: NotiService
   ) { }
@@ -211,14 +211,14 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
   }
 
   // Set cho breadcrumb, routerLink
-  setLayoutStorage(breadcrumb: string, routerlink: string){
+  setLayoutStorage(breadcrumb: string, routerlink: string) {
     localStorage.setItem('breadcrumb', breadcrumb);
     localStorage.setItem('routerLink', routerlink);
     this.layoutService.setSelectedBreadCrumb(breadcrumb);
   }
 
   // Xóa localStorage
-  removeLocalStorage(){
+  removeLocalStorage() {
     localStorage.removeItem('productSelected');
   }
 
@@ -504,7 +504,8 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
 
   // Cật nhật trạng thái sản phẩm
   updateStatusProduct(product: DTOProduct, obj: any) {
-    if(obj.value === -1){
+    console.log(obj);
+    if (obj.value === -1) {
       localStorage.setItem('productSelected', product.Code + '');
       this.setLayoutStorage('Quản lý sản phẩm/Chi tiết sản phẩm', 'admin/detail-product')
       this.router.navigate(['admin/detail-product']);
@@ -516,7 +517,7 @@ export class Admin009ManageProductComponent implements OnInit, OnDestroy {
         Properties: ["Status"]
       }
       this.productAdminService.updateProduct(request).subscribe((res: DTOResponse) => {
-        if(res.StatusCode === 0){
+        if (res.StatusCode === 0) {
           this.notiService.Show("Cập nhật trạng thái thành công", "success")
           this.getListProduct();
         }

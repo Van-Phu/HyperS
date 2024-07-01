@@ -7,6 +7,14 @@ import { takeUntil } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 import { TextDropdownComponent } from 'src/app/shared/component/text-dropdown/text-dropdown.component';
 import { formatDate } from '@progress/kendo-angular-intl';
+import { DTOBill } from '../../shared/dto/DTOBill.dto';
+import { DTOBillInfo } from '../../shared/dto/DTOBillInfo.dto';
+import { DTOUpdateBillRequest } from '../../shared/dto/DTOUpdateBillRequest.dto';
+import { DTOResponse } from 'src/app/in-layout/Shared/dto/DTORespone';
+import { NotiService } from 'src/app/ecom-pages/shared/service/noti.service';
+import { SearchBarComponent } from 'src/app/shared/component/search-bar/search-bar.component';
+import { DatepickerComponent } from '../../shared/component/datepicker/datepicker.component';
+import { MultiSelectComponent } from '@progress/kendo-angular-dropdowns';
 
 @Component({
   selector: 'app-admin006-manage-cart',
@@ -38,8 +46,13 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
       IsChecked: false,
     }
   ];
-  listNextStatus:DTOStatus[]; 
+  listNextStatus: DTOStatus[];
   isShowAlert: boolean = false;
+  iconPopUp: string;
+  objItemStatus: any;
+  itemBill: DTOBill;
+
+
 
   // defaultItemStatusBill: DTOStatus = {
   //   Code: -1,
@@ -48,12 +61,24 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   //   IsChecked: false,
   // }
   // variable CompositeFilterDescriptor
-  filterDate: CompositeFilterDescriptor = { logic: 'and', filters: [
-    { field: 'CreateAt', operator: 'gte', value: this.toLocalString(this.startDate, 'start') },
-    { field: 'CreateAt', operator: 'lte', value: this.toLocalString(this.endDate, 'end')}
-  ] };
-  filterStatus: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+  filterDate: CompositeFilterDescriptor = {
+    logic: 'and', filters: [
+      { field: 'CreateAt', operator: 'gte', value: this.toLocalString(this.startDate, 'start') },
+      { field: 'CreateAt', operator: 'lte', value: this.toLocalString(this.endDate, 'end') }
+    ]
+  };
+  filterStatus: CompositeFilterDescriptor = {
+    logic: 'or', filters: [
+      { field: 'Status', operator: 'eq', value: 2 }
+    ]
+  };
   filterSearch: CompositeFilterDescriptor = { logic: 'or', filters: [] };
+
+  // variable ViewChild
+  @ViewChild('rangeDateStart') childRangeDateStart!: DatepickerComponent;
+  @ViewChild('rangeDateEnd') childRangeDateEnd!: DatepickerComponent;
+  @ViewChild('multielect') childStatus!: MultiSelectComponent;
+  @ViewChild('search') childSearch!: SearchBarComponent;
 
   isLoading: boolean = true;
   gridState: State = {
@@ -68,23 +93,20 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     filter: {
       logic: "and",
       filters: [
-        { field: 'Status', operator: 'eq', value: 7 },
+        this.filterStatus,
         this.filterDate
       ]
     }
   }
-  // variable filter
-  // filterStatus: FilterDescriptor = { field: '', operator: '', value: null, ignoreCase: true };
 
 
 
-  // variable ViewChild
-  @ViewChild('rangeDate') childRangeDate!: TextDropdownComponent;
-  @ViewChild('status') childStatus!: TextDropdownComponent;
 
-  constructor(private billService: BillService) { }
+
+  constructor(private billService: BillService,
+    private notiService: NotiService
+  ) { }
   ngOnInit(): void {
-    console.log(this.gridState);
     this.getListBill();
   }
 
@@ -104,15 +126,11 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   }
 
   formatDateTime(date: Date, type: string) {
-    console.log(date);
-    // console.log(date.toISOString());
-    console.log(date +' fix');
-    console.log(date.toISOString());
-    if(type === 'start'){
+    if (type === 'start') {
       return date.toISOString().split('T')[0] + 'T00:00:00';
       // return date.setTime(0);
     }
-    else{
+    else {
       return date.toISOString().split('T')[0] + 'T23:59:59';
     }
   }
@@ -120,20 +138,20 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   toLocalString(date: Date, type: string) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');  
+    const day = String(date.getDate()).padStart(2, '0');
 
     let hours, minutes, seconds;
     if (type === 'start') {
-        hours = '00';
-        minutes = '00';
-        seconds = '00';
+      hours = '00';
+      minutes = '00';
+      seconds = '00';
     } else {
-        hours = '23';
-        minutes = '59';
-        seconds = '59';
-    }    
+      hours = '23';
+      minutes = '59';
+      seconds = '59';
+    }
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-}
+  }
 
 
 
@@ -153,7 +171,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (typeof value === 'number' && !isNaN(value)) {
       return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     } else {
-      console.error('Value is not a valid number:', value);
       return 'Invalid value';
     }
   }
@@ -195,12 +212,6 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
-  valueChange(value: any): void {
-    console.log("valueChange", value);
-  }
-
   onSelectionChange(event: SelectionEvent): void {
     const selectedDataItems = event.selectedRows.map(row => row.dataItem);
 
@@ -229,15 +240,12 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
   // }
 
   ClickButtonAction(id: number, event: Event, idStatus: number) {
-    console.log(idStatus);
     const status = this.listStatus.find(status => status.Code === idStatus);
     this.listNextStatus = status ? status.ListNextStatus : null;
 
     if (this.tempID !== id) {
       this.isClickButton[this.tempID] = false;
     }
-    console.log(this.listNextStatus);
-
 
     this.isClickButton[id] = !this.isClickButton[id];
 
@@ -260,7 +268,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
     if (this.tempID !== null && !(event.target as HTMLElement).closest('td.k-table-td[aria-colindex="10"]')) {
       this.isClickButton[this.tempID] = false;
     }
-    if (this.isShowAlert == true && !(event.target as HTMLElement).closest('.popUp')) {
+    if (this.isShowAlert == true && (!(event.target as HTMLElement).closest('component-dropdown-action') && !(event.target as HTMLElement).closest('.PopUp'))) {
       this.isShowAlert = false;
     }
   }
@@ -275,13 +283,12 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   // Lấy danh sách các bill
   getListBill() {
-    console.log(this.gridState);
-
     this.isLoading = true;
     this.billService.getListBill(this.gridState).pipe(takeUntil(this.destroy)).subscribe(list => {
       this.listBillPage = { data: list.ObjectReturn.Data, total: list.ObjectReturn.Total };
       this.isLoading = false;
     })
+    console.log(this.gridState)
   }
 
   //Lowcase string
@@ -317,7 +324,7 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   // Set filter status
   setFilterStatus(value: any) {
-     this.filterStatus.filters = [];
+    this.filterStatus.filters = [];
     value.forEach((item: DTOStatus) => {
       this.filterStatus.filters.push({ field: 'Status', operator: 'eq', value: item.Code })
     })
@@ -361,20 +368,80 @@ export class Admin006ManageCartComponent implements OnInit, OnDestroy {
 
   // Reset tất cả các filter
   resetFilter() {
-    this.childRangeDate.resetValue();
-    this.childStatus.resetValue();
+
+    this.childRangeDateStart.resetDate();
+    this.childRangeDateEnd.resetDate();
+
+    this.valueMulti = []
+    this.filterStatus.filters = []
+
+    this.valueSearch = '';
+    this.childSearch.valueSearch = '';
+
+    // Reset state
     this.gridState.filter.filters = [];
+    this.pageSize = 4;
     this.gridState.skip = 0;
+    this.gridState.sort = [
+      {
+        "field": "Code",
+        "dir": "asc"
+      }
+    ],
     this.gridState.take = this.pageSize;
+    this.filterDate.filters= [
+      { field: 'CreateAt', operator: 'gte', value: this.toLocalString(new Date(), 'start') },
+      { field: 'CreateAt', operator: 'lte', value: this.toLocalString(new Date(), 'end') }
+    ]
+    this.pushToGridState(null, this.filterDate);
+    this.pushToGridState(null, this.filterStatus);
     this.getListBill();
+
   }
 
   //Check show alert
-  showAlert(value: any){
-    console.log(value);
-    this.isShowAlert = !this.isShowAlert
+  clickDropDownAction(item: DTOBill, value: any) {
+    this.itemBill = item;
+    this.objItemStatus = value
+    if (this.objItemStatus.text !== "Xem chi tiết") {
+      this.isShowAlert = !this.isShowAlert
+    }
   }
 
+  // Update status bill
+  updateStatusBill(bill: DTOBill, obj: any) {
+    if (obj.value === 1) {
+      // localStorage.setItem('productSelected', product.Code + '');
+      // this.setLayoutStorage('Quản lý sản phẩm/Chi tiết sản phẩm', 'admin/detail-product')
+      // this.router.navigate(['admin/detail-product']);
+    }
+    if (obj.value >= 2) {
+      bill.Status = obj.value;
+      const request: DTOUpdateBillRequest = {
+        CodeBill: bill.Code,
+        Status: obj.value,
+        ListOfBillInfo: bill.ListBillInfo,
+        Note: ''
+      }
+      this.billService.updateBill(request).subscribe((res: DTOResponse) => {
+        if (res.StatusCode === 0) {
+          this.notiService.Show("Cập nhật trạng thái thành công", "success")
+          this.getListBill();
+          this.isShowAlert = false;
+        }
+      }, error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+
+  clickNoChange() {
+    this.isShowAlert = false;
+  }
+
+  test(obj: any) {
+    console.log(obj);
+  }
 
 
 }

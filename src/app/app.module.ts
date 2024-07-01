@@ -141,7 +141,7 @@ import { ImportMultiImageDirective } from './admin-pages/shared/directive/import
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [LayoutService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
+  providers: [LayoutService,StatusColorPipe, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
