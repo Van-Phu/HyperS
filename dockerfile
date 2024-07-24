@@ -20,6 +20,7 @@ FROM nginx:alpine
 
 # Copy the built application from Stage 1
 COPY --from=build /app/dist/hyper-s /usr/share/nginx/html
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
 EXPOSE 80
