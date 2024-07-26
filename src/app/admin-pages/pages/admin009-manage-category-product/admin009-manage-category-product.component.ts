@@ -166,6 +166,8 @@ export class Admin009ManageCategoryProductComponent implements OnInit, OnDestroy
     if(this.childImgBrand) this.childImgBrand.setImgURL(this.imgDefault);
     if(this.childIdProductType) this.childIdProductType.resetValue();
     if(this.childNameProductType) this.childNameProductType.resetValue();
+    this.selectedType = [];
+    this.selectedBrand = [];
   }
 
   // Kiếm tra các input của form brand có hợp lệ hay không
