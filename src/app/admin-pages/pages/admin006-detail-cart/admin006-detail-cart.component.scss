@@ -136,6 +136,7 @@
                     padding-top: 20px;
                     padding-left: 10px;
                     padding-right: 10px;
+                    padding-bottom: 10px;
 
                     .box-info {
                         display: flex;
@@ -217,7 +218,8 @@
 
                                 component-text-input{
                                    input:disabled{
-                                        background-color: rgb(235, 235, 235);
+                                        background-color: rgb(240, 240, 240) !important;
+                                        color: black !important;
                                    }
                                 }
 
@@ -495,7 +497,7 @@
                     .box-totalBill {
                         box-shadow: $box-shadow3;
                         border-radius: 5px;
-                        padding: 10px;
+                        padding: 5px;
                         display: flex;
                         flex-direction: column;
                         gap: 10px;
