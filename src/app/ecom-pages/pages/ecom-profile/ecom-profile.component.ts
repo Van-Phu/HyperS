@@ -365,13 +365,13 @@ export class EcomProfileComponent implements OnInit {
           if (data.ObjectReturn.Errors.length > 0) {
             this.notiService.Show(data.ObjectReturn.Errors[0].Description, 'error')
           } else {
-            this.isLoading = false;
             this.notiService.Show("Thay đổi mật khẩu thành công!", 'success')
             setTimeout(() => {
               this.logout();
             }, 1000);
           }
         })
+        this.isLoading = false;
       } else {
         this.notiService.Show("Mật khẩu mới không trùng khớp nhau", 'warning')
       }

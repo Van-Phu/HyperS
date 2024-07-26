@@ -275,10 +275,24 @@ export class PaymentComponent implements OnInit, OnDestroy {
     });
     if(this.appliedCoupon.IdCoupon){
       if(this.appliedCoupon.CouponType == 0){
-        this.priceCoupon = (this.priceSubTotal * (this.appliedCoupon.PercentDiscount / 100))
+        let cop = (this.priceSubTotal * (this.appliedCoupon.PercentDiscount / 100))
+        if(this.appliedCoupon.MaxBillDiscount){
+          if(cop > this.appliedCoupon.MaxBillDiscount){
+            this.priceCoupon = this.appliedCoupon.MaxBillDiscount
+          }else{
+            this.priceCoupon = cop
+          }
+        }
       }
       if(this.appliedCoupon.CouponType == 1){
-        this.priceCoupon = this.appliedCoupon.DirectDiscount
+        let cop = this.appliedCoupon.DirectDiscount
+        if(this.appliedCoupon.MaxBillDiscount){
+          if(cop > this.appliedCoupon.MaxBillDiscount){
+            this.priceCoupon = this.appliedCoupon.MaxBillDiscount
+          }else{
+            this.priceCoupon = cop
+          }
+        }
       }
     }
 
