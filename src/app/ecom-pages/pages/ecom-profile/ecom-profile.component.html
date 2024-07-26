@@ -106,10 +106,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                       
-                                       
-                                   
-                                       
                                     </div>
                                   
                                 </div>
@@ -128,6 +124,12 @@
                             <div *ngIf="billSelected.Status == 17">
                                 <div (click)="handleRePayment(billSelected?.PaymentUrl)"  class="btn-payment">
                                     Payment
+                                </div>
+                            </div>
+
+                            <div *ngIf="billSelected.Status == 8">
+                                <div (click)="handleReceived()"  class="btn-payment">
+                                    Received goods successfully
                                 </div>
                             </div>
                         </div>

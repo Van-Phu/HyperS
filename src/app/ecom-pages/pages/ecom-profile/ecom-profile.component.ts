@@ -287,11 +287,6 @@ export class EcomProfileComponent implements OnInit {
     return `${day}/${month}/${year} ${hours}:${minutesFormatted}:${seconds}`;
   }
 
-
-
-
-
-
   getBill(code: number) {
     this.expanded = true
     const data = this.listBill.find(item => item.Code == code)
@@ -414,7 +409,6 @@ export class EcomProfileComponent implements OnInit {
         item.Status = 14
       }
       item.Note = this.errorString
-
     }
 
     const updateBill: DTOUpdateBill = {
@@ -455,5 +449,25 @@ export class EcomProfileComponent implements OnInit {
   log(item: any) {
     console.log(item);
 
+  }
+
+  handleReceived():void{
+    this.billSelected.ListBillInfo.forEach(element => {
+      element.Status = 21
+    });
+
+    const updateBill: DTOUpdateBill = {
+      CodeBill: this.billSelected.Code,
+      Status: 22,
+      ListOfBillInfo: this.billSelected.ListBillInfo,
+      Note: this.errorString,
+      TotalBill: this.billSelected.TotalBill
+    }
+    const processToPayment: DTOProcessToPayment = null
+    const updateBillRes: DTOUpdateBillRequest = {
+      DTOUpdateBill: updateBill,
+      DTOProceedToPayment: processToPayment
+    }
+    this.APIUpdateBill(updateBillRes)
   }
 }
