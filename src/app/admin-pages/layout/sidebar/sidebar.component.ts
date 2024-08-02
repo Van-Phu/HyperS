@@ -111,6 +111,15 @@ export class SidebarComponent implements OnInit {
       IsSelected: true,
       IsExpanded: false,
       BreadCrumb: 'Đơn hàng'
+    },
+    {
+        RouteLink: '/admin/test-component',
+        ModuleName: 'Test component',
+        ClassIconFontAwesome: 'fa-folder',
+        IsChild: false,
+        IsSelected: false,
+        IsExpanded: false,
+        BreadCrumb: 'Test component'
     }
   ]
 
@@ -207,6 +216,11 @@ export class SidebarComponent implements OnInit {
     }
     if (module === 'Đơn hàng') {
       if (permission === 'Admin' || permission === 'BillManager') {
+        return true;
+      }
+    }
+    if (module === 'Test component') {
+      if (permission === 'Admin') {
         return true;
       }
     }

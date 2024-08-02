@@ -78,6 +78,9 @@ import { ChartsModule } from '@progress/kendo-angular-charts';
 import 'hammerjs';
 import { EcomAlsoLikeComponent } from './ecom-pages/shared/component/ecom-also-like/ecom-also-like.component';
 import { CopyComponent } from './ecom-pages/shared/component/copy/copy.component';
+import { Admin010TestComponentComponent } from './admin-pages/pages/admin010-test-component/admin010-test-component.component';
+import { ListMasterDetailComponent } from './admin-pages/pages/admin010-test-component/shared/list-master-detail/list-master-detail.component';
+import { TreeListModule } from '@progress/kendo-angular-treelist';
 
 
 
@@ -138,6 +141,8 @@ import { CopyComponent } from './ecom-pages/shared/component/copy/copy.component
     SafePipePipe,
     EcomAlsoLikeComponent,
     CopyComponent,
+    Admin010TestComponentComponent,
+    ListMasterDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -161,7 +166,8 @@ import { CopyComponent } from './ecom-pages/shared/component/copy/copy.component
     FormsModule,
     ReactiveFormsModule,
     PopupModule,
-    ChartsModule
+    ChartsModule,
+    TreeListModule
   ],
   providers: [LayoutService,StatusColorPipe, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

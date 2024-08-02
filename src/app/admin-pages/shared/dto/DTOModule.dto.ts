@@ -113,6 +113,15 @@ export const listModule: DTOModule[] = [
         IsExpanded: false,
         BreadCrumb: 'Đơn hàng'
     },
+    {
+        RouteLink: '/admin/test-component',
+        ModuleName: 'Test component',
+        ClassIconFontAwesome: 'fa-folder',
+        IsChild: false,
+        IsSelected: false,
+        IsExpanded: false,
+        BreadCrumb: 'Test component'
+    },
     // {
     //     RouteLink: '/admin/manage-schedule',
     //     ModuleName: 'Quản lý lịch làm việc',

@@ -1,0 +1,11 @@
+<div class="list-master-detail">
+    <kendo-treelist [data]="data" [initiallyExpanded]="initiallyExpanded" [fetchChildren]="fetchChildren"
+        [hasChildren]="hasChildren" kendoTreeListSelectable kendoTreeListExpandable>
+
+        <kendo-treelist-column [expandable]="true" field="name" title="Name">
+            <ng-template kendoTreeListCellTemplate let-dataItem>
+                {{dataItem.name}}
+            </ng-template>
+        </kendo-treelist-column>
+    </kendo-treelist>
+</div>
