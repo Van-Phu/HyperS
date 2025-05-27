@@ -25,7 +25,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "@ngx-pwa/local-storage": "^9.0.3",
+    "@ngx-pwa/local-storage": "^16.0.0",
     "@progress/kendo-angular-buttons": "^13.5.0",
     "@progress/kendo-angular-charts": "^13.0.3",
     "@progress/kendo-angular-common": "13.5.0",
