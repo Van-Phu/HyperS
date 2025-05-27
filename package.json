@@ -35,7 +35,7 @@
     "@progress/kendo-angular-editor": "^13.0.3",
     "@progress/kendo-angular-excel-export": "^13.0.3",
     "@progress/kendo-angular-grid": "^13.0.3",
-    "@progress/kendo-angular-icons": "^16.2.0",
+    "@progress/kendo-angular-icons": "^13.5.0",
     "@progress/kendo-angular-inputs": "^13.5.0",
     "@progress/kendo-angular-intl": "13.5.0",
     "@progress/kendo-angular-l10n": "13.5.0",
